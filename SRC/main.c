@@ -15,6 +15,7 @@
 void	print_error(char *str)
 {
 	printf("%s", str);
+	return ;
 }
 
 //int	metachar(char *s)
@@ -37,7 +38,7 @@ void	ft_readline(void)
 	while (1)
 	{
 		g_prime.line = readline("minikkus> ");
-		add_history(g_prime.line);
+		//add_history(g_prime.line);
 		lexer();
 		free(g_prime.line);
 	}

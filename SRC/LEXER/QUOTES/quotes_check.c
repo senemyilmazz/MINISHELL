@@ -12,6 +12,24 @@
 
 #include "../../../INCLUDE/minishell.h"
 
+int	chrchr_quotes(char c)
+{
+	return (c == D_QUOTES || c == S_QUOTES);
+}
+
+int	strchr_quotes(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (chrchr_quotes(str[i]))
+			return (1);
+	}
+	return (0);
+}
+
 static int	quotes_check2(char *line, int *i, char q)
 {
 	int	j;
@@ -37,13 +55,13 @@ int	quotes_check(char *line)
 	count = 0;
 	while (line[i])
 	{
-		if (line[i] == D_QUOTES || line[i] == S_QUOTES)
+		if (chrchr_quotes(line[i]))
 		{
 			if (quotes_check2(line, &i, line[i]) == 0)
 				return (-1);
 		}
 		else
-			while (line[i] && line[i] != D_QUOTES && line[i] != S_QUOTES)
+			while (line[i] && !chrchr_quotes(line[i]))
 				i++;
 		count++;
 	}

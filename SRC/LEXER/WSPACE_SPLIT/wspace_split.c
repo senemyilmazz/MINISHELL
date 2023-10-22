@@ -25,60 +25,31 @@ static int	wspace(char *str)
 	return (0);
 }
 
-char	*lexer_trim(char const *s, char set)
-{
-	char	*cuttedstring;
-	int		i;
-	int		endofs;
-
-	if (s != NULL)
-	{
-		i = 0;
-		while (s[i] && s[i] == set)
-			i++;
-		endofs = ft_strlen(s) - 1;
-		while (endofs > i && s[i] == set)
-			endofs--;
-		cuttedstring = ft_substr(s, i, endofs - i);
-		return (cuttedstring);
-	}
-	return (NULL);
-}
-
-void	lexer_add_node(char *str, char c, int flag)
-{
-	if (flag == 1)
-		lexer_lstadd_back(&g_prime.lexer, \
-					lexer_listnew(ft_strdup(str)));
-	if (flag == 2)
-		lexer_lstadd_back(&g_prime.lexer, lexer_listnew \
-		((ft_strdup(lexer_trim(str, c)))));
-}
-
-void	wspace_split(char **lex_list)
+t_list	*wspace_split(char **lex_flist)
 {
 	int		i;
 	int		j;
 	char	**space_split;
+	t_list	*lex_slist = NULL;
 
 	i = -1;
-	while (lex_list[++i])
+	while (lex_flist[++i])
 	{
-		if (!ft_strchr(lex_list[i], D_QUOTES)
-			&& !ft_strchr(lex_list[i], S_QUOTES))
+		if (!strchr_quotes(lex_flist[i]))
 		{
-			space_split = ft_split(lex_list[i], wspace(lex_list[i]));
+			space_split = ft_split(lex_flist[i], wspace(lex_flist[i]));
 			j = -1;
 			while (space_split[++j])
 			{
-				lexer_add_node(space_split[j], 0, 1);
+				ft_lstadd_back(&lex_slist, ft_lstnew(ft_strdup(space_split[j])));
 				free(space_split[j]);
 			}
 		}
 		else
-			lexer_add_node(lex_list[i], *lex_list[i], 2);
-		free(lex_list[i]);
+			ft_lstadd_back(&lex_slist, ft_lstnew(ft_strdup(lex_flist[i])));
+		free(lex_flist[i]);
 	}
 	free(space_split);
-	free(lex_list);
+	free(lex_flist);
+	return (lex_slist);
 }

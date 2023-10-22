@@ -12,30 +12,53 @@
 
 #include "../../../INCLUDE/minishell.h"
 
-static int	type_match(char *content)
+void    type_match(t_lexer *temp)
 {
-	if (*content == PIPE)
-		return (1);
-	else if (*content == SIR && *(content + 1) == SIR)
-		return (4);
-	else if (*content == SIR)
-		return (2);
-	else if (*content == SOR && *(content + 1) == SOR)
-		return (5);
-	else if (*content == SOR)
-		return (3);
-	else
-		return (0);
+    if (temp->type == 2 && ft_strlen(temp->content) == 2)
+		temp->type = 4;
+	else if (temp->type == 3 && ft_strlen(temp->content) == 2)
+		temp->type = 5;
+    else if (ft_strlen(temp->content) > 1)
+		temp->type = -1;
 }
 
-void	type_init(void)
+void	type_check(void)
 {
 	t_lexer	*temp;
 
 	temp = g_prime.lexer;
 	while (temp)
 	{
-		temp->type = type_match(temp->content);
+        if (temp->type != 0)
+		    type_match(temp);
 		temp = temp->next;
 	}
+}
+
+int syntax_check(void)
+{
+    t_lexer *temp;
+    t_lexer* temp2;
+
+    temp = g_prime.lexer;
+    type_check();
+    while(temp)
+    {
+        if (temp->type == -1)
+        {
+            printf("bash: syntax error near unexpected token `%c'\n", *temp->content);
+            return (-1);
+        }
+        if (temp->next)
+        {
+            temp2 = temp->next;
+            if ((temp->type != 0  && temp->type != 1) && (temp2->type != 1 && temp2->type != 0))
+               {
+                    printf("bash: syntax error near unexpected token `%s'\n", temp2->content);
+                    return (-1);
+               }
+        }
+        temp = temp->next;
+    }
+    return (0);
 }

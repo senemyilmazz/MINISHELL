@@ -36,15 +36,16 @@ char	**quotes_split(char *str, int size)
 	while (++lexer_i < size)
 	{
 		start = end;
-		if (str[start] == D_QUOTES || str[start] == S_QUOTES)
-			quotes_split2(str, &start, &end, str[end]);
+		if (chrchr_quotes(str[start]))
+			quotes_split2(str, &start, &end, str[start]);
 		else
 		{
-			while (str[end] && str[end] != D_QUOTES && str[end] != S_QUOTES)
+			while (str[end] && !chrchr_quotes(str[end]))
 				end++;
 		}
 		lexer_list[lexer_i] = ft_substr(str, start, end - start);
 	}
+	printf("--%d\n", lexer_i);
 	lexer_list[lexer_i] = 0;
 	return (lexer_list);
 }

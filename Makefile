@@ -131,7 +131,8 @@ SRC_LEXER_MAIN =	main_lexer.c
 SRC_LEXER_QUOTES =	quotes_check.c \
 					quotes_split.c
 SRC_LEXER_WSPACE =	wspace_split.c
-SRC_LEXER_LISTINIT =	content_init.c \
+SRC_LEXER_LISTINIT =	metachar_split.c \
+						content_init.c \
 						type_init.c
 					
 
