@@ -136,7 +136,6 @@ SRC_LEXER_LISTINIT =	metachar_split.c \
 						content_init.c \
 						syntax_check.c
 					
-
 DIR = ./OBJ
 SRC_MAINN = $(addprefix ./SRC/, $(SRC_MAIN))
 SRC_LEXER_MAINN = $(addprefix ./SRC/LEXER/MAIN_LEXER/, $(SRC_LEXER_MAIN))

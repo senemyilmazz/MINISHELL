@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/24 01:48:20 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/24 09:01:30 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_lexer
 {
 	char			*content;
 	int				type;
+	int				expand;
 	struct s_lexer	*next;
 }					t_lexer;
 
@@ -72,8 +73,8 @@ int		strchr_metachar(char *content);
 void	metachar_split(char *content);
 
 void	create_nodes(t_list *lex_slist);
-void	lexer_add_node(char *str, int type);
-t_lexer	*lexer_listnew(char *content, int type);
+void	lexer_add_node(char *str, int type, int expand);
+t_lexer	*lexer_listnew(char *content, int type, int expand);
 void	lexer_lstadd_back(t_lexer	**lst, t_lexer	*new);
 t_lexer	*lexer_lstlast(t_lexer	*lst);
 char	*lexer_trim(char const *s, char set);
