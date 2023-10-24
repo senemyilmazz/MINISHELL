@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 01:09:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/21 08:09:46 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/24 03:08:04 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,11 @@ void	lexer(void)
 	lex_flist = quotes_split(g_prime.line, cmd_count);
 	lex_slist = wspace_split(lex_flist);
 	create_nodes(lex_slist);
+	//while (g_prime.lexer)
+	//{
+	//	printf("S:%s T:%d\n", g_prime.lexer->content, g_prime.lexer->type);
+	//	g_prime.lexer = g_prime.lexer->next;
+	//}
 	if (syntax_check() == -1)
 		free_lexer();
-	while (g_prime.lexer)
-	{
-		printf("S:%s T:%d\n", g_prime.lexer->content, g_prime.lexer->type);
-		g_prime.lexer = g_prime.lexer->next;
-	}
-
-
-
-	
-	//type_init();
 }

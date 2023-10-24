@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 01:18:14 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/21 05:43:27 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:55:39 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	**quotes_split(char *str, int size)
 		}
 		lexer_list[lexer_i] = ft_substr(str, start, end - start);
 	}
-	printf("--%d\n", lexer_i);
 	lexer_list[lexer_i] = 0;
 	return (lexer_list);
 }

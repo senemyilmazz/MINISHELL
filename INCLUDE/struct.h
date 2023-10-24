@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 03:46:11 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/23 20:02:46 by senyilma         ###   ########.fr       */
+/*   Created: 2023/10/23 19:44:07 by senyilma          #+#    #+#             */
+/*   Updated: 2023/10/23 19:52:13 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
-t_list	*ft_lstnew(void	*content)
+typedef struct s_env_l
 {
-	t_list	*new;
+	char			*name;
+	char			*content;
+	struct s_env_l	*next;
+}		t_env_l;
 
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (0);
-	new->content = content;
-	new->next = 0;
-	return (new);
-}
+#endif

@@ -126,14 +126,15 @@
 #.PHONY: all fclean re clean
 
 
-SRC_MAIN = 	main.c
+SRC_MAIN = 	main.c \
+				init_env.c
 SRC_LEXER_MAIN =	main_lexer.c
 SRC_LEXER_QUOTES =	quotes_check.c \
 					quotes_split.c
 SRC_LEXER_WSPACE =	wspace_split.c
 SRC_LEXER_LISTINIT =	metachar_split.c \
 						content_init.c \
-						type_init.c
+						syntax_check.c
 					
 
 DIR = ./OBJ
@@ -180,7 +181,7 @@ $(DIR)/%.o : ./SRC/LEXER/LEXER_LIST_INIT/%.c
 all : $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ_MAIN) $(OBJ_LEXER_MAIN) $(OBJ_LEXER_QUOTES) $(OBJ_LEXER_WSPACE) $(OBJ_LEXER_LISTINIT)
-	@$(CC) $(CFLAGS) -L./lib/lib -lreadline $^ $(LIBFT) -o $@
+	@$(CC) $(CFLAGS) -l readline $^ $(LIBFT) -o $@
 
 $(LIBFT):
 	@make -C libft
