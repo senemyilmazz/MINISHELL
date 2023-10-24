@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_init.c                                        :+:      :+:    :+:   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 07:20:14 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/24 04:07:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:18:21 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	type_match(t_lexer *temp)
 		temp->type = -3;
 }
 
+
 void	type_check(void)
 {
 	t_lexer	*temp;
@@ -46,8 +47,8 @@ int	syntax_check(void)
 	t_lexer	*temp;
 	int		flag;
 
-	temp = g_prime.lexer;
 	type_check();
+	temp = g_prime.lexer;
 	flag = 0;
 	while (temp)
 	{
