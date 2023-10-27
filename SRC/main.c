@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/23 19:48:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/27 04:32:49 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	print_error(char *str)
 //		return (3);
 //	return (0);
 //}
-
-
-
-
 
 void	ft_readline(void)
 {

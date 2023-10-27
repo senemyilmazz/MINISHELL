@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   content_init.c                                     :+:      :+:    :+:   */
+/*   lexer_init_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:42:36 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/24 09:01:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:38:03 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-t_lexer	*lexer_listnew(char *content, int type, int expand)
+t_lexer	*lexer_listnew(char *content, int type)
 {
 	t_lexer	*new;
 
@@ -21,7 +21,6 @@ t_lexer	*lexer_listnew(char *content, int type, int expand)
 		return (NULL);
 	new->content = content;
 	new->type = type;
-	new->expand = expand;
 	new->next = NULL;
 	return (new);
 }
@@ -74,17 +73,9 @@ char	*lexer_trim(char const *s, char set)
 	return (NULL);
 }
 
-void	lexer_add_node(char *str, int type, int expand)
+void	lexer_add_node(t_lexer **lexer, char *str, int type)
 {
-	int	flag;
 
-	flag = 0;
-	if (chrchr_quotes(*str))
-		flag = 1;
-	if (flag == 1)
-		lexer_lstadd_back(&g_prime.lexer, lexer_listnew \
-		(ft_strdup(lexer_trim(str, *str)), type, expand));
-	else
-		lexer_lstadd_back(&g_prime.lexer, \
-			lexer_listnew(ft_strdup(str), type, expand));
+	lexer_lstadd_back(lexer, \
+		lexer_listnew(ft_strdup(str), type));
 }
