@@ -8,7 +8,8 @@ SRC =	./SRC/main.c \
 		./SRC/LEXER/WSPACE/wspace_split.c \
 		./SRC/LEXER/WSPACE/wspace_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/create_nodes.c \
-		./SRC/LEXER/LEXER_LIST_INIT/metachar_split.c \
+		./SRC/LEXER/METACHAR/metachar_split.c \
+		./SRC/LEXER/METACHAR/metachar_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/lexer_init_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/type_init.c \
 		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 01:09:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 15:57:29 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:52:45 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_lexer(void)
 void	lexer(void)
 {
 	t_list	*lex_slist;
+	t_list	*lex_mlist;
 
 	if (quotes_check(g_prime.line) == -1)
 	{
@@ -34,12 +35,8 @@ void	lexer(void)
 		return ;
 	}
 	lex_slist = wspace_split(g_prime.line, 0, 0, 0);
-		//while (lex_slist)
-		//{
-		//	printf("aaa:    %s\n", lex_slist->content);
-		//	lex_slist = lex_slist->next;
-		//}
-	create_nodes(lex_slist);
+	lex_mlist = metachar_split(lex_slist);
+	create_nodes(lex_mlist);
 	if (syntax_check() == -1)
 		free_lexer();
 	while (g_prime.lexer)

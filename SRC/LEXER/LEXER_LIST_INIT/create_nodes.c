@@ -6,25 +6,26 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:55:06 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 15:55:10 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:51:19 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-void	create_nodes(t_list *lex_slist)
+void	create_nodes(t_list *lex_mlist)
 {
 	t_list	*temp;
 
-	temp = lex_slist;
+	temp = lex_mlist;
 	while (temp)
 	{
-		if (!strchr_metachar(temp->content))
+		if (!strchr_metachar(temp->content) || strchr_quotes(temp->content))
 			lexer_add_node(&g_prime.lexer, temp->content, 0);
 		else
-			metachar_split(temp->content);
-		lex_slist = temp;
+			lexer_add_node(&g_prime.lexer, temp->content, \
+				chrchr_metachar(*(char *)temp->content));
+		lex_mlist = temp;
 		temp = temp->next;
-		free(lex_slist);
+		free(lex_mlist);
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metachar_split.c                                   :+:      :+:    :+:   */
+/*   metachar_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 14:04:38 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 15:50:58 by senyilma         ###   ########.fr       */
+/*   Created: 2023/10/31 19:49:05 by senyilma          #+#    #+#             */
+/*   Updated: 2023/10/31 19:49:11 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,45 +28,12 @@ int	strchr_metachar(char *content)
 {
 	int	i;
 
-	i = -1;
-	while (content[++i])
+	i = 0;
+	while (content[i])
 	{
 		if (chrchr_metachar(content[i]))
 			return (1);
+		i++;
 	}
 	return (0);
-}
-
-void	metachar_split(char *content)
-{
-	int		end;
-	int		start;
-	char	*str;
-
-	end = 0;
-	while (content[end])
-	{
-		start = end;
-		if (chrchr_metachar(content[start]))
-			while (content[end] && content[end] == content[start])
-				end++;
-		else
-		{
-			while (content[end] && !chrchr_metachar(content[end]))
-			{
-				if (chrchr_quotes(content[start]))
-				{
-					end++;
-					while (content[end] && content[end] != content[start])
-						end++;
-					end++;
-				}
-				else
-					end++;
-			}
-		}
-		str = ft_substr(content, start, end - start);
-		lexer_add_node(&g_prime.lexer, str, chrchr_metachar(*str));
-		free(str);
-	}
 }

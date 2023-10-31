@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:42:36 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 14:38:03 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:45:24 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char	*lexer_trim(char const *s, char set)
 
 void	lexer_add_node(t_lexer **lexer, char *str, int type)
 {
-
 	lexer_lstadd_back(lexer, \
 		lexer_listnew(ft_strdup(str), type));
 }
