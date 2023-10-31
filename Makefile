@@ -1,7 +1,8 @@
 NAME = minishell
 
-SRC =	./SRC/main.c \
-		./SRC/init_env.c \
+SRC =	./SRC/MAIN/main.c \
+		./SRC/MAIN/init_env.c \
+		./SRC/MAIN/free_prime.c \
 		./SRC/LEXER/MAIN_LEXER/main_lexer.c \
 		./SRC/LEXER/QUOTES/quotes_check.c \
 		./SRC/LEXER/QUOTES/quotes_utils.c \
@@ -12,7 +13,8 @@ SRC =	./SRC/main.c \
 		./SRC/LEXER/METACHAR/metachar_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/lexer_init_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/type_init.c \
-		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c
+		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c \
+		./SRC/LEXER/print_lexer.c
 
 OBJ = $(SRC:.c=.o)
 

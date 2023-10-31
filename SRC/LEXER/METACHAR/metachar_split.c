@@ -6,13 +6,30 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:04:38 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/31 19:49:20 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:36:30 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-void	metachar_split2(char *content, t_list **lex_mlist)
+static void	metachar_split3(char *content, int *end)
+{
+	char	quotes;
+
+	while (content[*end] && !chrchr_metachar(content[*end]))
+	{
+		if (chrchr_quotes(content[*end]))
+		{
+			quotes = content[*end];
+			*end += 1;
+			while (content[*end] && content[*end] != quotes)
+				*end += 1;
+		}
+		*end += 1;
+	}
+}
+
+static void	metachar_split2(char *content, t_list **lex_mlist)
 {
 	int		end;
 	int		start;
@@ -25,18 +42,11 @@ void	metachar_split2(char *content, t_list **lex_mlist)
 			while (content[end] && content[end] == content[start])
 				end++;
 		else
-		{
-			while (content[end] && !chrchr_metachar(content[end]))
-			{
-				if (chrchr_quotes(content[start]))
-					while (content[++end] && content[end] != content[start])
-						;
-				end++;
-			}
-		}
+			metachar_split3(content, &end);
 		ft_lstadd_back(lex_mlist, \
 			ft_lstnew(ft_substr(content, start, end - start)));
 	}
+	free(content);
 }
 
 t_list	*metachar_split(t_list *lex_slist)

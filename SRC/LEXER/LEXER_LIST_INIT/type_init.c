@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 07:20:14 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 04:37:57 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 01:55:31 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	type_match(t_lexer *temp)
 		temp->type = -3;
 }
 
-void	type_check(void)
+void	type_check(t_prime *g_prime)
 {
 	t_lexer	*temp;
 
-	temp = g_prime.lexer;
+	temp = g_prime->lexer;
 	while (temp)
 	{
 		if (temp->type != 0)

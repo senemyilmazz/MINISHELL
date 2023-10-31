@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:35:16 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 17:02:48 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 01:55:43 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,23 @@ int	syn_error(int temp_type, int temp_len)
 	return (0);
 }
 
-int	syntax_check(void)
+int	syntax_check(t_prime *g_prime)
 {
 	t_lexer	*temp;
 	int		flag;
 	int		t;
 
-	temp = g_prime.lexer;
-	type_check();
+	temp = g_prime->lexer;
+	type_check(g_prime);
 	flag = 0;
 	while (temp)
 	{
 		t = temp->type;
 		if (t == -1 || t == -2 || t == -3)
 			return (syn_error(t, ft_strlen(temp->content)));
-		else if (g_prime.lexer->type == 1 || \
-			(temp->next && temp->next->type == 1 && t > 0))
+		else if (g_prime->lexer->type == 1 || \
+			(temp->next && temp->next->type == 1 && t > 0) || \
+			(temp->type == 1 && !temp->next))
 			return (synerr_print(SYN_P));
 		else if ((t >= 2 && t <= 6) && (!temp->next || temp->next->type != 0))
 			flag = 2;

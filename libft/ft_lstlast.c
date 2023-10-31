@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 03:46:04 by senyilma          #+#    #+#             */
-/*   Updated: 2022/12/23 19:15:12 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:10:47 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_lstlast(t_list	*lst)
 {
-	t_list *temp;
+	t_list	*temp;
 
 	if (!lst)
 		return (0);

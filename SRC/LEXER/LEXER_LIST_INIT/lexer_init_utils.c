@@ -6,13 +6,13 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:42:36 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/31 18:45:24 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 01:38:39 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-t_lexer	*lexer_listnew(char *content, int type)
+static t_lexer	*lexer_listnew(char *content, int type)
 {
 	t_lexer	*new;
 
@@ -25,7 +25,7 @@ t_lexer	*lexer_listnew(char *content, int type)
 	return (new);
 }
 
-t_lexer	*lexer_lstlast(t_lexer	*lst)
+static t_lexer	*lexer_lstlast(t_lexer	*lst)
 {
 	t_lexer	*temp;
 
@@ -39,7 +39,7 @@ t_lexer	*lexer_lstlast(t_lexer	*lst)
 	return (temp);
 }
 
-void	lexer_lstadd_back(t_lexer	**lst, t_lexer	*new)
+static void	lexer_lstadd_back(t_lexer	**lst, t_lexer	*new)
 {
 	if (new)
 	{

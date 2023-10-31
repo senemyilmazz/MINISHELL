@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/31 18:45:15 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:10:22 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,17 @@
 # include <readline/readline.h>
 # include "errors.h"
 # include "chars.h"
-
-typedef struct s_lexer
-{
-	char			*content;
-	int				type;
-	struct s_lexer	*next;
-}					t_lexer;
-
-typedef struct s_env_l
-{
-	char			*name;
-	char			*content;
-	struct s_env_l	*next;
-}					t_env_l;
-
-typedef struct s_prime
-{
-	char	*line;
-	t_lexer	*lexer;
-	t_env_l	*env_l;
-
-}			t_prime;
-
-t_prime	g_prime;
+# include "struct.h"
 
 //---MAIN----
-void	ft_readline(void);
+void	ft_readline(t_prime *g_prime, char **env);
 void	print_error(char *str);
+void	free_prime(t_prime *g_prime);
+void	free_lexer(t_lexer **lexer);
 
 //*-------LEXER--------*//
 
-void	lexer(void);
+void	lexer(t_prime *g_prime);
 
 int		chrchr_quotes(char c);
 int		strchr_quotes(char *str);
@@ -64,17 +43,20 @@ int		chrchr_metachar(char c);
 int		strchr_metachar(char *content);
 t_list	*metachar_split(t_list *lex_slist);
 
-void	create_nodes(t_list *lex_mlist);
-void	lexer_lstadd_back(t_lexer	**lst, t_lexer	*new);
-t_lexer	*lexer_lstlast(t_lexer	*lst);
-t_lexer	*lexer_listnew(char *content, int type);
+void	create_nodes(t_prime *g_prime, t_list *lex_mlist);
+
 void	lexer_add_node(t_lexer **lexer, char *str, int type);
-char	*lexer_trim(char const *s, char set);
 
-void	type_check(void);
+void	type_check(t_prime *g_prime);
 void	type_match(t_lexer *temp);
-int		syntax_check(void);
+int		syntax_check(t_prime *g_prime);
 
-void	init_env(char **env);
+void	print_lexer(t_prime *g_prime);
+
+//*------ENV-----*//
+void	env_init(t_prime *g_prime, char **env);
+
+//char	*lexer_trim(char const *s, char set);
+//parser veya expander kısmında lazım olacak?
 
 #endif

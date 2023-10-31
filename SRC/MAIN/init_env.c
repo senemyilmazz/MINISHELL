@@ -6,11 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:48:42 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/23 20:16:44 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:08:10 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 t_env_l	*env_listnew(char *name, char *content)
 {
@@ -32,10 +32,8 @@ t_env_l	*env_lstlast(t_env_l	*lst)
 	if (!lst)
 		return (0);
 	temp = lst;
-	while (temp->next != 0)
-	{
+	while (temp->next)
 		temp = temp->next;
-	}
 	return (temp);
 }
 
@@ -53,7 +51,7 @@ void	env_lstadd_back(t_env_l	**lst, t_env_l	*new)
 	}
 }
 
-void	init_env(char **env)
+void	env_init(t_prime *g_prime, char **env)
 {
 	int		i;
 	int		start;
@@ -76,7 +74,7 @@ void	init_env(char **env)
 			while (env[i][end])
 				end++;
 			content = ft_substr(env[i], start, end);
-			env_lstadd_back(&g_prime.env_l, env_listnew(name, content));
+			env_lstadd_back(&g_prime->env_l, env_listnew(name, content));
 		}
 	}
 }

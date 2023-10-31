@@ -6,11 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 03:46:07 by senyilma          #+#    #+#             */
-/*   Updated: 2022/12/27 17:15:35 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:11:04 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include "libft.h"
 
 t_list	*ft_lstmap(t_list	*lst, void *(*f)(void *), void (*del)(void *))
 {
