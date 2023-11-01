@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 02:08:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 03:28:46 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ void	prime_init(t_prime *g_prime)
 	g_prime->env_l = (t_env_l *)malloc(sizeof(t_env_l));
 	g_prime->lexer = (t_lexer *)malloc(sizeof(t_lexer));
 	g_prime->expander = (t_expander *)malloc(sizeof(t_expander));
+	g_prime->parser = (t_parser *)malloc(sizeof(t_parser));
 	g_prime->env_l = NULL;
 	g_prime->lexer = NULL;
 	g_prime->expander = NULL;
+	g_prime->parser = NULL;
 }
 
 void	ft_readline(t_prime *g_prime, char **env)

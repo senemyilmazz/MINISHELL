@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:33:46 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 02:03:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 03:28:32 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,22 @@ typedef struct s_expander
 	struct s_expander	*next;
 }						t_expander;
 
+typedef struct s_parser
+{
+	char			*command;
+	char			*parameter;
+	int				infile;
+	int				outfile;
+	struct s_parser	*next;
+}					t_parser;
+
 typedef struct s_prime
 {
 	char		*line;
 	t_lexer		*lexer;
 	t_env_l		*env_l;
 	t_expander	*expander;
+	t_parser	*parser;
 }			t_prime;
 
 #endif
