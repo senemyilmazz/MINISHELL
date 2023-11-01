@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 03:48:33 by senyilma          #+#    #+#             */
-/*   Updated: 2022/12/21 04:13:01 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:21:43 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ size_t	ft_strlen(const char *c)
 	size_t	i;
 
 	i = 0;
-	while (c[i])
-		i++;
+	if (c)
+	{
+		while (c[i])
+			i++;
+	}
 	return (i);
 }

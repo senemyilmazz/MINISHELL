@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 02:10:22 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:50:53 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	print_lexer(t_prime *g_prime);
 
 //*------ENV-----*//
 void	env_init(t_prime *g_prime, char **env);
+
+
+void	expander(t_prime *g_prime);
+void	expander_add_node(t_expander **expander, char *str, int type);
 
 //char	*lexer_trim(char const *s, char set);
 //parser veya expander kısmında lazım olacak?

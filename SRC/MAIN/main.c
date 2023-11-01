@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 03:28:46 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:44:01 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_readline(t_prime *g_prime, char **env)
 		add_history(g_prime->line);
 		env_init(g_prime, env);
 		lexer(g_prime);
-		//expander(g_prime);
+		expander(g_prime);
 		//parser(g_prime);
 		//executer(g_prime);
 		free_prime(g_prime);
