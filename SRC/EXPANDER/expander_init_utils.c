@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:58:32 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 18:48:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:54:01 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,19 @@ static t_expander	*expander_listnew(char *content, int type)
 	return (new);
 }
 
-static t_expander	*expander_lstlast(t_expander	*lst)
+static t_expander	*expander_lstlast(t_expander *lst)
 {
 	t_expander	*temp;
 
 	if (!lst)
 		return (0);
 	temp = lst;
-	while (temp->next != 0)
-	{
+	while (temp->next)
 		temp = temp->next;
-	}
 	return (temp);
 }
 
-static void	expander_lstadd_back(t_expander	**lst, t_expander	*new)
+static void	expander_lstadd_back(t_expander **lst, t_expander *new)
 {
 	if (new)
 	{
@@ -53,28 +51,7 @@ static void	expander_lstadd_back(t_expander	**lst, t_expander	*new)
 	}
 }
 
-//char	*expander_trim(char const *s, char set)
-//{
-//	char	*cuttedstring;
-//	int		i;
-//	int		endofs;
-
-//	if (s != NULL)
-//	{
-//		i = 0;
-//		while (s[i] && s[i] == set)
-//			i++;
-//		endofs = ft_strlen(s) - 1;
-//		while (endofs > i && s[i] == set)
-//			endofs--;
-//		cuttedstring = ft_substr(s, i, endofs - i);
-//		return (cuttedstring);
-//	}
-//	return (NULL);
-//}
-
 void	expander_add_node(t_expander **expander, char *str, int type)
 {
-	expander_lstadd_back(expander, \
-		expander_listnew(str, type));
+	expander_lstadd_back(expander, expander_listnew(str, type));
 }

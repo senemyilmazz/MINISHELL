@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:33:46 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 03:28:32 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/03 00:10:33 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_parser
 {
 	char			*command;
 	char			*parameter;
+	char			**path;
 	int				infile;
 	int				outfile;
 	struct s_parser	*next;
@@ -50,6 +51,7 @@ typedef struct s_prime
 	t_env_l		*env_l;
 	t_expander	*expander;
 	t_parser	*parser;
+	int			exit_code;
 }			t_prime;
 
 #endif

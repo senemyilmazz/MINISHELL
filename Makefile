@@ -15,8 +15,11 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/LEXER/LEXER_LIST_INIT/type_init.c \
 		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c \
 		./SRC/LEXER/print_lexer.c \
-		./SRC/EXPANDER/expander_init_utils.c \
-		./SRC/EXPANDER/main_expander.c
+		./SRC/EXPANDER/main_expander.c \
+		./SRC/EXPANDER/expand_content_utils.c \
+		./SRC/EXPANDER/dollar_analysis.c \
+		./SRC/EXPANDER/dollar_utils.c \
+		./SRC/EXPANDER/expander_init_utils.c 
 
 OBJ = $(SRC:.c=.o)
 

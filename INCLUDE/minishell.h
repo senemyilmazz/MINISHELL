@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 17:50:53 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:13:55 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "struct.h"
 
 //---MAIN----
-void	ft_readline(t_prime *g_prime, char **env);
+void	ft_readline(t_prime *g_prime);
 void	print_error(char *str);
 void	free_prime(t_prime *g_prime);
 void	free_lexer(t_lexer **lexer);
@@ -54,10 +54,21 @@ int		syntax_check(t_prime *g_prime);
 void	print_lexer(t_prime *g_prime);
 
 //*------ENV-----*//
+
 void	env_init(t_prime *g_prime, char **env);
 
+//*------EXPANDER-------*//
 
 void	expander(t_prime *g_prime);
+char	*quotes_trim(char *content, int *end, char quotes);
+char	*d_quotes_expand(t_prime *g_prime, char *content, int *end);
+char	*straight_expand(t_prime *g_prime, char *content, int *end);
+char	*dollar_analysis(char *content, int *end, t_prime *g_prime);
+int		special_chars(char c);
+int		ret_null(char c);
+int		put_directly(char c);
+char	*put_synerror(char c);
+int		special_chars(char c);
 void	expander_add_node(t_expander **expander, char *str, int type);
 
 //char	*lexer_trim(char const *s, char set);
