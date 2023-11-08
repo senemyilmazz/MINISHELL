@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:08:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/03 14:59:51 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:42:44 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ void	free_lexer(t_lexer **lexer)
 		free(*lexer);
 		*lexer = 0;
 		*lexer = temp;
+	}
+	//free(lexer);
+}
+
+void	free_expander(t_expander **expander)
+{
+	t_expander	*temp;
+
+	if (!expander)
+		return ;
+	while (*expander)
+	{
+		temp = (*expander)->next;
+		free((*expander)->content);
+		free(*expander);
+		*expander = 0;
+		*expander = temp;
 	}
 	//free(lexer);
 }
@@ -49,6 +66,7 @@ void	free_lexer(t_lexer **lexer)
 void	free_prime(t_prime *g_prime)
 {
 	free_lexer(&g_prime->lexer);
+	free_expander(&g_prime->expander);
 	//free_env_l(&g_prime->env_l);
 	free(g_prime->line);
 }

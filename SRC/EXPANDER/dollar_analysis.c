@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:02:31 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:15:00 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:30:44 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,11 @@ char	*dollar_analysis(char *content, int *end, t_prime *g_prime)
 	else if (put_directly(content[i]))
 		substr = ft_substr(content, start - 1, i - start + 2);
 	else if (put_synerror(content[i]))
+	{
+		printf("Syntax Error!\n");
+		*end = i + 1;
 		return (NULL);
+	}
 	else if (special_chars(content[i]))
 		substr = special_expand(content[i], g_prime);
 	else if (content[i] == '$')

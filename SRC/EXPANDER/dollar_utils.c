@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 23:04:18 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:02:14 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:30:30 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ int	put_directly(char c)
 		|| c == '~');
 }
 
-char	*put_synerror(char c)
+int	put_synerror(char c)
 {
-	if (c == '(' || c == '[' || c == 92 || c == '{' || c == ')'
-		|| c == ';' || c == '#' || c == '-')
-		printf("Syntax Error!\n");
-	return (NULL);
+	return (c == '(' || c == '[' || c == 92 || c == '{' || c == ')'
+		|| c == ';' || c == '#' || c == '-');
 }
 
 int	special_chars(char c)

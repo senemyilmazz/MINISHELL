@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_init_utils.c                              :+:      :+:    :+:   */
+/*   parser_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 16:58:32 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:40:04 by senyilma         ###   ########.fr       */
+/*   Created: 2023/11/07 19:43:53 by senyilma          #+#    #+#             */
+/*   Updated: 2023/11/08 08:20:58 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDE/minishell.h"
 
-static t_expander	*expander_listnew(char *content, int type)
+static t_parser	*parser_listnew(char **path, t_files *file, t_fd *fd)
 {
-	t_expander	*new;
+	t_parser	*new;
 
-	new = (t_expander *)malloc(sizeof(t_expander));
+	new = (t_parser *)ft_calloc(sizeof(t_parser), 1);
 	if (!new)
 		return (NULL);
-	new->content = content;
-	new->type = type;
+	new->command = ft_strdup(*path);
+	new->path = path;
+	new->infile = fd->infile;
+	new->outfile = fd->outfile;
+	new->file = file;
 	new->next = NULL;
 	return (new);
 }
 
-static t_expander	*expander_lstlast(t_expander *lst)
+static t_parser	*parser_lstlast(t_parser *lst)
 {
-	t_expander	*temp;
+	t_parser	*temp;
 
 	if (!lst)
 		return (0);
@@ -37,7 +40,7 @@ static t_expander	*expander_lstlast(t_expander *lst)
 	return (temp);
 }
 
-static void	expander_lstadd_back(t_expander **lst, t_expander *new)
+static void	parser_lstadd_back(t_parser **lst, t_parser *new)
 {
 	if (new)
 	{
@@ -46,15 +49,12 @@ static void	expander_lstadd_back(t_expander **lst, t_expander *new)
 			*lst = new;
 			return ;
 		}
-		expander_lstlast(*lst)->next = new;
+		parser_lstlast(*lst)->next = new;
 		new->next = 0;
 	}
 }
 
-void	expander_add_node(t_expander **expander, char *str, int type)
+void	parser_addnode(t_parser **parser, char **path, t_files *file, t_fd *fd)
 {
-	if (!str)
-		free_expander(expander);
-	else
-		expander_lstadd_back(expander, expander_listnew(str, type));
+	parser_lstadd_back(parser, parser_listnew(path, file, fd));
 }

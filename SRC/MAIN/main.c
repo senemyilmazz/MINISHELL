@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/03 14:59:33 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:58:53 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ void	print_error(char *str)
 
 void	prime_init(t_prime *g_prime)
 {
-	g_prime->lexer = (t_lexer *)malloc(sizeof(t_lexer));
-	g_prime->expander = (t_expander *)malloc(sizeof(t_expander));
-	g_prime->parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!g_prime->lexer
-		|| !g_prime->expander || !g_prime->parser)
-		return ;
+	//g_prime->lexer = (t_lexer *)malloc(sizeof(t_lexer));
+	//g_prime->expander = (t_expander *)malloc(sizeof(t_expander));
+	//g_prime->parser = (t_parser *)malloc(sizeof(t_parser));
+	//if (!g_prime->lexer
+	//	|| !g_prime->expander || !g_prime->parser)
+	//	return ;
 	g_prime->line = NULL;
 	g_prime->lexer = NULL;
 	g_prime->expander = NULL;
 	g_prime->parser = NULL;
+	(void)g_prime;
 }
 
 void	ft_readline(t_prime *g_prime)
@@ -40,8 +41,11 @@ void	ft_readline(t_prime *g_prime)
 		g_prime->line = readline("minikkus> ");
 		add_history(g_prime->line);
 		lexer(g_prime);
+		//print_lexer(g_prime);
 		expander(g_prime);
-		//parser(g_prime);
+		//print_expander(g_prime);
+		parser(g_prime);
+		print_parser(g_prime);
 		//executer(g_prime);
 		free_prime(g_prime);
 	}

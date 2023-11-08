@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:29:10 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:02:00 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:44:28 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,5 @@ void	expander(t_prime *g_prime)
 			expander_add_node(&g_prime->expander, \
 				expand_content(g_prime, temp->content), temp->type);
 		temp = temp->next;
-	}
-	while (g_prime->expander)
-	{
-		printf("çıktı: %s\n", g_prime->expander->content);
-		g_prime->expander = g_prime->expander->next;
 	}
 }

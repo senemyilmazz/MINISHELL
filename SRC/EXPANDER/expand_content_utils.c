@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:03:10 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:35:30 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,14 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end)
 			substr = ft_substr(content, start, i - start);
 		}
 		else
+		{
 			substr = dollar_analysis(content, &i, g_prime);
+			if (!substr)
+			{
+				*end = i;
+				return (NULL);
+			}
+		}
 		joinedstr = ft_strjoin(joinedstr, substr);
 	}
 	*end = i;
@@ -58,7 +65,16 @@ char	*d_quotes_expand(t_prime *g_prime, char *content, int *end)
 			substr = ft_substr(content, start, i - start);
 		}
 		else
+		{
 			substr = dollar_analysis(content, &i, g_prime);
+			if (!substr)
+			{
+				*end = i;
+				if (content[i] != '\0')
+					*end = i + 1;
+				return (NULL);
+			}
+		}
 		joinedstr = ft_strjoin(joinedstr, substr);
 	}
 	*end = i;

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:13:55 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:06:33 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include <stdio.h>
 # include <unistd.h>
-# include "../libft/libft.h"
 # include <readline/readline.h>
+# include <fcntl.h>
+# include "../libft/libft.h"
 # include "errors.h"
 # include "chars.h"
 # include "struct.h"
@@ -67,9 +68,18 @@ char	*dollar_analysis(char *content, int *end, t_prime *g_prime);
 int		special_chars(char c);
 int		ret_null(char c);
 int		put_directly(char c);
-char	*put_synerror(char c);
+int		put_synerror(char c);
 int		special_chars(char c);
 void	expander_add_node(t_expander **expander, char *str, int type);
+void	free_expander(t_expander **expander);
+void	print_expander(t_prime	*g_prime);
+
+//*------PARSER-----*//
+void	parser(t_prime *g_prime);
+char	**dynamic_malloc(char **path, char *new);
+void	parser_addnode(t_parser **parser, char **path, t_files *file, t_fd *fd);
+void	files_add_node(t_files **files, char *name, int type);
+void	print_parser(t_prime *g_prime);
 
 //char	*lexer_trim(char const *s, char set);
 //parser veya expander kısmında lazım olacak?
