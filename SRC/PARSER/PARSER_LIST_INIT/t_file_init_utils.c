@@ -6,11 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:21:15 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 20:56:45 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:24:07 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
 static t_files	*files_listnew(char *name, int type)
 {
@@ -18,10 +18,10 @@ static t_files	*files_listnew(char *name, int type)
 
 	new = (t_files *)malloc(sizeof(t_files));
 	if (!new)
-		return (NULL);
+		return (0);
 	new->filename = name;
 	new->re_type = type;
-	new->next = NULL;
+	new->next = 0;
 	return (new);
 }
 
@@ -53,8 +53,5 @@ static void	files_lstadd_back(t_files **lst, t_files *new)
 
 void	files_add_node(t_files **files, char *name, int type)
 {
-	//if (!str)
-	//	free_files(files);
-	//else
 	files_lstadd_back(files, files_listnew(name, type));
 }

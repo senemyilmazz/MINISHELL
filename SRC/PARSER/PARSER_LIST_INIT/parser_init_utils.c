@@ -6,25 +6,42 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:43:53 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/08 08:20:58 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:23:59 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
-static t_parser	*parser_listnew(char **path, t_files *file, t_fd *fd)
+int	pipe_count(t_expander *expander)
+{
+	t_expander	*temp;
+	int			pipe_count;
+
+	temp = expander;
+	pipe_count = 1;
+	while (temp)
+	{
+		if (temp->type == 1)
+			pipe_count++;
+		temp = temp->next;
+	}
+	return (pipe_count);
+}
+
+static t_parser	*parser_listnew(void)
 {
 	t_parser	*new;
 
 	new = (t_parser *)ft_calloc(sizeof(t_parser), 1);
 	if (!new)
-		return (NULL);
-	new->command = ft_strdup(*path);
-	new->path = path;
-	new->infile = fd->infile;
-	new->outfile = fd->outfile;
-	new->file = file;
-	new->next = NULL;
+		return (0);
+	new->command = 0;
+	new->parameters = 0;
+	new->heredoc = 0;
+	new->infile = -1;
+	new->outfile = 0;
+	new->file = 0;
+	new->next = 0;
 	return (new);
 }
 
@@ -54,7 +71,8 @@ static void	parser_lstadd_back(t_parser **lst, t_parser *new)
 	}
 }
 
-void	parser_addnode(t_parser **parser, char **path, t_files *file, t_fd *fd)
+void	parser_addnode(t_parser **parser, int pipe_count)
 {
-	parser_lstadd_back(parser, parser_listnew(path, file, fd));
+	while (pipe_count--)
+		parser_lstadd_back(parser, parser_listnew());
 }

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 21:06:33 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:36:09 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,19 @@ void	free_expander(t_expander **expander);
 void	print_expander(t_prime	*g_prime);
 
 //*------PARSER-----*//
-void	parser(t_prime *g_prime);
-char	**dynamic_malloc(char **path, char *new);
-void	parser_addnode(t_parser **parser, char **path, t_files *file, t_fd *fd);
-void	files_add_node(t_files **files, char *name, int type);
-void	print_parser(t_prime *g_prime);
 
-//char	*lexer_trim(char const *s, char set);
-//parser veya expander kısmında lazım olacak?
+void	parser(t_prime *g_prime);
+
+int		pipe_count(t_expander *expander);
+void	parser_addnode(t_parser **parser, int pipe_count);
+
+void	heredoc_init(t_prime *g_prime);
+char	*parse_strjoin(char *s1, char *s2);
+
+void	renew_parser(t_prime *g_prime);
+void	files_add_node(t_files **files, char *name, int type);
+char	**dynamic_malloc(char **path, char *new);
+
+void	print_parser(t_prime *g_prime);
 
 #endif

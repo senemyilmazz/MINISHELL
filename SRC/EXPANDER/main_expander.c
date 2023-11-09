@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:29:10 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:44:28 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:25:17 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	expander(t_prime *g_prime)
 {
 	t_lexer	*temp;
 
+	if (!g_prime->lexer)
+		return ;
 	temp = g_prime->lexer;
 	while (temp)
 	{

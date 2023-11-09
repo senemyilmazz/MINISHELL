@@ -21,10 +21,12 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/EXPANDER/dollar_utils.c \
 		./SRC/EXPANDER/expander_init_utils.c \
 		./SRC/EXPANDER/print_expander.c \
-		./SRC/PARSER/main_parser.c \
-		./SRC/PARSER/parser_init_utils.c \
-		./SRC/PARSER/parser_utils.c \
-		./SRC/PARSER/t_file_init_utils.c \
+		./SRC/PARSER/MAIN_PARSER/main_parser.c \
+		./SRC/PARSER/HEREDOC/heredoc_init.c \
+		./SRC/PARSER/PARSER_LIST_INIT/parser_init_utils.c \
+		./SRC/PARSER/PARSER_LIST_INIT/t_file_init_utils.c \
+		./SRC/PARSER/PARSER_LIST_INIT/renew_parser.c \
+		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c
 
 OBJ = $(SRC:.c=.o)

@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metachar_utils.c                                   :+:      :+:    :+:   */
+/*   main_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 19:49:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/09 22:58:23 by senyilma         ###   ########.fr       */
+/*   Created: 2023/11/01 03:24:25 by senyilma          #+#    #+#             */
+/*   Updated: 2023/11/09 22:24:33 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-int	chrchr_metachar(char c)
+void	parser(t_prime *g_prime)
 {
-	if (c == PIPE)
-		return (SIGN_PIPE);
-	else if (c == SOR)
-		return (SIGN_SOR);
-	else if (c == SIR)
-		return (SIGN_SIR);
-	else
-		return (TEXT);
-}
-
-int	strchr_metachar(char *content)
-{
-	int	i;
-
-	i = 0;
-	while (content[i])
-	{
-		if (chrchr_metachar(content[i]))
-			return (1);
-		i++;
-	}
-	return (0);
+	if (!g_prime->expander)
+		return ;
+	parser_addnode(&g_prime->parser, pipe_count(g_prime->expander));
+	heredoc_init(g_prime);
+	renew_parser(g_prime);
 }

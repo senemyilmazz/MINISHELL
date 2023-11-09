@@ -6,11 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:30:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 21:17:27 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:37:24 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
 char	**dynamic_malloc(char **path, char *new)
 {
@@ -19,23 +19,14 @@ char	**dynamic_malloc(char **path, char *new)
 	int		i;
 
 	count = 0;
-	if (path)
-	{
-		while (path[count])
-			count++;
-	}
+	while (path && path[count])
+		count++;
 	new_path = (char **)malloc(sizeof(char *) * (count + 2));
 	if (!new_path)
 		return (NULL);
-	i = 0;
-	if (path)
-	{
-		while (i < count)
-		{
-			new_path[i] = ft_strdup(path[i]);
-			i++;
-		}
-	}
+	i = -1;
+	while (++i < count)
+		new_path[i] = ft_strdup(path[i]);
 	new_path[i] = ft_strdup(new);
 	new_path[++i] = NULL;
 	i = -1;
@@ -43,9 +34,38 @@ char	**dynamic_malloc(char **path, char *new)
 	{
 		while (path[++i])
 			free(path[i]);
-	}
-	if (path)
 		free(path);
+	}
 	return (new_path);
 }
 
+char	*parse_strjoin(char *s1, char *s2)
+{
+	char	*s1s2;
+	size_t	i;
+	size_t	j;
+
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
+		return (0);
+	s1s2 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 2) * sizeof(char));
+	if (!s1s2)
+	{
+		free (s1);
+		return (NULL);
+	}
+	i = -1;
+	while (++i < ft_strlen(s1))
+		s1s2[i] = s1[i];
+	j = -1;
+	while (++j < ft_strlen(s2))
+		s1s2[i + j] = s2[j];
+	s1s2[i + j] = '\n';
+	s1s2[i + j + 1] = '\0';
+	free(s1);
+	return (s1s2);
+}

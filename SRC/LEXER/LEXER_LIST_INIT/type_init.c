@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 07:20:14 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/08 16:55:59 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:20:13 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	type_match(t_lexer *temp)
 {
 	if (temp->type == SIGN_SIR && ft_strlen(temp->content) == 2)
-		temp->type = SIGN_DIR;
+		temp->type = HEREDOC;
 	else if (temp->type == SIGN_SOR && ft_strlen(temp->content) == 2)
 		temp->type = SIGN_DOR;
 	else if (temp->type == SIGN_SIR && ft_strlen(temp->content) > 2)
