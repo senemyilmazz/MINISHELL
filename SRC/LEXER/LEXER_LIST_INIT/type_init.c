@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 07:20:14 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 01:55:31 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:55:59 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 void	type_match(t_lexer *temp)
 {
-	if (temp->type == 3 && ft_strlen(temp->content) == 2)
-		temp->type = 4;
-	else if (temp->type == 2 && ft_strlen(temp->content) == 2)
-		temp->type = 5;
-	else if (temp->type == 3 && ft_strlen(temp->content) == 3)
-		temp->type = 6;
-	else if (temp->type == 1 && ft_strlen(temp->content) > 1)
-		temp->type = -1;
-	else if (temp->type == 2 && ft_strlen(temp->content) > 2)
-		temp->type = -2;
-	else if (temp->type == 3 && ft_strlen(temp->content) > 3)
+	if (temp->type == SIGN_SIR && ft_strlen(temp->content) == 2)
+		temp->type = SIGN_DIR;
+	else if (temp->type == SIGN_SOR && ft_strlen(temp->content) == 2)
+		temp->type = SIGN_DOR;
+	else if (temp->type == SIGN_SIR && ft_strlen(temp->content) > 2)
 		temp->type = -3;
+	else if (temp->type == SIGN_PIPE && ft_strlen(temp->content) > 1)
+		temp->type = -1;
+	else if (temp->type == SIGN_SOR && ft_strlen(temp->content) > 2)
+		temp->type = -2;
 }
 
 void	type_check(t_prime *g_prime)
