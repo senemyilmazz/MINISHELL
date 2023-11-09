@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 01:00:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:28:28 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ void	renew_parser(t_prime *g_prime)
 	{
 		flag = 1;
 		starting = 0;
-		printf("nodea giriş\n");
-		while (temp_exp && temp_exp->type != PIPE)
+		while (temp_exp && temp_exp->type != SIGN_PIPE)
 		{
-			printf("pipetan sonra: %s\n", temp_exp->content);
 			if (!(starting++) && temp_exp->type != TEXT)
 				flag = 0;
 			if (temp_exp->type > 0)
