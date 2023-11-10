@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:43:53 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/09 22:23:59 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:45:15 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_parser	*parser_listnew(void)
 	new->command = 0;
 	new->parameters = 0;
 	new->heredoc = 0;
-	new->infile = -1;
+	new->infile = 0;
 	new->outfile = 0;
 	new->file = 0;
 	new->next = 0;

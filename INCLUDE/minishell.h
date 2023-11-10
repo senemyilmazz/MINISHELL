@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/09 22:36:09 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:47:09 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <readline/readline.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
@@ -82,12 +83,14 @@ int		pipe_count(t_expander *expander);
 void	parser_addnode(t_parser **parser, int pipe_count);
 
 void	heredoc_init(t_prime *g_prime);
-char	*parse_strjoin(char *s1, char *s2);
+char	*pars_strjoin(char *s1, char *s2);
+int		pars_strcmp(char *s1, char *s2);
 
 void	renew_parser(t_prime *g_prime);
-void	files_add_node(t_files **files, char *name, int type);
+void	files_add_node(t_files **files, char *name, int type, int fd);
 char	**dynamic_malloc(char **path, char *new);
 
 void	print_parser(t_prime *g_prime);
+void	free_parser(t_parser **parser);
 
 #endif

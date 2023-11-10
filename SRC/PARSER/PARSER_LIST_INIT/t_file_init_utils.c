@@ -6,13 +6,13 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:21:15 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/09 22:24:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:55:18 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-static t_files	*files_listnew(char *name, int type)
+static t_files	*files_listnew(char *name, int type, int fd)
 {
 	t_files	*new;
 
@@ -21,6 +21,7 @@ static t_files	*files_listnew(char *name, int type)
 		return (0);
 	new->filename = name;
 	new->re_type = type;
+	new->fd = fd;
 	new->next = 0;
 	return (new);
 }
@@ -51,7 +52,7 @@ static void	files_lstadd_back(t_files **lst, t_files *new)
 	}
 }
 
-void	files_add_node(t_files **files, char *name, int type)
+void	files_add_node(t_files **files, char *name, int type, int fd)
 {
-	files_lstadd_back(files, files_listnew(name, type));
+	files_lstadd_back(files, files_listnew(name, type, fd));
 }

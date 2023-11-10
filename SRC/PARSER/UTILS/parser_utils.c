@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:30:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 00:37:24 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:52:12 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,12 @@ char	**dynamic_malloc(char **path, char *new)
 	return (new_path);
 }
 
-char	*parse_strjoin(char *s1, char *s2)
+char	*pars_strjoin(char *s1, char *s2)
 {
 	char	*s1s2;
 	size_t	i;
 	size_t	j;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = '\0';
-	}
-	if (!s1 || !s2)
-		return (0);
 	s1s2 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 2) * sizeof(char));
 	if (!s1s2)
 	{
@@ -66,6 +59,22 @@ char	*parse_strjoin(char *s1, char *s2)
 		s1s2[i + j] = s2[j];
 	s1s2[i + j] = '\n';
 	s1s2[i + j + 1] = '\0';
-	free(s1);
+	if (s1)
+		free(s1);
 	return (s1s2);
+}
+
+int	pars_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	if (!s1)
+		return (1);
+	i = -1;
+	while (s1[++i])
+	{
+		if (s1[i] != s2[i])
+			break ;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:35:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:26:35 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end)
 			}
 		}
 		joinedstr = ft_strjoin(joinedstr, substr);
+		free(substr);
 	}
 	*end = i;
 	return (joinedstr);
@@ -76,6 +77,7 @@ char	*d_quotes_expand(t_prime *g_prime, char *content, int *end)
 			}
 		}
 		joinedstr = ft_strjoin(joinedstr, substr);
+		free(substr);
 	}
 	*end = i;
 	if (content[i] != '\0')
