@@ -6,13 +6,13 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:29:10 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 17:26:49 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:19:23 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
-char	*expand_content(t_prime *g_prime, char *content)
+static char	*expand_content(t_prime *g_prime, char *content, int *env)
 {
 	int		end;
 	char	*joinedstr;
@@ -27,9 +27,9 @@ char	*expand_content(t_prime *g_prime, char *content)
 		else
 		{
 			if (content[end] == D_QUOTES)
-				substr = d_quotes_expand(g_prime, content, &end);
+				substr = d_quotes_expand(g_prime, content, &end, env);
 			else
-				substr = straight_expand(g_prime, content, &end);
+				substr = straight_expand(g_prime, content, &end, env);
 		}
 		joinedstr = ft_strjoin(joinedstr, substr);
 		free(substr);
@@ -37,7 +37,7 @@ char	*expand_content(t_prime *g_prime, char *content)
 	return (joinedstr);
 }
 
-char	*put_straight(char *content)
+static char	*put_straight(char *content)
 {
 	int		start;
 	int		end;
@@ -67,7 +67,9 @@ char	*put_straight(char *content)
 void	expander(t_prime *g_prime)
 {
 	t_lexer	*temp;
+	int		env;
 
+	env = 0;
 	if (!g_prime->lexer)
 		return ;
 	temp = g_prime->lexer;
@@ -75,10 +77,10 @@ void	expander(t_prime *g_prime)
 	{
 		if (!ft_strchr(temp->content, '$'))
 			expander_add_node(&g_prime->expander, put_straight(temp->content), \
-				temp->type);
+				temp, env);
 		else
 			expander_add_node(&g_prime->expander, \
-				expand_content(g_prime, temp->content), temp->type);
+				expand_content(g_prime, temp->content, &env), temp, env);
 		temp = temp->next;
 	}
 }

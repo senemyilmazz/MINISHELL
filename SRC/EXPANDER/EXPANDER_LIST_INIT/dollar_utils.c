@@ -6,11 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 23:04:18 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:30:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:20:34 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
 int	ret_null(char c)
 {

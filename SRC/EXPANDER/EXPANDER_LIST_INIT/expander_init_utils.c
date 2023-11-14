@@ -6,13 +6,13 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:58:32 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:40:04 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:20:44 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
-static t_expander	*expander_listnew(char *content, int type)
+static t_expander	*expander_listnew(char *content, t_lexer *lexer, int env)
 {
 	t_expander	*new;
 
@@ -20,7 +20,11 @@ static t_expander	*expander_listnew(char *content, int type)
 	if (!new)
 		return (NULL);
 	new->content = content;
-	new->type = type;
+	new->type = lexer->type;
+	new->env = env;
+	new->ex_content = NULL;
+	if (env == -1)
+		new->ex_content = ft_strdup(lexer->content);
 	new->next = NULL;
 	return (new);
 }
@@ -51,10 +55,10 @@ static void	expander_lstadd_back(t_expander **lst, t_expander *new)
 	}
 }
 
-void	expander_add_node(t_expander **expander, char *str, int type)
+void	expander_add_node(t_expander **expand, char *str, t_lexer *lex, int env)
 {
 	if (!str)
-		free_expander(expander);
+		free_expander(expand);
 	else
-		expander_lstadd_back(expander, expander_listnew(str, type));
+		expander_lstadd_back(expand, expander_listnew(str, lex, env));
 }

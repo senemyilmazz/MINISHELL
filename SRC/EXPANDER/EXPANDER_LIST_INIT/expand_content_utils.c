@@ -6,13 +6,13 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 17:26:35 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:20:40 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
-char	*straight_expand(t_prime *g_prime, char *content, int *end)
+char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env)
 {
 	int		i;
 	int		start;
@@ -33,7 +33,9 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end)
 		}
 		else
 		{
-			substr = dollar_analysis(content, &i, g_prime);
+			substr = dollar_analysis(content, &i, g_prime, env);
+			if (!*substr && !*end && content[*end] == '$' && !content[i])
+				*env = -1;
 			if (!substr)
 			{
 				*end = i;
@@ -47,7 +49,7 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end)
 	return (joinedstr);
 }
 
-char	*d_quotes_expand(t_prime *g_prime, char *content, int *end)
+char	*d_quotes_expand(t_prime *g_prime, char *content, int *end, int *env)
 {
 	int		start;
 	int		i;
@@ -67,7 +69,7 @@ char	*d_quotes_expand(t_prime *g_prime, char *content, int *end)
 		}
 		else
 		{
-			substr = dollar_analysis(content, &i, g_prime);
+			substr = dollar_analysis(content, &i, g_prime, env);
 			if (!substr)
 			{
 				*end = i;
