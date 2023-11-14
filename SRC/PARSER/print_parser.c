@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:58:02 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 18:40:00 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:49:32 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	print_parser(t_prime *g_prime)
 	if (!g_prime->parser)
 		return ;
 	temp = g_prime->parser;
+	printf("\n-----------{ PARSER }----------\n");
 	while (temp)
 	{
-		printf("------------------------------\n");
 		printf("command: %s\n", temp->command);
-		printf("path: ");
+		printf("args: ");
 		i = -1;
 		while (temp->parameters && temp->parameters[++i])
 			printf(" %s ; ", temp->parameters[i]);
@@ -38,7 +38,7 @@ void	print_parser(t_prime *g_prime)
 		}
 		if (temp->heredoc)
 			printf("\nheredoc: %s", temp->heredoc);
-		printf("\n------------------------------\n");
+		printf("\n-------------------------------\n");
 		temp = temp->next;
 	}
 }
