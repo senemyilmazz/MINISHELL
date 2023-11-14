@@ -15,17 +15,18 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/LEXER/LEXER_LIST_INIT/type_init.c \
 		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c \
 		./SRC/LEXER/print_lexer.c \
-		./SRC/EXPANDER/main_expander.c \
-		./SRC/EXPANDER/expand_content_utils.c \
-		./SRC/EXPANDER/dollar_analysis.c \
-		./SRC/EXPANDER/dollar_utils.c \
-		./SRC/EXPANDER/expander_init_utils.c \
+		./SRC/EXPANDER/MAIN_EXPANDER/main_expander.c \
+		./SRC/EXPANDER/EXPANDER_LIST_INIT/expand_content_utils.c \
+		./SRC/EXPANDER/EXPANDER_LIST_INIT/dollar_analysis.c \
+		./SRC/EXPANDER/EXPANDER_LIST_INIT/dollar_utils.c \
+		./SRC/EXPANDER/EXPANDER_LIST_INIT/expander_init_utils.c \
 		./SRC/EXPANDER/print_expander.c \
 		./SRC/PARSER/MAIN_PARSER/main_parser.c \
 		./SRC/PARSER/HEREDOC/heredoc_init.c \
 		./SRC/PARSER/PARSER_LIST_INIT/parser_init_utils.c \
 		./SRC/PARSER/PARSER_LIST_INIT/t_file_init_utils.c \
 		./SRC/PARSER/PARSER_LIST_INIT/renew_parser.c \
+		./SRC/PARSER/PARSER_LIST_INIT/files_init.c \
 		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c
 

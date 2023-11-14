@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 18:47:09 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:29:20 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void	env_init(t_prime *g_prime, char **env);
 
 void	expander(t_prime *g_prime);
 char	*quotes_trim(char *content, int *end, char quotes);
-char	*d_quotes_expand(t_prime *g_prime, char *content, int *end);
-char	*straight_expand(t_prime *g_prime, char *content, int *end);
-char	*dollar_analysis(char *content, int *end, t_prime *g_prime);
+char	*d_quotes_expand(t_prime *g_prime, char *content, int *end, int *env);
+char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env);
+char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env);
 int		special_chars(char c);
 int		ret_null(char c);
 int		put_directly(char c);
 int		put_synerror(char c);
 int		special_chars(char c);
-void	expander_add_node(t_expander **expander, char *str, int type);
+void	expander_add_node(t_expander **expan, char *str, t_lexer *lex, int env);
 void	free_expander(t_expander **expander);
 void	print_expander(t_prime	*g_prime);
 
@@ -87,6 +87,8 @@ char	*pars_strjoin(char *s1, char *s2);
 int		pars_strcmp(char *s1, char *s2);
 
 void	renew_parser(t_prime *g_prime);
+int		infile_init(t_expander *expander, t_parser *parser);
+int		outfile_init(t_expander *expander, t_parser *parser);
 void	files_add_node(t_files **files, char *name, int type, int fd);
 char	**dynamic_malloc(char **path, char *new);
 

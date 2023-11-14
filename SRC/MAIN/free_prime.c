@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:08:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 18:49:11 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:55:27 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,25 @@ void	free_expander(t_expander **expander)
 		*expander = temp;
 	}
 }
+
+void	free_file(t_parser **parser)
+{
+	t_files	*temp;
+
+	while ((*parser)->file)
+	{
+		temp = (*parser)->file->next;
+		free ((*parser)->file->filename);
+		free ((*parser)->file);
+		(*parser)->file = temp;
+	}
+	free ((*parser)->file);
+	(*parser)->file = 0;
+}
+
 void	free_parser(t_parser **parser)
 {
 	t_parser	*temp;
-	t_files		*temp2;
 	int			i;
 
 	if (!parser)
@@ -62,17 +77,7 @@ void	free_parser(t_parser **parser)
 		if ((*parser)->heredoc)
 			free((*parser)->heredoc);
 		if ((*parser)->file)
-		{
-			while ((*parser)->file)
-			{
-				temp2 = (*parser)->file->next;
-				free ((*parser)->file->filename);
-				free ((*parser)->file);
-				(*parser)->file = temp2;
-			}
-			free ((*parser)->file);
-			(*parser)->file = 0;
-		}
+			free_file(parser);
 		free(*parser);
 		*parser = 0;
 		*parser = temp;

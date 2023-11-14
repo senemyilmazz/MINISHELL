@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:33:46 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 15:11:47 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:15:24 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_expander
 {
 	char				*content;
 	int					type;
+	int					env;
+	char				*ex_content;
 	struct s_expander	*next;
 }						t_expander;
 
