@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 00:39:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:32:36 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:56:08 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,12 @@
 static void	file_err(t_parser *parser, t_expander *expander, char *filename)
 {
 	char	*fn;
-	
 	//if (*filename == '/' && expander->env == 1)
 	//{
 	//	printf("-minikkuş: '%s': is a directory\n", filename);
 	//	(*parser)->infile = 2;
 	//}
-	if (expander->env == -1)
-		printf("-minikkuş: %s: ambiguous redirect\n", expander->ex_content);
-	else if (parser->infile < 2)
+	if (parser->infile < 2)
 	{
 		if (expander->ex_content)
 			fn = expander->ex_content;
@@ -62,11 +59,16 @@ int	infile_init(t_expander *expander, t_parser *parser)
 
 int	outfile_init(t_expander *expander, t_parser *parser)
 {
+	char	*filename;
+
+	filename = expander->next->content;
+	if (*expander->next->content == '\\')
+		filename = expander->next->content + 1;
 	if (expander->type == SIGN_SOR)
-		parser->outfile = open(expander->next->content, \
+		parser->outfile = open(filename, \
 				O_CREAT | O_RDWR | O_TRUNC, 0777);
 	else if (expander->type == SIGN_DOR)
-		parser->outfile = open(expander->next->content, O_CREAT | O_RDWR
+		parser->outfile = open(filename, O_CREAT | O_RDWR
 				| O_APPEND, 0777);
 	return (parser->outfile);
 }

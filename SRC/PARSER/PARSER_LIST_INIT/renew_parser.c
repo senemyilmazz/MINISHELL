@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:33:58 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:56:32 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@ static int	files_init(t_expander **expander, t_parser *parser)
 {
 	int	fd;
 
+	if ((*expander)->next->env == -1)
+	{
+		printf("-minikkuş: %s: ambiguous redirect\n", (*expander)->next->ex_content);
+		return (2);
+	}
+	if (!*(*expander)->next->content)
+	{
+		printf("-minikkuş: %s: No such file or directory\n", "");
+		return (2);
+	}
 	if ((*expander)->type == SIGN_SIR || (*expander)->type == HEREDOC)
 		fd = infile_init(*expander, parser);
 	else
@@ -29,7 +39,7 @@ static int	files_init(t_expander **expander, t_parser *parser)
 static void	parameters_init(t_parser *parser, char	*ex_content, int flag)
 {
 	parser->parameters = dynamic_malloc(parser->parameters, ex_content);
-	if (flag)
+	if (!flag)
 		parser->command = ft_strdup(*parser->parameters);
 }
 
