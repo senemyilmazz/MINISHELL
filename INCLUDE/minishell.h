@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:29:20 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:03:07 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
 # include "errors.h"
@@ -74,6 +75,8 @@ int		special_chars(char c);
 void	expander_add_node(t_expander **expan, char *str, t_lexer *lex, int env);
 void	free_expander(t_expander **expander);
 void	print_expander(t_prime	*g_prime);
+
+char	*expand_dollar(t_prime *g_prime, char *content, int *i, int *env, int *end);
 
 //*------PARSER-----*//
 

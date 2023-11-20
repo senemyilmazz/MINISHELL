@@ -1,5 +1,3 @@
-NAME = minishell
-
 SRC =	./SRC/MAIN/main.c \
 		./SRC/MAIN/init_env.c \
 		./SRC/MAIN/free_prime.c \
@@ -16,7 +14,7 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c \
 		./SRC/LEXER/print_lexer.c \
 		./SRC/EXPANDER/MAIN_EXPANDER/main_expander.c \
-		./SRC/EXPANDER/EXPANDER_LIST_INIT/expand_content_utils.c \
+		./SRC/EXPANDER/EXPANDER_LIST_INIT/expand_content.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/dollar_analysis.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/dollar_utils.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/expander_init_utils.c \
@@ -30,23 +28,36 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c
 
-OBJ = $(SRC:.c=.o)
 
+NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -rf
 LIBFT = libft/libft.a
+READLINE = readline
 
-$(NAME): $(SRC) $(LIBFT)
-	@$(CC) $(CFLAGS) -l readline $(LIBFT) $(SRC) -o $(NAME)
-	@ make clean
+OBJ = $(SRC:.c=.o)
+
+all : $(READLINE) $(LIBFT) $(NAME) 
+
+$(READLINE):
+	curl -O https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
+	tar -xvf readline-8.2.tar.gz
+	cd readline-8.2 && ./configure --prefix=${PWD}/readline 
+	cd readline-8.2 && make install
 
 $(LIBFT):
 	@make -C libft
 	@make bonus -C libft
 	@make clean -C libft
 
-all : $(LIBFT) $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ -I${PWD}/readline/include/
+
+$(NAME): $(SRC) $(LIBFT)
+	@$(CC) $(CFLAGS) $(LIBFT) $(SRC) -L${PWD}/readline/lib  -I${PWD}/readline/include/ -lreadline -o $(NAME)
+	@ make clean
+
 
 clean:
 	@$(RM) $(OBJ)
@@ -54,6 +65,7 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 	@make -C libft fclean
+	@rm -rf readline-8.2 readline-8.2.tar.gz
 
 re: fclean all
 
