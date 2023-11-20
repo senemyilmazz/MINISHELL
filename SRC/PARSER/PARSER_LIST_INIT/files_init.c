@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 00:39:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/20 16:56:08 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:46:40 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 static void	file_err(t_parser *parser, t_expander *expander, char *filename)
 {
 	char	*fn;
-	//if (*filename == '/' && expander->env == 1)
-	//{
-	//	printf("-minikkuş: '%s': is a directory\n", filename);
-	//	(*parser)->infile = 2;
-	//}
+
 	if (parser->infile < 2)
 	{
 		if (expander->ex_content)
@@ -33,38 +29,55 @@ static void	file_err(t_parser *parser, t_expander *expander, char *filename)
 	parser->infile = 2;
 }
 
-static void	search_file(char *filename, t_parser *parser, t_expander *expander)
+static char	*search_file(char *filename)
 {
 	char	*pwd_file;
 	char	*cwd;
 
-	pwd_file = NULL;
 	cwd = NULL;
-	pwd_file = ft_strjoin(pwd_file, getcwd(cwd, 256));
-	pwd_file = ft_strjoin(pwd_file, "/");
-	pwd_file = ft_strjoin(pwd_file, filename);
-	if (!access(pwd_file, F_OK))
-		parser->infile = open(pwd_file, O_RDONLY, 0777);
-	file_err(parser, expander, filename);
+	pwd_file = ft_strdup(filename);
+	if (*filename != '/')
+	{
+		pwd_file = ft_strjoin(pwd_file, getcwd(cwd, 256));
+		pwd_file = ft_strjoin(pwd_file, "/");
+		pwd_file = ft_strjoin(pwd_file, filename);
+	}
+	return (pwd_file);
 }
 
 int	infile_init(t_expander *expander, t_parser *parser)
 {
+	char	*pwd_file;
+
 	if (expander->type == SIGN_SIR)
-		search_file(expander->next->content, parser, expander->next);
+	{
+		pwd_file = search_file(expander->next->content);
+		if (!access(pwd_file, F_OK))
+			parser->infile = open(pwd_file, O_RDONLY, 0777);
+	}
 	else if (expander->type == HEREDOC)
 		parser->infile = -2;
+	file_err(parser, expander, expander->next->content);
 	return (parser->infile);
 }
 
 int	outfile_init(t_expander *expander, t_parser *parser)
 {
 	char	*filename;
+	char	*pwd_file;
 
 	filename = expander->next->content;
 	if (*expander->next->content == '\\')
 		filename = expander->next->content + 1;
-	if (expander->type == SIGN_SOR)
+	pwd_file = search_file(expander->next->content);
+	if (!access(pwd_file, F_OK) && *filename == '/')
+	{
+		printf("-minikkuş: %s: is a directory\n", filename);
+		parser->outfile = 2;
+	}
+	//else if (!access(filename, F_OK) && *filename == '/')
+	//	printf("-minikkuş: '%s': Permission denied\n", filename);
+	else if (expander->type == SIGN_SOR)
 		parser->outfile = open(filename, \
 				O_CREAT | O_RDWR | O_TRUNC, 0777);
 	else if (expander->type == SIGN_DOR)
