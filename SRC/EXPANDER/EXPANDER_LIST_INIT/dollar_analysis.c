@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:02:31 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:24:44 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:24:13 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*dollar_expand(char *content, int *end, t_prime *g_prime, int *env)
 		i++;
 	substr = ft_substr(content, start, i - start);
 	substr = check_env(g_prime, substr, env);
-	*end = i - 1;
+	*end = i;
 	return (substr);
 }
 
@@ -74,19 +74,19 @@ char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env)
 	start = i + 1;
 	substr = NULL;
 	if (ret_null(content[++i]))
-		return (ft_strdup(""));
+		substr = ft_strdup("");
 	else if (put_directly(content[i]))
-		substr = ft_substr(content, start - 1, i - start + 2);
+		substr = ft_substr(content, start - 1, 2);
 	else if (put_synerror(content[i]))
 		printf("Syntax Error!\n");
 	else if (special_chars(content[i]))
 		substr = special_expand(content[i], g_prime);
 	else if (content[i] == '$')
-		return (ft_strdup("$"));
+		substr = ft_strdup("$");
 	else if (chrchr_quotes(content[i]))
 		substr = quotes_trim(content, &i, content[i]);
 	else
 		substr = dollar_expand(content, &i, g_prime, env);
-	*end = i + 1;
+	*end = i;
 	return (substr);
 }

@@ -1,16 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_content_utils.c                             :+:      :+:    :+:   */
+/*   expand_content.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:20:40 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:55:15 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
+
+static int	c_index(char *content, int *i, int flag)
+{
+	while (content[*i] && content[*i] != '$' && content[*i] != D_QUOTES)
+	{
+		if (flag == 1 && content[*i] == S_QUOTES)
+			break ;
+		*i += 1;
+	}
+	return (*i);
+}
+
+static int	null_check_substr(char *substr, char *joinedstr)
+{
+	if (!substr)
+	{
+		if (joinedstr)
+			free(joinedstr);
+		joinedstr = NULL;
+		return (1);
+	}
+	return (0);
+}
 
 char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env)
 {
@@ -25,22 +48,14 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env)
 	{
 		start = i;
 		if (content[i] != '$')
-		{
-			while (content[i] && content[i] != '$'
-				&& content[i] != S_QUOTES && content[i] != D_QUOTES)
-				i++;
-			substr = ft_substr(content, start, i - start);
-		}
+			substr = ft_substr(content, start, c_index(content, &i, 1) - start);
 		else
 		{
 			substr = dollar_analysis(content, &i, g_prime, env);
 			if (!*substr && !*end && content[*end] == '$' && !content[i])
 				*env = -1;
-			if (!substr)
-			{
-				*end = i;
-				return (NULL);
-			}
+			if (null_check_substr(substr, joinedstr))
+				break ;
 		}
 		joinedstr = ft_strjoin(joinedstr, substr);
 		free(substr);
@@ -62,21 +77,12 @@ char	*d_quotes_expand(t_prime *g_prime, char *content, int *end, int *env)
 	{
 		start = i;
 		if (content[i] != '$')
-		{
-			while (content[i] && content[i] != '$' && content[i] != D_QUOTES)
-				i++;
-			substr = ft_substr(content, start, i - start);
-		}
+			substr = ft_substr(content, start, c_index(content, &i, 0) - start);
 		else
 		{
 			substr = dollar_analysis(content, &i, g_prime, env);
-			if (!substr)
-			{
-				*end = i;
-				if (content[i] != '\0')
-					*end = i + 1;
-				return (NULL);
-			}
+			if (null_check_substr(substr, joinedstr))
+				break ;
 		}
 		joinedstr = ft_strjoin(joinedstr, substr);
 		free(substr);
@@ -98,6 +104,8 @@ char	*quotes_trim(char *content, int *end, char quotes)
 	while (content[i] && content[i] != quotes)
 		i++;
 	substr = ft_substr(content, start, i - start);
-	*end = i + 1;
+	*end = i;
+	if (content[i])
+		*end = i + 1;
 	return (substr);
 }
