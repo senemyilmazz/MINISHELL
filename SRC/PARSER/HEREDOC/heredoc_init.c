@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 23:01:38 by mkati             #+#    #+#             */
-/*   Updated: 2023/11/10 14:58:17 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/23 04:52:44 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	heredoc_read(t_parser *parser, char *end)
 	while (1)
 	{
 		str = readline("> ");
-		if (!pars_strcmp(str, end))
+		if (!ownstrcmp(str, end))
 			break ;
 		parser->heredoc = pars_strjoin(parser->heredoc, str);
 	}

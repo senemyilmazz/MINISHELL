@@ -6,39 +6,23 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/20 18:46:47 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/23 04:22:35 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
-
-int	filename_error(t_expander **expander)
-{
-	t_expander	*next;
-
-	next = (*expander)->next;
-	if (next->env == -1)
-		printf("-minikkuş: %s: ambiguous redirect\n", next->ex_content);
-	else if (!*(*expander)->next->content)
-		printf("-minikkuş: %s: No such file or directory\n", "");
-	else if (*next->content == '/' && next->env == 1
-		&& (*expander)->type != HEREDOC && (*expander)->type != SIGN_SIR)
-		printf("-minikkuş: '%s': is a directory\n", next->content);
-	//else if (*next->content == '/' && (*expander)->type != HEREDOC
-	//	&& (*expander)->type != SIGN_SIR)
-	//	printf("-minikkuş: '%s': Permission denied\n", next->content);
-	else
-		return (0);
-	return (2);
-}
 
 static int	files_init(t_expander **expander, t_parser *parser)
 {
 	int	fd;
 
 	fd = 0;
-	if (filename_error(expander))
+	if ((*expander)->next->env == -1 && (*expander)->type != HEREDOC)
+	{
+		printf("-minikkuş: %s: ambiguous redirect\n", \
+			(*expander)->next->ex_content);
 		fd = 2;
+	}
 	else if ((*expander)->type == SIGN_SIR || (*expander)->type == HEREDOC)
 		fd = infile_init(*expander, parser);
 	else if ((*expander)->type == SIGN_SOR || (*expander)->type == SIGN_DOR)

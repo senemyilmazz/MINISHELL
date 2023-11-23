@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 18:03:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/23 04:52:51 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
@@ -87,7 +88,7 @@ void	parser_addnode(t_parser **parser, int pipe_count);
 
 void	heredoc_init(t_prime *g_prime);
 char	*pars_strjoin(char *s1, char *s2);
-int		pars_strcmp(char *s1, char *s2);
+int		ownstrcmp(char *s1, char *s2);
 
 void	renew_parser(t_prime *g_prime);
 int		infile_init(t_expander *expander, t_parser *parser);

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:30:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 16:52:12 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/23 04:52:29 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*pars_strjoin(char *s1, char *s2)
 	return (s1s2);
 }
 
-int	pars_strcmp(char *s1, char *s2)
+int	ownstrcmp(char *s1, char *s2)
 {
 	int	i;
 
