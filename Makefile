@@ -24,7 +24,8 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/PARSER/PARSER_LIST_INIT/parser_init_utils.c \
 		./SRC/PARSER/PARSER_LIST_INIT/t_file_init_utils.c \
 		./SRC/PARSER/PARSER_LIST_INIT/renew_parser.c \
-		./SRC/PARSER/PARSER_LIST_INIT/files_init.c \
+		./SRC/PARSER/PARSER_LIST_INIT/infile_init.c \
+		./SRC/PARSER/PARSER_LIST_INIT/outfile_init.c \
 		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c
 

@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_init.c                                       :+:      :+:    :+:   */
+/*   outfile_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 00:39:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/23 04:52:20 by senyilma         ###   ########.fr       */
+/*   Created: 2023/11/23 09:44:32 by senyilma          #+#    #+#             */
+/*   Updated: 2023/11/23 09:44:54 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
-
-static void	infile_error(t_parser *parser, t_expander *expander, char *filename)
-{
-	char	*fn;
-
-	if (parser->infile < 2 || !*expander->content)
-	{
-		if (expander->ex_content)
-			fn = expander->ex_content;
-		else if (*filename == '\\')
-			fn = filename + 1;
-		else
-			fn = filename;
-		printf("-minikkuş: %s: No such file or directory\n", fn);
-	}
-	parser->infile = 2;
-}
-
-int	infile_init(t_expander *expander, t_parser *parser)
-{
-	char	*pwd_file;
-	char	*cwd;
-
-	cwd = NULL;
-	if (expander->type == SIGN_SIR)
-	{
-		infile_error(parser, expander->next, expander->next->content);
-		pwd_file = ft_strdup(expander->next->content);
-		if (*expander->next->content != '/')
-		{
-			pwd_file = ft_strjoin(pwd_file, getcwd(cwd, 256));
-			pwd_file = ft_strjoin(pwd_file, "/");
-			pwd_file = ft_strjoin(pwd_file, expander->next->content);
-		}
-		if (!access(pwd_file, F_OK))
-			parser->infile = open(pwd_file, O_RDONLY, 0777);
-		infile_error(parser, expander->next, expander->next->content);
-		free (pwd_file);
-	}
-	if (expander->type == HEREDOC)
-		parser->infile = -2;
-	return (parser->infile);
-}
 
 void	outfile_error(char *str, char *filename, t_parser *parser)
 {
