@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:48:42 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/03 03:52:11 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:07:15 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,27 @@ void	env_lstadd_back(t_env_l	**lst, t_env_l	*new)
 	}
 }
 
+void	path_init(t_prime *g_prime)
+{
+	t_env_l	*env_l;
+	int		i;
+	char	**temp_command;
+
+	env_l = g_prime->env_l;
+	while (env_l)
+	{
+		if (!ownstrcmp(env_l->name, "PATH"))
+			break ;
+		env_l = env_l->next;
+	}
+	g_prime->path = NULL;
+	temp_command = ft_split(env_l->content, ':');
+	i = -1;
+	while (temp_command[++i])
+		g_prime->path = dynamic_malloc(g_prime->path, \
+			ft_strjoin(temp_command[i], "/"));
+}
+
 void	env_init(t_prime *g_prime, char **env)
 {
 	int		i;
@@ -77,4 +98,5 @@ void	env_init(t_prime *g_prime, char **env)
 			env_lstadd_back(&g_prime->env_l, env_listnew(name, content));
 		}
 	}
+	path_init(g_prime);
 }

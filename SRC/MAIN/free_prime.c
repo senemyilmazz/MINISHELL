@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:08:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/28 14:57:01 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:25:40 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,29 @@ void	free_parser(t_parser **parser)
 	}
 }
 
-//static void	free_env_l(t_env_l **env)
-//{
-//	t_env_l	*temp;
+static void	free_env_l(t_env_l **env)
+{
+	t_env_l	*temp;
 
-//	if (!env)
-//		return ;
-//	while (*env)
-//	{
-//		temp = (*env)->next;
-//		free((*env)->content);
-//		free((*env)->name);
-//		free(*env);
-//		*env = 0;
-//		*env = temp;
-//	}
-//}
+	if (!env)
+		return ;
+	while (*env)
+	{
+		temp = (*env)->next;
+		free((*env)->content);
+		free((*env)->name);
+		free(*env);
+		*env = 0;
+		*env = temp;
+	}
+}
 
 void	free_prime(t_prime *g_prime)
 {
 	free_lexer(&g_prime->lexer);
 	free_expander(&g_prime->expander);
 	free_parser(&g_prime->parser);
-	//free_env_l(&g_prime->env_l);
+	free_env_l(&g_prime->env_l);
 	free(g_prime->line);
 	g_prime->line = NULL;
 }

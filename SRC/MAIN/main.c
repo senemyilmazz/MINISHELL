@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/28 22:25:22 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:27:07 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	prime_init(t_prime *g_prime)
 	(void)g_prime;
 }
 
-void	ft_readline(t_prime *g_prime)
+void	ft_readline(t_prime *g_prime, char **env)
 {
 	while (1)
 	{
+		env_init(g_prime, env);
 		prime_init(g_prime);
 		g_prime->line = readline("minikkus> ");
 		if (g_prime->line != NULL)
@@ -57,6 +58,5 @@ int	main(int argc, char **argv, char **env)
 	g_prime = (t_prime *)malloc(sizeof(t_prime));
 	g_prime->env_l = (t_env_l *)malloc(sizeof(t_env_l));
 	g_prime->env_l = NULL;
-	env_init(g_prime, env);
-	ft_readline(g_prime);
+	ft_readline(g_prime, env);
 }
