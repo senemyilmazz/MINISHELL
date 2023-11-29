@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/23 04:52:51 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 04:21:37 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 # include "chars.h"
 # include "struct.h"
 
-//---MAIN----
+//---MAIN----//
+
 void	ft_readline(t_prime *g_prime);
-void	print_error(char *str);
+void	print_error(char *cmd, char *str);
 void	free_prime(t_prime *g_prime);
 void	free_lexer(t_lexer **lexer);
 
@@ -77,13 +78,11 @@ void	expander_add_node(t_expander **expan, char *str, t_lexer *lex, int env);
 void	free_expander(t_expander **expander);
 void	print_expander(t_prime	*g_prime);
 
-char	*expand_dollar(t_prime *g_prime, char *content, int *i, int *env, int *end);
-
 //*------PARSER-----*//
 
 void	parser(t_prime *g_prime);
 
-int		pipe_count(t_expander *expander);
+int		pipe_count(t_prime *g_prime);
 void	parser_addnode(t_parser **parser, int pipe_count);
 
 void	heredoc_init(t_prime *g_prime);
@@ -98,5 +97,43 @@ char	**dynamic_malloc(char **path, char *new);
 
 void	print_parser(t_prime *g_prime);
 void	free_parser(t_parser **parser);
+
+//*------EXEC-----*//
+void	executer(t_prime *g_prime);
+char	*check_cmd(char *cmd);
+void	run_command(t_prime *g_prime, t_parser *parser, int *fd);
+int		is_builtin(char *str);
+void	run_builtin(t_prime *g_prime, int cmd_type, int *fd);
+void	dup_stdio(t_prime *g_prime, t_parser *parser, int *fd);
+
+
+
+void	run_cd(t_prime *g_prime);
+void	cd_one_arg(t_prime *g_prime);
+void	cd_two_arg(t_prime *g_prime);
+int		change_dir(t_prime *g_prime, char *parameters);
+int		update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content);
+void	run_echo(t_prime *g_prime);
+void	run_env(t_prime	*g_prime);
+void	run_pwd(t_prime	*g_prime);
+void	run_exit(t_prime *g_prime);
+void	str_addchar(char **dst, char c);
+void	own_strjoin(char **dst, char *src);
+int		parameters_count(char **str);
+int		str_compare(char *str1, char *str2);
+void	delete_env(t_prime *g_prime, char *name);
+t_env_l	*add_newenv(t_env_l **env_l, char *env);
+int		get_env_name_count(char *env_arg);
+char	*get_env_name(char *content);
+int		update_env(t_prime *g_prime, char *env_name, char *new_arg);
+void	run_export(t_prime *g_prime);
+void	single_export_arg(t_prime *g_prime);
+void	double_export_arg(t_prime *g_prime, char *env_cmd);
+int		change_env(t_prime *g_prime, char *envname, char *arg, int is_equal);
+void	run_unset(t_prime *g_prime);
+int		env_arg_control(t_prime *g_prime, char *env);
+char	*env_name_control(char *env);
+char	*valid_env(char *env);
+void	run_execve(t_prime *g_prime, t_parser *parser, int *fd, int fd_index);
 
 #endif

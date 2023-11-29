@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:08:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:55:27 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:57:01 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void	free_prime(t_prime *g_prime)
 	free_parser(&g_prime->parser);
 	//free_env_l(&g_prime->env_l);
 	free(g_prime->line);
+	g_prime->line = NULL;
 }
