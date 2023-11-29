@@ -9,10 +9,10 @@ int	update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content)
 	{
 		temp_env = g_prime->env_l;
 		temp_pwd = NULL;
-		own_strjoin(&temp_pwd, pwd_name);
-		str_addchar(&temp_pwd, '=');
-		own_strjoin(&temp_pwd, pwd_content);
-		add_newenv(&temp_env, temp_pwd);
+		temp_pwd = ft_strjoin(temp_pwd, pwd_name);
+		temp_pwd = ft_strjoin(temp_pwd, "=");
+		temp_pwd = ft_strjoin(temp_pwd, pwd_content);
+		add_newenv(g_prime, temp_pwd);
 		free(temp_pwd);
 		return (0);
 	}

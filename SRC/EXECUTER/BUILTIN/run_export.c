@@ -16,32 +16,6 @@ void	run_export(t_prime *g_prime)
 		single_export_arg(g_prime);
 }
 
-void	double_export_arg(t_prime *g_prime, char *env_cmd)
-{
-	char	*arg;
-	int		is_equal;
-	t_env_l	*env;
-	char	*temp_envname;
-
-	if (!env_arg_control(g_prime, env_cmd))
-		return ;
-	temp_envname = get_env_name(env_cmd);
-	arg = env_cmd + ft_strlen(temp_envname);
-	is_equal = 0;
-	if (*arg == '=')
-		is_equal |= 1;
-	if (change_env(g_prime, temp_envname, ++arg, is_equal))
-	{
-		free(temp_envname);
-		return ;
-	}
-	env = g_prime->env_l;
-	add_newenv(&env, env_cmd);
-	if (!is_equal)
-		update_env(g_prime, env_cmd, NULL);
-	free(temp_envname);
-}
-
 void	single_export_arg(t_prime *g_prime)
 {
 	t_env_l	*env;
@@ -62,6 +36,32 @@ void	single_export_arg(t_prime *g_prime)
 		write(g_prime->parser->outfile, "\"\n", 2);
 		env = env->next;
 	}
+}
+
+void	double_export_arg(t_prime *g_prime, char *env_cmd)
+{
+	char	*arg;
+	int		is_equal;
+	t_env_l	*env;
+	char	*temp_envname;
+
+	if (!env_arg_control(g_prime, env_cmd))
+		return ;
+	temp_envname = get_env_name(env_cmd);
+	arg = env_cmd + ft_strlen(temp_envname);
+	is_equal = 0;
+	if (*arg == '=')
+		is_equal |= 1;
+	if (change_env(g_prime, temp_envname, ++arg, is_equal))
+	{
+		free(temp_envname);
+		return ;
+	}
+	env = g_prime->env_l;
+	add_newenv(g_prime, env_cmd);
+	if (!is_equal)
+		update_env(g_prime, env_cmd, NULL);
+	free(temp_envname);
 }
 
 int	change_env(t_prime *g_prime, char *envname, char *arg, int is_equal)
