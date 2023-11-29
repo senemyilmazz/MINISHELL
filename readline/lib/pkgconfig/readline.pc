@@ -1,4 +1,4 @@
-prefix=/Users/senyilma/Desktop/miniksercecik/readline
+prefix=/Users/senyilma/Desktop/miniminisercecik/readline
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
