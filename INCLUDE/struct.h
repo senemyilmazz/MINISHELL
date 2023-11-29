@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:33:46 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/29 00:09:22 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:04:20 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_parser
 typedef struct s_prime
 {
 	char		*line;
+	char		**path;
 	char		**metachars;
 	t_lexer		*lexer;
 	t_env_l		*env_l;

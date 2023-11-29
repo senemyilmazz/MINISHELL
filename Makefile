@@ -28,8 +28,7 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/PARSER/PARSER_LIST_INIT/outfile_init.c \
 		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c \
-		./SRC/EXECUTER/BUILTIN/is_builtin.c \
-		./SRC/EXECUTER/BUILTIN/run_builtin.c \
+		./SRC/EXECUTER/EXECMAIN/executer.c \
 		./SRC/EXECUTER/BUILTIN/run_cd.c \
 		./SRC/EXECUTER/BUILTIN/run_echo.c \
 		./SRC/EXECUTER/BUILTIN/run_env.c \
@@ -37,14 +36,11 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/EXECUTER/BUILTIN/run_exit.c \
 		./SRC/EXECUTER/BUILTIN/run_export.c \
 		./SRC/EXECUTER/BUILTIN/run_unset.c \
-		./SRC/EXECUTER/EXECMAIN/execmain.c \
-		./SRC/EXECUTER/EXECMAIN/execve.c \
-		./SRC/EXECUTER/EXECMAIN/run_process.c \
+		./SRC/EXECUTER/UTILS/env_utils.c \
 		./SRC/EXECUTER/UTILS/exec_utils.c \
 		./SRC/EXECUTER/UTILS/exec_utils2.c \
 		./SRC/EXECUTER/UTILS/exec_utils3.c \
 		./SRC/EXECUTER/UTILS/env_arg_control.c \
-		./SRC/EXECUTER/UTILS/pipe_utils.c
 
 
 NAME = minishell
