@@ -6,18 +6,18 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:43:53 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 16:45:15 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:09:37 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-int	pipe_count(t_expander *expander)
+int	pipe_count(t_prime *g_prime)
 {
 	t_expander	*temp;
 	int			pipe_count;
 
-	temp = expander;
+	temp = g_prime->expander;
 	pipe_count = 1;
 	while (temp)
 	{
@@ -25,6 +25,7 @@ int	pipe_count(t_expander *expander)
 			pipe_count++;
 		temp = temp->next;
 	}
+	g_prime->cmd_count = pipe_count;
 	return (pipe_count);
 }
 
@@ -42,6 +43,7 @@ static t_parser	*parser_listnew(void)
 	new->outfile = 0;
 	new->file = 0;
 	new->next = 0;
+	new->pid = -1;
 	return (new);
 }
 

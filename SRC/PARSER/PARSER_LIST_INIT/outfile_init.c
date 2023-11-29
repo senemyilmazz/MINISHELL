@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outfile_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 09:44:32 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/23 09:44:54 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/28 09:21:52 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,9 @@ void	directory_check(char *filename, t_parser *parser)
 			;
 		path_dir = ft_substr(filename, 0, i + 1);
 		if (stat(path_dir, &st) == 0)
-		{
 			if (S_ISDIR(st.st_mode))
-				if (ownstrcmp(path_dir, "/") || ownstrcmp(path_dir, "/Users/"))
+				if (!ownstrcmp(path_dir, "/") || !ownstrcmp(path_dir, "/Users/"))       
 					outfile_error("permission denied!\n", filename, parser);
-		}
-		else
-			outfile_error("No such file or directory!\n", filename, parser);
 		free(path_dir);
 	}
 }
