@@ -14,7 +14,7 @@ int	update_env(t_prime *g_prime, char *env_name, char *new_arg)
 			env->content = NULL;
 			if (!new_arg)
 				return (1);
-			own_strjoin(&env->content, new_arg);
+			env->content = ft_strjoin(env->content, new_arg);
 			return (1);
 		}
 		env = env->next;
@@ -24,55 +24,26 @@ int	update_env(t_prime *g_prime, char *env_name, char *new_arg)
 
 char	*get_env_name(char *content)
 {
-	int		env_name_len;
 	char	*name;
-	char	*temp_name;
+	int		i;
 
-	env_name_len = get_env_name_count(content);
-	if (!env_name_len)
-		return (NULL);
-	name = (char *)malloc(sizeof(char) * (env_name_len + 1));
-	temp_name = name;
-	while (content && *content && *content != '=')
-		*(temp_name++) = *(content++);
-	*temp_name = 0;
+	i = 0;
+	while(content[i] && content[i] != '=')
+		i++;
+	name = ft_substr(content, 0, i);
 	return (name);
 }
 
-int	get_env_name_count(char *env_arg)
+void	add_newenv(t_prime *g_prime, char *env)
 {
-	int	count;
-
-	count = 0;
-	while (env_arg && *env_arg && *(env_arg++) != '=')
-		count++;
-	return (count);
-}
-
-t_env_l	*add_newenv(t_env_l **env_l, char *env)
-{
-	t_env_l	*last_node;
 	char	*content;
+	char	*name;
 
-	if (!*env_l)
-	{
-		*env_l = (t_env_l *)malloc(sizeof(t_env_l));
-		last_node = *env_l;
-	}
-	else
-	{
-		last_node = *env_l;
-		while (last_node->next)
-			last_node = last_node->next;
-		last_node->next = (t_env_l *)malloc(sizeof(t_env_l));
-		last_node = last_node->next;
-	}
-	last_node->name = get_env_name(env);
-	content = env + ft_strlen(last_node->name);
+	name = get_env_name(env);
+	content = env + ft_strlen(name);
 	if (*content == '=' && *(content + 1))
-		last_node->content = ft_strdup(content + 1);
+		content = ft_strdup(content + 1);
 	else
-		last_node->content = NULL;
-	last_node->next = NULL;
-	return (last_node);
+		content = NULL;
+	env_lstadd_back(&g_prime->env_l, env_listnew(name, content));
 }
