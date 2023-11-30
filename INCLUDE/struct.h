@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:33:46 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/29 12:04:20 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:49:05 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ typedef struct s_prime
 	t_parser	*parser;
 	int			exit_code;
 	int			cmd_count;
+	int			fd[2];
+	int			exec_fd;
+	int			count;
 }			t_prime;
 
 #endif
