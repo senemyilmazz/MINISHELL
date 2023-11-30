@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:00:41 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/29 13:04:03 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:20:15 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ char	**get_env_cpy(t_prime *g_prime)
 
 void	free_env_cpy(char **envlist)
 {
+	char	**temp;
+
+	temp = envlist;
 	while (*envlist)
 		free(*(envlist++));
-	free(envlist);
-	envlist = NULL;
+	free(temp);
+	temp = NULL;
 }

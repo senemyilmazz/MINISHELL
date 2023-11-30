@@ -1,5 +1,22 @@
 #include "../../../INCLUDE/minishell.h"
 
+int	n_control(char *str)
+{
+	int	i;
+
+	i = -1;
+	if (str[++i] == '-')
+	{
+		while (str[++i])
+			if (str[i] != 'n')
+				return (0);
+	}
+	else
+		return (0);
+	return (1);
+	
+}
+
 void	run_echo(t_prime* g_prime)
 {
 	char	**path;
@@ -7,7 +24,7 @@ void	run_echo(t_prime* g_prime)
 
 	is_n = 0;
 	path = &g_prime->parser->parameters[1];
-	while (*path && ft_strncmp(*path, "-n", ft_strlen(*path)) == 0)
+	while (*path && n_control(*path) == 1)
 	{
 		is_n = 1;
 		path++;
