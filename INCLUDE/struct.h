@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:33:46 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/30 15:49:05 by mkati            ###   ########.fr       */
+/*   Updated: 2023/12/01 15:20:09 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_parser
 	char			*heredoc;
 	int				infile;
 	int				outfile;
-	int				pid;
+	pid_t			pid;
 	t_files			*file;
 	struct s_parser	*next;
 }					t_parser;

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 00:05:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 15:05:52 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:23:04 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,44 @@
 void	executer(t_prime *g_prime)
 {
 	t_parser	*parser;
+	int			status;
+	int			i;
 
 	if (!g_prime)
 		return ;
 	parser = g_prime->parser;
+	i = -1;
+	if (g_prime->cmd_count > 1)
+		while (++i < g_prime->cmd_count -1)
+			pipe(g_prime->fd);
 	while (parser)
 	{
-		if (g_prime->cmd_count != 1)
-			pipe(g_prime->fd);
-		run_command(g_prime, parser);
+		parser->pid = fork();
+		if (parser->pid == 0)
+		{
+			dup_stdio(g_prime, parser);
+			run_command(g_prime, parser);
+		}
 		parser = parser->next;
 	}
+	parser = g_prime->parser;
+	fd_closer(g_prime);
+	while (parser)
+	{
+		waitpid(parser->pid, &status, 0);
+		g_prime->exit_code = status;
+		if (status == 127)
+		{
+			while (parser)
+			{
+				kill(parser->pid, SIGTERM);
+				parser = parser->next;
+			}
+			break ;
+		}
+		parser = parser->next;
+	}
+	g_prime->exit_code = WEXITSTATUS(g_prime->exit_code);
 }
 
 void	run_command(t_prime *g_prime, t_parser *parser)
@@ -70,22 +97,15 @@ void	run_execve(t_prime *g_prime, t_parser *parser)
 
 	command = NULL;
 	env_list = NULL;
-	parser->pid = fork();
 	if (parser->pid == 0)
 	{
-		dup_stdio(g_prime, parser);
 		env_list = get_env_cpy(g_prime);
 		command = get_command(g_prime, parser);
 		execve(command, parser->parameters, env_list);
 		if (parser->command)
 			print_error(parser->command, " command not found!\n");
-		free_prime(g_prime);
 		exit(127);
 	}
-	fd_closer(g_prime);
-	waitpid(parser->pid, NULL, 0);
 	free(command);
 	//free_env_cpy(env_list);
-	g_prime->count++;
-	g_prime->exit_code = WEXITSTATUS(g_prime->exit_code);
 }

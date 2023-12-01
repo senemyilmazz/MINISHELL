@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 12:09:10 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:14:06 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -146,7 +147,7 @@ void	add_newenv(t_prime *g_prime, char *env);
 int		parameters_count(char **str);
 char	*get_command(t_prime *g_prime, t_parser *parser);
 void	dup_stdio(t_prime *g_prime, t_parser *parser);
-void	tempfd_init(t_prime *g_prime);
+//void	tempfd_init(t_prime *g_prime);
 void	fd_closer(t_prime *g_prime);
 char	*get_oldpwd(t_env_l *env, char *path);
 int		search_path(t_env_l *env_l, char *str);
