@@ -35,7 +35,6 @@ void	run_exit(t_prime *g_prime)
 	if (g_prime->exit_code == 255)
 		printf("minikkus: exit: %s: numeric argument required\n", \
 			g_prime->parser->parameters[1]);
-	//free_core();
 	if (g_prime->cmd_count == 1)
 		exit(g_prime->exit_code % 256);
 }

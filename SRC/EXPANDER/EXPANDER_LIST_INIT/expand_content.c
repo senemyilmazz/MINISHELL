@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/20 16:55:15 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:07:16 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	c_index(char *content, int *i, int flag)
 	return (*i);
 }
 
-static int	null_check_substr(char *substr, char *joinedstr)
+int	null_check_substr(char *substr, char *joinedstr)
 {
 	if (!substr)
 	{
@@ -52,7 +52,7 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env)
 		else
 		{
 			substr = dollar_analysis(content, &i, g_prime, env);
-			if (!*substr && !*end && content[*end] == '$' && !content[i])
+			if (!substr || !*substr || !*end || content[*end] == '$' || !content[i])
 				*env = -1;
 			if (null_check_substr(substr, joinedstr))
 				break ;

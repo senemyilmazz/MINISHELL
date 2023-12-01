@@ -41,13 +41,13 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/EXECUTER/UTILS/exec_utils.c \
 		./SRC/EXECUTER/UTILS/exec_utils2.c \
 		./SRC/EXECUTER/UTILS/exec_utils3.c \
-		./SRC/EXECUTER/UTILS/dup_utils.c \
+		./SRC/EXECUTER/UTILS/stdio_utils.c \
 		./SRC/EXECUTER/UTILS/env_arg_control.c
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 LIBFT = libft/libft.a
 READLINE = readline

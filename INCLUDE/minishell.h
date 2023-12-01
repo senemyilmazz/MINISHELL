@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 16:14:06 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:52:02 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		special_chars(char c);
 void	expander_add_node(t_expander **expan, char *str, t_lexer *lex, int env);
 void	free_expander(t_expander **expander);
 void	print_expander(t_prime	*g_prime);
+int		null_check_substr(char *substr, char *joinedstr);
 
 //*------PARSER-----*//
 
@@ -108,7 +109,7 @@ void	run_command(t_prime *g_prime, t_parser *parser);
 char	*check_cmd(char *cmd);
 int		is_builtin(char *str);
 void	run_builtin(t_prime *g_prime, t_parser *parser, int cmd_type);
-void	dup_stdio(t_prime *g_prime, t_parser *parser);
+void	dup_stdio(t_prime *g_prime, t_parser *parser, int i);
 void	run_execve(t_prime *g_prime, t_parser *parser);
 char	**get_env_cpy(t_prime *g_prime);
 void	free_env_cpy(char **envlist);
@@ -118,7 +119,9 @@ void	run_env(t_prime	*g_prime, t_parser *parser);
 void	run_exit(t_prime *g_prime);
 void	run_pwd(t_parser *parser);
 
-
+void	open_pipes(t_prime *g_prime);
+void	fd_closer(t_prime *g_prime);
+void	wait_all(t_prime *g_prime);
 
 void	run_export(t_prime *g_prime, t_parser *parser);
 void	run_unset(t_prime *g_prime);
@@ -146,7 +149,6 @@ int		env_name_control(char *env);
 void	add_newenv(t_prime *g_prime, char *env);
 int		parameters_count(char **str);
 char	*get_command(t_prime *g_prime, t_parser *parser);
-void	dup_stdio(t_prime *g_prime, t_parser *parser);
 //void	tempfd_init(t_prime *g_prime);
 void	fd_closer(t_prime *g_prime);
 char	*get_oldpwd(t_env_l *env, char *path);
