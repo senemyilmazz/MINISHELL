@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 00:05:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 04:06:40 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:05:52 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	executer(t_prime *g_prime)
 	parser = g_prime->parser;
 	while (parser)
 	{
-		pipe(g_prime->fd);
+		if (g_prime->cmd_count != 1)
+			pipe(g_prime->fd);
 		run_command(g_prime, parser);
 		parser = parser->next;
 	}
@@ -38,7 +39,7 @@ void	run_command(t_prime *g_prime, t_parser *parser)
 		cmd = check_cmd(parser->command);
 		builtin_ret = is_builtin(cmd);
 	}
-	if (builtin_ret && g_prime->cmd_count == 1)
+	if (builtin_ret && (builtin_ret == EXIT || g_prime->cmd_count == 1))
 		run_builtin(g_prime, parser, builtin_ret);
 	else
 		run_execve(g_prime, parser);

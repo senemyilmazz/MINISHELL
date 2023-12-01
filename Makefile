@@ -29,6 +29,7 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c \
 		./SRC/EXECUTER/EXECMAIN/executer.c \
+		./SRC/EXECUTER/BUILTIN/is_builtin.c \
 		./SRC/EXECUTER/BUILTIN/run_cd.c \
 		./SRC/EXECUTER/BUILTIN/run_echo.c \
 		./SRC/EXECUTER/BUILTIN/run_env.c \

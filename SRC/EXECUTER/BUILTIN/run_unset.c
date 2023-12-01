@@ -18,7 +18,10 @@ void	run_unset(t_prime *g_prime)
 				continue ;
 			}
 			else
+			{
 				delete_env(g_prime, *temp_name);
+				//free_env_cpy()
+			}
 		}
 	}
 }
@@ -31,7 +34,7 @@ void	delete_env(t_prime *g_prime, char *name)
 	env = g_prime->env_l;
 	while (env)
 	{
-		if (str_compare(env->name, name))
+		if (ownstrcmp(env->name, name))
 		{
 			if (env->content)
 				free(env->content);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:30:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/28 09:11:23 by mkati            ###   ########.fr       */
+/*   Updated: 2023/12/01 06:38:34 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ownstrcmp(char *s1, char *s2)
 {
 	int	i;
 
-	if (!s1)
+	if (!s1 || !s2)
 		return (1);
 	i = -1;
 	while (s1[++i])

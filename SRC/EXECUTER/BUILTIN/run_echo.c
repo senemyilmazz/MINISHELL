@@ -1,6 +1,6 @@
 #include "../../../INCLUDE/minishell.h"
 
-int	n_control(char *str)
+static int	n_control(char *str)
 {
 	int	i;
 

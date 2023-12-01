@@ -14,10 +14,7 @@ void	dup_stdio(t_prime *g_prime, t_parser *parser)
 		close(fd[0]);
 	}
 	if (parser->outfile > 2)
-	{
 		dup2(parser->outfile, STDOUT_FILENO);
-		//g_prime->exec_fd = parser->outfile;
-	}
 	if (parser->infile > 2)
 		dup2(parser->infile, STDIN_FILENO);
 }
@@ -38,9 +35,6 @@ void	tempfd_init(t_prime *g_prime)
 
 void	fd_closer(t_prime *g_prime)
 {
-	//if (g_prime->count != 0)
-	//	close(g_prime->exec_fd);
 	g_prime->exec_fd = g_prime->fd[0];
 	close(g_prime->fd[1]);
-	close(g_prime->fd[0]);
 }

@@ -7,7 +7,7 @@ int	update_env(t_prime *g_prime, char *env_name, char *new_arg)
 	env = g_prime->env_l;
 	while (env)
 	{
-		if (str_compare(env->name, env_name))
+		if (ownstrcmp(env->name, env_name))
 		{
 			if (env->content)
 				free(env->content);
@@ -28,7 +28,7 @@ char	*get_env_name(char *content)
 	int		i;
 
 	i = 0;
-	while(content[i] && content[i] != '=')
+	while (content[i] && content[i] != '=')
 		i++;
 	name = ft_substr(content, 0, i);
 	return (name);

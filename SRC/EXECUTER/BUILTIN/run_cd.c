@@ -28,31 +28,52 @@ int	change_dir(t_prime *g_prime, char *parameters)
 
 	oldpwd = ft_strdup(getcwd(pwd, 256));
 	error = chdir(parameters);
+	if (!error && !search_path(g_prime->env_l, "OLDPWD"))
+		env_lstadd_back(&g_prime->env_l, \
+			env_listnew(ft_strdup("OLDPWD"), oldpwd));
 	if (error == -1)
 	{
 		if (oldpwd)
 			free(oldpwd);
 		return (0);
 	}
+	if (!error && !ownstrcmp(g_prime->parser->parameters[1], "-"))
+		printf("%s\n", parameters);
 	is_pwdaccess = update_pwd_from_export(g_prime, "PWD", getcwd(pwd, 256));
 	if (is_pwdaccess)
 		update_pwd_from_export(g_prime, "OLDPWD", oldpwd);
 	else
 		delete_env(g_prime, "OLDPWD");
-	if (oldpwd)
-		free(oldpwd);
-	//change_title();
 	return (1);
 }
 
 void	cd_two_arg(t_prime *g_prime)
 {
-	if (!change_dir(g_prime, g_prime->parser->parameters[1]))
+	char	*path;
+
+	path = NULL;
+	if (!ownstrcmp(g_prime->parser->parameters[1], "-"))
 	{
-		print_error(0, "--minikkus: No such file or directory\n");
-		g_prime->parser->outfile = 1;
-		return ;
+		if (!search_path(g_prime->env_l, "OLDPWD"))
+		{
+			print_error("cd: OLDPWD not set\n", 0);
+			return ;
+		}
+		path = ft_strjoin(path, get_oldpwd(g_prime->env_l, "OLDPWD"));
 	}
+	else if (!ownstrcmp(g_prime->parser->parameters[1], "--"))
+		path = ft_strjoin(path, get_oldpwd(g_prime->env_l, "HOME"));
+	else
+		path = ft_strjoin(path, g_prime->parser->parameters[1]);
+	if (!change_dir(g_prime, path))
+	{
+		if (*g_prime->parser->parameters[1] == '-')
+			print_error("cd: invalid option\n", 0);
+		else
+			print_error(" No such file or directory\n", 0);
+		g_prime->parser->outfile = 1;
+	}
+	free(path);
 }
 
 void	cd_one_arg(t_prime *g_prime)
@@ -63,7 +84,7 @@ void	cd_one_arg(t_prime *g_prime)
 	temp_env = g_prime->env_l;
 	while (temp_env)
 	{
-		if (str_compare("HOME", temp_env->name))
+		if (ownstrcmp("HOME", temp_env->name))
 		{
 			content = temp_env->content;
 			if (!content)
@@ -73,7 +94,7 @@ void	cd_one_arg(t_prime *g_prime)
 		}
 		temp_env = temp_env->next;
 	}
-	print_error(0, "-bash: HOME not set\n");
+	print_error("cd: HOME not set\n", 0);
 	g_prime->parser->outfile = 1;
 }
 
@@ -85,7 +106,7 @@ void	run_cd(t_prime *g_prime)
 	if (param_count > 2)
 	{
 		g_prime->parser->outfile = 1;
-		print_error(0, "too many arguments");
+		print_error("cd: too many arguments", 0);
 	}
 	else if (param_count == 2)
 		cd_two_arg(g_prime);

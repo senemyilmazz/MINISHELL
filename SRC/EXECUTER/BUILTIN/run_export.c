@@ -5,10 +5,10 @@ void	run_export(t_prime *g_prime, t_parser *parser)
 	int		array_len;
 	char	**temp_path;
 
-	array_len = parameters_count(g_prime->parser->parameters);
+	array_len = parameters_count(parser->parameters);
 	if (array_len > 1)
 	{
-		temp_path = g_prime->parser->parameters;
+		temp_path = parser->parameters;
 		while (*(++temp_path))
 			double_export_arg(g_prime, *temp_path);
 	}
@@ -38,6 +38,24 @@ void	single_export_arg(t_prime *g_prime, t_parser *parser)
 	}
 }
 
+int	change_env(t_prime *g_prime, char *envname, char *arg, int is_equal)
+{
+	t_env_l	*env;
+
+	env = g_prime->env_l;
+	while (env)
+	{
+		if (!ownstrcmp(envname, env->name))
+		{
+			if (is_equal)
+				update_env(g_prime, envname, arg);
+			return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
+
 void	double_export_arg(t_prime *g_prime, char *env_cmd)
 {
 	char	*arg;
@@ -62,22 +80,4 @@ void	double_export_arg(t_prime *g_prime, char *env_cmd)
 	if (!is_equal)
 		update_env(g_prime, env_cmd, NULL);
 	free(temp_envname);
-}
-
-int	change_env(t_prime *g_prime, char *envname, char *arg, int is_equal)
-{
-	t_env_l	*env;
-
-	env = g_prime->env_l;
-	while (env)
-	{
-		if (str_compare(envname, env->name))
-		{
-			if (is_equal)
-				update_env(g_prime, envname, arg);
-			return (1);
-		}
-		env = env->next;
-	}
-	return (0);
 }
