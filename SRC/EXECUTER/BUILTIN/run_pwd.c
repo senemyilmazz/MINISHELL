@@ -1,11 +1,11 @@
 #include "../../../INCLUDE/minishell.h"
 
-void	run_pwd(t_prime* g_prime)
+void	run_pwd(t_parser *parser)
 {
 	char	cwd[256];
 	char	*pwd;
 
 	pwd = getcwd(cwd, 256);
-	write(g_prime->parser->outfile, pwd, ft_strlen(pwd));
-	write(g_prime->parser->outfile, "\n", 1);
+	write(parser->outfile, pwd, ft_strlen(pwd));
+	write(parser->outfile, "\n", 1);
 }

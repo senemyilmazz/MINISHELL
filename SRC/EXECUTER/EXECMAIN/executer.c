@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 00:05:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/30 18:02:13 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 04:06:40 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,26 @@ void	run_command(t_prime *g_prime, t_parser *parser)
 		cmd = check_cmd(parser->command);
 		builtin_ret = is_builtin(cmd);
 	}
-	if (builtin_ret)
-		run_builtin(g_prime, builtin_ret);
+	if (builtin_ret && g_prime->cmd_count == 1)
+		run_builtin(g_prime, parser, builtin_ret);
 	else
 		run_execve(g_prime, parser);
 }
 
-int	is_builtin(char *str)
+void	run_builtin(t_prime *g_prime, t_parser *parser, int built_type)
 {
-	if (!str)
-		return (1);
-	else if (!ownstrcmp(str, "echo") || !ownstrcmp(str, "ECHO"))
-		return (ECHO);
-	else if (!ownstrcmp(str, "cd"))
-		return (CD);
-	else if (!ownstrcmp(str, "pwd") || !ownstrcmp(str, "PWD"))
-		return (PWD);
-	else if (!ownstrcmp(str, "export"))
-		return (EXPORT);
-	else if (!ownstrcmp(str, "unset"))
-		return (UNSET);
-	else if (!ownstrcmp(str, "env") || !ownstrcmp(str, "ENV"))
-		return (ENV);
-	else if (!ownstrcmp(str, "exit"))
-		return (EXIT);
-	else
-		return (0);
-}
-
-void	run_builtin(t_prime *g_prime, int built_type)
-{
-	//if (g_prime->cmd_count > 1);
-		//dup_stdio(g_prime, g_prime->parser);
 	if (built_type == ECHO)
-		run_echo(g_prime);
+		run_echo(parser);
 	else if (built_type == CD)
 		run_cd(g_prime);
 	else if (built_type == PWD)
-		run_pwd(g_prime);
+		run_pwd(parser);
 	else if (built_type == EXPORT)
-		run_export(g_prime);
+		run_export(g_prime, parser);
 	else if (built_type == UNSET)
 		run_unset(g_prime);
 	else if (built_type == ENV)
-		run_env(g_prime);
+		run_env(g_prime, parser);
 	else if (built_type == EXIT)
 		run_exit(g_prime);
 }
@@ -96,10 +72,9 @@ void	run_execve(t_prime *g_prime, t_parser *parser)
 	parser->pid = fork();
 	if (parser->pid == 0)
 	{
+		dup_stdio(g_prime, parser);
 		env_list = get_env_cpy(g_prime);
 		command = get_command(g_prime, parser);
-		dup_stdio(g_prime, parser);
-		tempfd_init(g_prime);
 		execve(command, parser->parameters, env_list);
 		if (parser->command)
 			print_error(parser->command, " command not found!\n");

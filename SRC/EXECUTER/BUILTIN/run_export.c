@@ -1,6 +1,6 @@
 #include "../../../INCLUDE/minishell.h"
 
-void	run_export(t_prime *g_prime)
+void	run_export(t_prime *g_prime, t_parser *parser)
 {
 	int		array_len;
 	char	**temp_path;
@@ -13,27 +13,27 @@ void	run_export(t_prime *g_prime)
 			double_export_arg(g_prime, *temp_path);
 	}
 	else
-		single_export_arg(g_prime);
+		single_export_arg(g_prime, parser);
 }
 
-void	single_export_arg(t_prime *g_prime)
+void	single_export_arg(t_prime *g_prime, t_parser *parser)
 {
 	t_env_l	*env;
 
 	env = g_prime->env_l;
 	while (env)
 	{
-		write(g_prime->parser->outfile, "declare -x ", 11);
-		write(g_prime->parser->outfile, env->name, ft_strlen(env->name));
+		write(parser->outfile, "declare -x ", 11);
+		write(parser->outfile, env->name, ft_strlen(env->name));
 		if (!env->content)
 		{
-			write(g_prime->parser->outfile, "\n", 1);
+			write(parser->outfile, "\n", 1);
 			env = env->next;
 			continue ;
 		}
-		write(g_prime->parser->outfile, "=\"", 2);
-		write(g_prime->parser->outfile, env->content, ft_strlen(env->content));
-		write(g_prime->parser->outfile, "\"\n", 2);
+		write(parser->outfile, "=\"", 2);
+		write(parser->outfile, env->content, ft_strlen(env->content));
+		write(parser->outfile, "\"\n", 2);
 		env = env->next;
 	}
 }

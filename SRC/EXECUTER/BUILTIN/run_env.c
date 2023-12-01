@@ -1,6 +1,6 @@
 #include "../../../INCLUDE/minishell.h"
 
-void	run_env(t_prime* g_prime)
+void	run_env(t_prime *g_prime, t_parser *parser)
 {
 	t_env_l	*temp_env;
 
@@ -9,12 +9,12 @@ void	run_env(t_prime* g_prime)
 	{
 		if (temp_env->content)
 		{
-			write(g_prime->parser->outfile, temp_env->name,
+			write(parser->outfile, temp_env->name,
 				ft_strlen(temp_env->name));
-			write(g_prime->parser->outfile, "=", 1);
-			write(g_prime->parser->outfile, temp_env->content,
+			write(parser->outfile, "=", 1);
+			write(parser->outfile, temp_env->content,
 				ft_strlen(temp_env->content));
-			write(g_prime->parser->outfile, "\n", 1);
+			write(parser->outfile, "\n", 1);
 		}
 		temp_env = temp_env->next;
 	}

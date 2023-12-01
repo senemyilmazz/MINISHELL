@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/30 15:50:30 by mkati            ###   ########.fr       */
+/*   Updated: 2023/12/01 04:04:01 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	print_error(char *cmd, char *str)
 {
-	printf("minikkus: %s %s", cmd, str);
+	printf("minikkus: %s", cmd);
+	if (str)
+		printf(" %s", str);
 	return ;
 }
 

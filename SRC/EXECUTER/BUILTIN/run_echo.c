@@ -14,28 +14,28 @@ int	n_control(char *str)
 	else
 		return (0);
 	return (1);
-	
+
 }
 
-void	run_echo(t_prime* g_prime)
+void	run_echo(t_parser *parser)
 {
 	char	**path;
-	int		is_n;
+	int		nl;
 
-	is_n = 0;
-	path = &g_prime->parser->parameters[1];
+	nl = 0;
+	path = &parser->parameters[1];
 	while (*path && n_control(*path) == 1)
 	{
-		is_n = 1;
+		nl = 1;
 		path++;
 	}
 	while (*path)
 	{
 		if (*path)
-			write(g_prime->parser->outfile, *path, ft_strlen(*path));
+			write(parser->outfile, *path, ft_strlen(*path));
 		if (*(++path))
-			write(g_prime->parser->outfile, " ", 1);
+			write(parser->outfile, " ", 1);
 	}
-	if (!is_n)
-		write(g_prime->parser->outfile, "\n", 1);
+	if (!nl)
+		write(parser->outfile, "\n", 1);
 }

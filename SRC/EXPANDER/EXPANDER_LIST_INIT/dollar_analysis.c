@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:02:31 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/20 15:24:13 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 03:57:50 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*check_env(t_prime *g_prime, char *substr, int	*env)
 	str = NULL;
 	while (iter)
 	{
-		if (!ft_strncmp(iter->name, substr, ft_strlen(substr)))
+		if (!ownstrcmp(iter->name, substr))
 		{
 			str = ft_strdup(iter->content);
 			*env = 1;
@@ -87,6 +87,8 @@ char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env)
 		substr = quotes_trim(content, &i, content[i]);
 	else
 		substr = dollar_expand(content, &i, g_prime, env);
+	if (ret_null(content[i]) || put_directly(content[i]))
+		i++;
 	*end = i;
 	return (substr);
 }

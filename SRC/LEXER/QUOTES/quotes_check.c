@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 01:17:37 by senyilma          #+#    #+#             */
-/*   Updated: 2023/10/27 04:38:25 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/11/30 23:07:24 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	quotes_check(char *line)
 	int		i;
 
 	i = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if (chrchr_quotes(line[i]))
 		{

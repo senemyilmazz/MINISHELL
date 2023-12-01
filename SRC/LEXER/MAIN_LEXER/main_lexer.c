@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 01:09:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/07 18:47:26 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/01 04:03:35 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lexer(t_prime *g_prime)
 
 	if (quotes_check(g_prime->line) == -1)
 	{
-		print_error("incorrect use of quotes\n");
+		print_error("incorrect use of quotes\n", 0);
 		return ;
 	}
 	lex_slist = wspace_split(g_prime->line, 0, 0, 0);
