@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 23:01:38 by mkati             #+#    #+#             */
-/*   Updated: 2023/11/28 14:28:40 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:12:56 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static void	heredoc_read(t_parser *parser, char *end)
 		str = readline("> ");
 		if (!ownstrcmp(str, end))
 			break ;
-		parser->heredoc = pars_strjoin(parser->heredoc, str);
+		parser->heredoc = ft_strjoin(parser->heredoc, str);
+		parser->heredoc = ft_strjoin(parser->heredoc, "\n");
+		free(str);
 	}
 }
 

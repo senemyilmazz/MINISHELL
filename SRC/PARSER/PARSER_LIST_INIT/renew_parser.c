@@ -6,30 +6,27 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/23 04:22:35 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:58:46 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-static int	files_init(t_expander **expander, t_parser *parser)
+static int	files_init(t_expander **expand, t_parser *parser, t_prime *g_prime)
 {
 	int	fd;
 
 	fd = 0;
-	if ((*expander)->next->env == -1 && (*expander)->type != HEREDOC)
-	{
-		printf("-minikkuş: %s: ambiguous redirect\n", \
-			(*expander)->next->ex_content);
-		fd = 2;
-	}
-	else if ((*expander)->type == SIGN_SIR || (*expander)->type == HEREDOC)
-		fd = infile_init(*expander, parser);
-	else if ((*expander)->type == SIGN_SOR || (*expander)->type == SIGN_DOR)
-		fd = outfile_init(*expander, parser);
-	files_add_node(&parser->file, ft_strdup((*expander)->next->content), \
-		(*expander)->type, fd);
-	(*expander) = (*expander)->next;
+	if ((*expand)->next->env == -1 && (*expand)->type != HEREDOC)
+		file_error((*expand)->next->ex_content, \
+			"ambiguous redirect", &fd, g_prime);
+	else if ((*expand)->type == SIGN_SIR || (*expand)->type == HEREDOC)
+		fd = infile_init(*expand, parser, g_prime);
+	else if ((*expand)->type == SIGN_SOR || (*expand)->type == SIGN_DOR)
+		fd = outfile_init(*expand, g_prime, parser);
+	files_add_node(&parser->file, ft_strdup((*expand)->next->content), \
+		(*expand)->type, fd);
+	(*expand) = (*expand)->next;
 	return (fd);
 }
 
@@ -58,7 +55,7 @@ void	renew_parser(t_prime *g_prime)
 			if (temp_exp->type == 0)
 				parameters_init(temp_pars, temp_exp->content, starting);
 			else
-				if (files_init(&temp_exp, temp_pars) == 2)
+				if (files_init(&temp_exp, temp_pars, g_prime) == 2)
 					return (free_parser(&g_prime->parser));
 			temp_exp = temp_exp->next;
 		}

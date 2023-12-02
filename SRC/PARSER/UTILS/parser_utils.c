@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:30:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 06:38:34 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:31:51 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,6 @@ char	**dynamic_malloc(char **path, char *new)
 		free(path);
 	}
 	return (new_path);
-}
-
-char	*pars_strjoin(char *s1, char *s2)
-{
-	char	*s1s2;
-	size_t	i;
-	size_t	j;
-
-	s1s2 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 2) * sizeof(char));
-	if (!s1s2)
-	{
-		free (s1);
-		return (NULL);
-	}
-	i = -1;
-	while (++i < ft_strlen(s1))
-		s1s2[i] = s1[i];
-	j = -1;
-	while (++j < ft_strlen(s2))
-		s1s2[i + j] = s2[j];
-	s1s2[i + j] = '\n';
-	s1s2[i + j + 1] = '\0';
-	if (s1)
-		free(s1);
-	return (s1s2);
 }
 
 int	ownstrcmp(char *s1, char *s2)
