@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:55:06 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/01 01:55:22 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:53:13 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	create_nodes(t_prime *g_prime, t_list *lex_mlist)
 				chrchr_metachar(*(char *)temp->content));
 		lex_mlist = temp;
 		temp = temp->next;
+		free(lex_mlist->content);
 		free(lex_mlist);
 	}
 }
