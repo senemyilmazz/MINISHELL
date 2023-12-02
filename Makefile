@@ -28,7 +28,10 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/PARSER/PARSER_LIST_INIT/outfile_init.c \
 		./SRC/PARSER/UTILS/parser_utils.c \
 		./SRC/PARSER/print_parser.c \
-		./SRC/EXECUTER/EXECMAIN/executer.c \
+		./SRC/EXECUTER/EXECMAIN/main_executer.c \
+		./SRC/EXECUTER/EXECMAIN/m_process.c \
+		./SRC/EXECUTER/EXECMAIN/dup_stdio.c \
+		./SRC/EXECUTER/EXECMAIN/run_command.c \
 		./SRC/EXECUTER/BUILTIN/is_builtin.c \
 		./SRC/EXECUTER/BUILTIN/run_cd.c \
 		./SRC/EXECUTER/BUILTIN/run_echo.c \
@@ -40,14 +43,14 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/EXECUTER/UTILS/env_utils.c \
 		./SRC/EXECUTER/UTILS/exec_utils.c \
 		./SRC/EXECUTER/UTILS/exec_utils2.c \
-		./SRC/EXECUTER/UTILS/exec_utils3.c \
-		./SRC/EXECUTER/UTILS/stdio_utils.c \
-		./SRC/EXECUTER/UTILS/env_arg_control.c
+		./SRC/EXECUTER/UTILS/run_execve_utils.c \
+		./SRC/EXECUTER/UTILS/env_arg_control.c \
+		./SRC/SIGNALS/signals.c	\
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror  -g #-fsanitize=address
 RM = rm -rf
 LIBFT = libft/libft.a
 READLINE = readline
@@ -59,7 +62,7 @@ all : $(READLINE) $(LIBFT) $(NAME)
 $(READLINE):
 	curl -O https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
 	tar -xvf readline-8.2.tar.gz
-	cd readline-8.2 && ./configure --prefix=${PWD}/readline 
+	cd readline-8.2 && ./configure --prefix=${PWD}/readline
 	cd readline-8.2 && make install
 
 $(LIBFT):
