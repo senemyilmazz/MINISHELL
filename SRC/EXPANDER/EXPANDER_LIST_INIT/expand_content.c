@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 20:07:16 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:14:04 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,30 @@ int	null_check_substr(char *substr, char *joinedstr)
 	return (0);
 }
 
-char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env)
+char	*straight_expand(t_prime *g_prime, char *c, int *end, int *env)
 {
 	int		i;
 	int		start;
 	char	*joinedstr;
-	char	*substr;
+	char	*sub;
 
 	joinedstr = NULL;
 	i = *end;
-	while (content[i] && !chrchr_quotes(content[i]))
+	while (c[i] && !chrchr_quotes(c[i]))
 	{
 		start = i;
-		if (content[i] != '$')
-			substr = ft_substr(content, start, c_index(content, &i, 1) - start);
+		if (c[i] != '$')
+			sub = ft_substr(c, start, c_index(c, &i, 1) - start);
 		else
 		{
-			substr = dollar_analysis(content, &i, g_prime, env);
-			if (!substr || !*substr || !*end || content[*end] == '$' || !content[i])
+			sub = dollar_analysis(c, &i, g_prime, env);
+			if (sub && !*sub && !*end && !c[i] &&!chrchr_quotes(c[*end + 1]))
 				*env = -1;
-			if (null_check_substr(substr, joinedstr))
+			if (null_check_substr(sub, joinedstr))
 				break ;
 		}
-		joinedstr = ft_strjoin(joinedstr, substr);
-		free(substr);
+		joinedstr = ft_strjoin(joinedstr, sub);
+		free(sub);
 	}
 	*end = i;
 	return (joinedstr);

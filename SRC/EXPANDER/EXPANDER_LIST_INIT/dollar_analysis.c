@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:02:31 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 03:57:50 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:30:01 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ static char	*dollar_expand(char *content, int *end, t_prime *g_prime, int *env)
 	return (substr);
 }
 
-char	*special_expand(char c, t_prime *g_prime)
+char	*special_expand(char c, t_prime *g_prime, int *i)
 {
 	char	*substr;
 
 	substr = NULL;
+	*i += 1;
 	if (c == '0')
 		substr = ft_substr("minishell", 0, 9);
 	if (c == '?')
 		substr = ft_itoa(g_prime->exit_code);
+	else
+		*i -= 1;
 	return (substr);
 }
 
@@ -78,9 +81,9 @@ char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env)
 	else if (put_directly(content[i]))
 		substr = ft_substr(content, start - 1, 2);
 	else if (put_synerror(content[i]))
-		printf("Syntax Error!\n");
+		synerr_print(g_prime, "Syntax Error!\n");
 	else if (special_chars(content[i]))
-		substr = special_expand(content[i], g_prime);
+		substr = special_expand(content[i], g_prime, &i);
 	else if (content[i] == '$')
 		substr = ft_strdup("$");
 	else if (chrchr_quotes(content[i]))
