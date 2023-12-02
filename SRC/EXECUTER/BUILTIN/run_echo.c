@@ -14,7 +14,6 @@ static int	n_control(char *str)
 	else
 		return (0);
 	return (1);
-
 }
 
 void	run_echo(t_parser *parser)
