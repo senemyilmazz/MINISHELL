@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:48:42 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 13:45:05 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:31:43 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	path_init(t_prime *g_prime)
 	t_env_l	*env_l;
 	int		i;
 	char	**temp_command;
+	char	*join;
 
 	env_l = g_prime->env_l;
 	while (env_l)
@@ -64,12 +65,17 @@ void	path_init(t_prime *g_prime)
 			break ;
 		env_l = env_l->next;
 	}
+	
 	g_prime->path = NULL;
 	temp_command = ft_split(env_l->content, ':');
 	i = -1;
 	while (temp_command[++i])
-		g_prime->path = dynamic_malloc(g_prime->path, \
-			ft_strjoin(temp_command[i], "/"));
+	{
+		join = ft_strjoin(temp_command[i], "/");
+		g_prime->path = dynamic_malloc(g_prime->path, join);
+		free(join);
+	}
+	free(temp_command);
 }
 
 void	env_init(t_prime *g_prime, char **env)

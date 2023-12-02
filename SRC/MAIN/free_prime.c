@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_prime.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:08:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/30 01:44:28 by mkati            ###   ########.fr       */
+/*   Updated: 2023/12/02 20:18:45 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	free_expander(t_expander **expander)
 	{
 		temp = (*expander)->next;
 		free((*expander)->content);
+		if ((*expander)->ex_content)
+			free((*expander)->ex_content);
 		free(*expander);
 		*expander = 0;
 		*expander = temp;
@@ -103,10 +105,17 @@ void	free_parser(t_parser **parser)
 
 void	free_prime(t_prime *g_prime)
 {
+	int	i;
+
 	free_lexer(&g_prime->lexer);
 	free_expander(&g_prime->expander);
 	free_parser(&g_prime->parser);
-	//free_env_l(&g_prime->env_l);
 	free(g_prime->line);
 	g_prime->line = NULL;
+	i = 0;
+	while (i < g_prime->cmd_count - 1)
+		free(g_prime->fd[i++]);
+	if (g_prime->fd)
+		free(g_prime->fd);
+	//free_env_l(&g_prime->env_l);
 }
