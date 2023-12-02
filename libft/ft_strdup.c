@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 03:48:16 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 05:42:51 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/02 12:45:58 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*ft_strdup(const char *s1)
 	char	*coppiedarray;
 	size_t	len;
 
-	len = ft_strlen(s1) + 1;
-	if (len == 1)
+	if (!s1)
 		return (NULL);
+	len = ft_strlen(s1) + 1;
 	coppiedarray = malloc(len * sizeof(char));
 	if (!coppiedarray)
 		return (NULL);
