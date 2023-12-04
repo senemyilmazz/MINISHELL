@@ -1,16 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_parser.c                                     :+:      :+:    :+:   */
+/*   print_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 20:58:02 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/15 01:49:32 by senyilma         ###   ########.fr       */
+/*   Created: 2023/12/04 19:14:37 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/04 19:15:00 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDE/minishell.h"
+
+void	print_expander(t_prime	*g_prime)
+{
+	t_expander	*temp;
+
+	temp = g_prime->expander;
+	printf("\n---------{ EXPANDER }----------\n");
+	while (temp)
+	{
+		printf("C:%s\nT:%d\n", temp->content, temp->type);
+		printf("env:%d\n", temp->env);
+		if (temp->ex_content)
+			printf("ex_cont:%s\n", temp->ex_content);
+		printf("-------------------------------\n");
+		temp = temp->next;
+	}
+	printf("\n\n");
+}
+
+void	print_lexer(t_prime	*g_prime)
+{
+	t_lexer	*temp;
+
+	temp = g_prime->lexer;
+	printf("\n-----------{ LEXER }-----------\n");
+	while (temp)
+	{
+		printf("C:%s\nT:%d\n", temp->content, temp->type);
+		printf("-------------------------------\n");
+		temp = temp->next;
+	}
+	printf("\n\n");
+}
 
 void	print_parser(t_prime *g_prime)
 {

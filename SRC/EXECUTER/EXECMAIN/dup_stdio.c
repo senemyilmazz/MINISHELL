@@ -6,11 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:11 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 15:39:13 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:18:38 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "../../../INCLUDE/minishell.h"
+#include "../../../INCLUDE/minishell.h"
 
 static void	tempfd_init(t_prime *g_prime, t_parser *parser, int i)
 {
@@ -30,7 +30,7 @@ void	dup_stdio(t_prime *g_prime, t_parser *parser, int i)
 {
 	int	fd[2];
 
-	if (g_prime->cmd_count > 1)
+	if (g_prime->cmd_count > 1 && ownstrcmp(parser->command, "exit"))
 		tempfd_init(g_prime, parser, i);
 	if (parser->infile == -2)
 	{
@@ -40,8 +40,12 @@ void	dup_stdio(t_prime *g_prime, t_parser *parser, int i)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 	}
-	if (parser->outfile > 2)
+	if (parser->outfile >= 2)
 		dup2(parser->outfile, STDOUT_FILENO);
-	if (parser->infile > 2)
+	if (parser->infile >= 2)
 		dup2(parser->infile, STDIN_FILENO);
+	//if (parser->outfile)
+	//	close(parser->outfile);
+	//if (parser->infile)
+	//	close(parser->infile);
 }

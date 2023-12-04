@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_export.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 23:06:18 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/04 05:51:04 by senyilma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../INCLUDE/minishell.h"
 
 void	run_export(t_prime *g_prime, t_parser *parser)
@@ -5,6 +17,7 @@ void	run_export(t_prime *g_prime, t_parser *parser)
 	int		array_len;
 	char	**temp_path;
 
+	g_prime->exit_code = 0;
 	array_len = parameters_count(parser->parameters);
 	if (array_len > 1)
 	{

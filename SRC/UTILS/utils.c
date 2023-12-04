@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 19:30:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 18:31:51 by senyilma         ###   ########.fr       */
+/*   Created: 2023/12/03 21:48:25 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/05 02:01:02 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../INCLUDE/minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 char	**dynamic_malloc(char **path, char *new)
 {
@@ -52,4 +52,33 @@ int	ownstrcmp(char *s1, char *s2)
 			break ;
 	}
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	parameters_count(char **str)
+{
+	int	count;
+
+	count = 0;
+	while (str && *(str++))
+		count++;
+	return (count);
+}
+
+void	double_str_free(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str && str[++i])
+		free(str[i]);
+	if (str)
+		free(str);
+}
+
+void	*free_null(void *str)
+{
+	(void)str;
+	if (str)
+		free(str);
+	return (0);
 }

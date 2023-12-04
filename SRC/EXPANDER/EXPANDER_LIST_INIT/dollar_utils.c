@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 23:04:18 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/20 16:54:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:25:35 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@ int	ret_null(char c)
 	return ((c >= '1' && c <= '9') || c == '*' || c == '@' || c == '!');
 }
 
-int	put_directly(char c)
+int	put_directly(char c, int *i)
 {
-	return (c == '%' || c == '+' || c == ',' || c == '.' || c == '/'
+	if (c == '%' || c == '+' || c == ',' || c == '.' || c == '/'
 		|| c == ':' || c == '=' || c == ']' || c == '^' || c == '}'
-		|| c == '~');
+		|| c == '~' || c == ' ')
+	{
+		*i += 1;
+		return (1);
+	}
+	if (c == '\0' || chrchr_quotes(c))
+		return (1);
+	return (0);
 }
 
 int	put_synerror(char c)

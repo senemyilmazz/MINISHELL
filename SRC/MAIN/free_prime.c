@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:08:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 20:18:45 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 05:35:02 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	free_lexer(t_lexer **lexer)
 	{
 		temp = (*lexer)->next;
 		free((*lexer)->content);
-		free(*lexer);
-		*lexer = 0;
+		*lexer = free_null(*lexer);
 		*lexer = temp;
 	}
 }
@@ -40,8 +39,7 @@ void	free_expander(t_expander **expander)
 		free((*expander)->content);
 		if ((*expander)->ex_content)
 			free((*expander)->ex_content);
-		free(*expander);
-		*expander = 0;
+		*expander = free_null(*expander);
 		*expander = temp;
 	}
 }
@@ -57,8 +55,7 @@ void	free_file(t_parser **parser)
 		free ((*parser)->file);
 		(*parser)->file = temp;
 	}
-	free ((*parser)->file);
-	(*parser)->file = 0;
+	(*parser)->file = free_null((*parser)->file);
 }
 
 void	free_parser(t_parser **parser)
@@ -71,37 +68,19 @@ void	free_parser(t_parser **parser)
 	while (*parser)
 	{
 		temp = (*parser)->next;
-		free((*parser)->command);
+		(*parser)->command = free_null((*parser)->command);
 		i = -1;
 		while ((*parser)->parameters && (*parser)->parameters[++i])
 			free((*parser)->parameters[i]);
 		free ((*parser)->parameters);
 		if ((*parser)->heredoc)
-			free((*parser)->heredoc);
+			(*parser)->heredoc = free_null((*parser)->heredoc);
 		if ((*parser)->file)
 			free_file(parser);
-		free(*parser);
-		*parser = 0;
+		*parser = free_null(*parser);
 		*parser = temp;
 	}
 }
-
-/*static void	free_env_l(t_env_l **env)
-{
-	t_env_l	*temp;
-
-	if (!env)
-		return ;
-	while (*env)
-	{
-		temp = (*env)->next;
-		free((*env)->content);
-		free((*env)->name);
-		free(*env);
-		*env = 0;
-		*env = temp;
-	}
-}*/
 
 void	free_prime(t_prime *g_prime)
 {
@@ -110,12 +89,15 @@ void	free_prime(t_prime *g_prime)
 	free_lexer(&g_prime->lexer);
 	free_expander(&g_prime->expander);
 	free_parser(&g_prime->parser);
-	free(g_prime->line);
+	g_prime->line = free_null(g_prime->line);
 	g_prime->line = NULL;
 	i = 0;
 	while (i < g_prime->cmd_count - 1)
-		free(g_prime->fd[i++]);
+	{
+		if (g_prime->fd && g_prime->fd[i])
+			free(g_prime->fd[i]);
+		i++;
+	}
 	if (g_prime->fd)
 		free(g_prime->fd);
-	//free_env_l(&g_prime->env_l);
 }

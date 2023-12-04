@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 05:34:12 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/04 05:34:13 by senyilma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../INCLUDE/minishell.h"
 
 void	run_env(t_prime *g_prime, t_parser *parser)
@@ -18,4 +30,5 @@ void	run_env(t_prime *g_prime, t_parser *parser)
 		}
 		temp_env = temp_env->next;
 	}
+	g_prime->exit_code = 0;
 }

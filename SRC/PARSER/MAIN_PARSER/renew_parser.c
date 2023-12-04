@@ -6,11 +6,25 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 16:58:46 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 21:03:51 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
+
+static void	close_file(t_parser *parser)
+{
+	t_files		*iter_file;
+
+	iter_file = parser->file;
+	while (iter_file)
+	{
+		if (iter_file->fd != parser->outfile
+			&& iter_file->fd != parser->infile)
+			close(iter_file->fd);
+		iter_file = iter_file->next;
+	}
+}
 
 static int	files_init(t_expander **expand, t_parser *parser, t_prime *g_prime)
 {
@@ -56,9 +70,10 @@ void	renew_parser(t_prime *g_prime)
 				parameters_init(temp_pars, temp_exp->content, starting);
 			else
 				if (files_init(&temp_exp, temp_pars, g_prime) == 2)
-					return (free_parser(&g_prime->parser));
+					temp_pars->command = NULL;
 			temp_exp = temp_exp->next;
 		}
+		close_file(temp_pars);
 		temp_pars = temp_pars->next;
 		if (temp_exp)
 			temp_exp = temp_exp->next;

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:02:31 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 16:30:01 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:55:23 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*special_expand(char c, t_prime *g_prime, int *i)
 	return (substr);
 }
 
-char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env)
+char	*dollar_analysis(char *str, int *end, t_prime *g_prime, int *env)
 {
 	int		i;
 	int		start;
@@ -76,21 +76,21 @@ char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env)
 	i = *end;
 	start = i + 1;
 	substr = NULL;
-	if (ret_null(content[++i]))
+	if (ret_null(str[++i]))
 		substr = ft_strdup("");
-	else if (put_directly(content[i]))
-		substr = ft_substr(content, start - 1, 2);
-	else if (put_synerror(content[i]))
+	else if (put_directly(str[i], &i))
+		substr = ft_substr(str, start - 1, i - *end);
+	else if (put_synerror(str[i]))
 		synerr_print(g_prime, "Syntax Error!\n");
-	else if (special_chars(content[i]))
-		substr = special_expand(content[i], g_prime, &i);
-	else if (content[i] == '$')
+	else if (special_chars(str[i]))
+		substr = special_expand(str[i], g_prime, &i);
+	else if (str[i] == '$')
 		substr = ft_strdup("$");
-	else if (chrchr_quotes(content[i]))
-		substr = quotes_trim(content, &i, content[i]);
+	else if (chrchr_quotes(str[i]))
+		substr = quotes_trim(str, &i, str[i]);
 	else
-		substr = dollar_expand(content, &i, g_prime, env);
-	if (ret_null(content[i]) || put_directly(content[i]))
+		substr = dollar_expand(str, &i, g_prime, env);
+	if (ret_null(str[i]))
 		i++;
 	*end = i;
 	return (substr);

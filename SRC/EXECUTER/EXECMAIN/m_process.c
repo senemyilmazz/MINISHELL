@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:23:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 20:15:06 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 21:42:30 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,23 @@ void	open_pipes(t_prime *g_prime)
 	}
 }
 
-void	wait_all(t_prime *g_prime)
+void	wait_all(t_prime *g_prime, int builtin)
 {
 	t_parser	*parser;
 	int			status;
 
 	parser = g_prime->parser;
-	while (parser)
+	while (parser && builtin <= 1)
 	{
-		waitpid(parser->pid, &status, 0);
-		g_prime->exit_code = status;
-		if (status == 127)
+		if (parser->command)
 		{
-			while (parser)
-			{
-				kill(parser->pid, SIGTERM);
-				parser = parser->next;
-			}
-			break ;
+			waitpid(parser->pid, &status, 0);
+			if (status == (127 * 256))
+				command_error(0, parser->command, "command not found!", g_prime);
+			g_prime->exit_code = status / 256;
 		}
 		parser = parser->next;
 	}
-	//g_prime->exit_code = WEXITSTATUS(g_prime->exit_code);
-	g_prime->exit_code = status;
 }
 
 void	fd_closer(t_prime *g_prime)

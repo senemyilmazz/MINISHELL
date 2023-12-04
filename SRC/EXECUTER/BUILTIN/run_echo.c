@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_echo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 05:35:58 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/04 14:39:40 by senyilma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../INCLUDE/minishell.h"
 
 static int	n_control(char *str)
@@ -16,11 +28,12 @@ static int	n_control(char *str)
 	return (1);
 }
 
-void	run_echo(t_parser *parser)
+void	run_echo(t_prime *g_prime, t_parser *parser)
 {
 	char	**path;
 	int		nl;
 
+	g_prime->exit_code = 0;
 	nl = 0;
 	path = &parser->parameters[1];
 	while (*path && n_control(*path) == 1)

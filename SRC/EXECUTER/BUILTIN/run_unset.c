@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_unset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 23:42:26 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/04 12:49:12 by senyilma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../INCLUDE/minishell.h"
 
 void	run_unset(t_prime *g_prime)
@@ -5,6 +17,7 @@ void	run_unset(t_prime *g_prime)
 	char	**temp_name;
 	int		array_len;
 
+	g_prime->exit_code = 0;
 	array_len = parameters_count(g_prime->parser->parameters);
 	if (array_len > 1)
 	{
@@ -13,15 +26,11 @@ void	run_unset(t_prime *g_prime)
 		{
 			if (!env_arg_control(g_prime, *temp_name))
 			{
-				print_error(0, "-bash: unset: not a valid identifier\n");
-				g_prime->exit_code = 1;
+				command_error(0, "unset", "not a valid identifier", g_prime);
 				continue ;
 			}
 			else
-			{
 				delete_env(g_prime, *temp_name);
-				//free_env_cpy()
-			}
 		}
 	}
 }
@@ -34,7 +43,7 @@ void	delete_env(t_prime *g_prime, char *name)
 	env = g_prime->env_l;
 	while (env)
 	{
-		if (ownstrcmp(env->name, name))
+		if (!ownstrcmp(env->name, name))
 		{
 			if (env->content)
 				free(env->content);

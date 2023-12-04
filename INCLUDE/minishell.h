@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 16:24:49 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/05 00:14:49 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,47 +25,38 @@
 # include "../libft/libft.h"
 # include "chars.h"
 # include "struct.h"
-
+# include <sys/ioctl.h>
+int	g_signal;
+int g_signal2;
 //---MAIN----//
 
 void	ft_readline(t_prime *g_prime);
-void	print_error(char *cmd, char *str);
+void	signal_init(void);
 void	free_prime(t_prime *g_prime);
-void	free_lexer(t_lexer **lexer);
+
+void	env_init(t_prime *g_prime, char **env);
+t_env_l	*env_listnew(char *name, char *content);
+void	env_lstadd_back(t_env_l	**lst, t_env_l	*new);
 
 //*-------LEXER--------*//
 
 void	lexer(t_prime *g_prime);
-
+int		quotes_check(char *line);
 int		chrchr_quotes(char c);
 int		strchr_quotes(char *str);
-int		quotes_check(char *line);
-
+t_list	*wspace_split(char *line, int start, int end, int quotes);
 int		chrchr_wspace(char c);
 int		strchr_wspace(char *str);
-t_list	*wspace_split(char *line, int start, int end, int quotes);
-
+t_list	*metachar_split(t_list *lex_slist);
 int		chrchr_metachar(char c);
 int		strchr_metachar(char *content);
-t_list	*metachar_split(t_list *lex_slist);
-
 void	create_nodes(t_prime *g_prime, t_list *lex_mlist);
-
 void	lexer_add_node(t_lexer **lexer, char *str, int type);
-
-void	type_check(t_prime *g_prime);
-void	type_match(t_lexer *temp);
 int		syntax_check(t_prime *g_prime);
-int		synerr_print(t_prime *g_prime, char *str);
+void	type_init(t_prime *g_prime);
 
+void	free_lexer(t_lexer **lexer);
 void	print_lexer(t_prime *g_prime);
-
-//*------ENV-----*//
-
-void	env_init(t_prime *g_prime, char **env);
-void	env_lstadd_back(t_env_l	**lst, t_env_l	*new);
-t_env_l	*env_lstlast(t_env_l	*lst);
-t_env_l	*env_listnew(char *name, char *content);
 
 //*------EXPANDER-------*//
 
@@ -76,88 +67,89 @@ char	*straight_expand(t_prime *g_prime, char *content, int *end, int *env);
 char	*dollar_analysis(char *content, int *end, t_prime *g_prime, int *env);
 int		special_chars(char c);
 int		ret_null(char c);
-int		put_directly(char c);
+int		put_directly(char c, int *i);
 int		put_synerror(char c);
 int		special_chars(char c);
 void	expander_add_node(t_expander **expan, char *str, t_lexer *lex, int env);
+int		null_check_substr(char *substr, char *joinedstr);
+
 void	free_expander(t_expander **expander);
 void	print_expander(t_prime	*g_prime);
-int		null_check_substr(char *substr, char *joinedstr);
 
 //*------PARSER-----*//
 
 void	parser(t_prime *g_prime);
-
 int		pipe_count(t_prime *g_prime);
 void	parser_addnode(t_parser **parser, int pipe_count);
-
 void	heredoc_init(t_prime *g_prime);
-char	*pars_strjoin(char *s1, char *s2);
-int		ownstrcmp(char *s1, char *s2);
-
 void	renew_parser(t_prime *g_prime);
 int		infile_init(t_expander *expander, t_parser *parser, t_prime *g_prime);
 int		outfile_init(t_expander *expander, t_prime *g_prime, t_parser *parser);
 void	files_add_node(t_files **files, char *name, int type, int fd);
-char	**dynamic_malloc(char **path, char *new);
-void	file_error(char *str, char *filename, int *fd, t_prime *g_prime);
 
-void	print_parser(t_prime *g_prime);
 void	free_parser(t_parser **parser);
+void	print_parser(t_prime *g_prime);
 
 //*------EXEC-----*//
+
 void	executer(t_prime *g_prime);
-void	run_command(t_prime *g_prime, t_parser *parser);
-char	*check_cmd(char *cmd);
-int		is_builtin(char *str);
-void	run_builtin(t_prime *g_prime, t_parser *parser, int cmd_type);
-void	dup_stdio(t_prime *g_prime, t_parser *parser, int i);
-void	run_execve(t_prime *g_prime, t_parser *parser);
-char	**get_env_cpy(t_prime *g_prime);
-
-void	run_echo(t_parser *parser);
-void	run_env(t_prime	*g_prime, t_parser *parser);
-void	run_exit(t_prime *g_prime);
-void	run_pwd(t_parser *parser);
-
 void	open_pipes(t_prime *g_prime);
 void	fd_closer(t_prime *g_prime);
-void	wait_all(t_prime *g_prime);
+void	wait_all(t_prime *g_prime, int builtin);
+int		check_builtin(t_prime *g_prime, t_parser *parser);
 
+void	run_builtin(t_prime *g_prime, t_parser *parser, int cmd_type, int i);
+void	dup_stdio(t_prime *g_prime, t_parser *parser, int i);
+void	run_execve(t_prime *g_prime, t_parser *parser, int i);
+char	*get_command(t_prime *g_prime, t_parser *parser);
+char	**get_env_cpy(t_prime *g_prime);
+
+void	run_echo(t_prime *g_prime, t_parser *parser);
+void	run_env(t_prime	*g_prime, t_parser *parser);
+void	run_exit(t_prime *g_prime, t_parser *parser);
+void	run_pwd(t_prime *g_prime, t_parser *parser);
 void	run_export(t_prime *g_prime, t_parser *parser);
 void	run_unset(t_prime *g_prime);
 void	run_cd(t_prime *g_prime);
 
 void	cd_one_arg(t_prime *g_prime);
-int		update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content);
-void	delete_env(t_prime *g_prime, char *name);
 void	cd_two_arg(t_prime *g_prime);
 int		change_dir(t_prime *g_prime, char *parameters);
-void	str_addchar(char **dst, char c);
-void	own_strjoin(char **dst, char *src);
-int		str_compare(char *str1, char *str2);
+int		update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content);
+void	delete_env(t_prime *g_prime, char *name);
+
+
+
 int		get_env_name_count(char *env_arg);
 char	*get_env_name(char *content);
 void	single_export_arg(t_prime *g_prime, t_parser *parser);
 void	double_export_arg(t_prime *g_prime, char *env_cmd);
 int		change_env(t_prime *g_prime, char *envname, char *arg, int is_equal);
 int		env_arg_control(t_prime *g_prime, char *env);
-char	*valid_env(char *env);
 
 int		update_env(t_prime *g_prime, char *env_name, char *new_arg);
 int		env_name_control(char *env);
 void	add_newenv(t_prime *g_prime, char *env);
-int		parameters_count(char **str);
-char	*get_command(t_prime *g_prime, t_parser *parser);
-//void	tempfd_init(t_prime *g_prime);
-void	fd_closer(t_prime *g_prime);
 char	*get_oldpwd(t_env_l *env, char *path);
 int		search_path(t_env_l *env_l, char *str);
 
+//utils//
+int		synerr_print(t_prime *g_prime, char *str);
+void	file_error(char *str, char *filename, int *fd, t_prime *g_prime);
+void	command_error(char *arg, char *cmd, char *str, t_prime *g_prime);
+int		ownstrcmp(char *s1, char *s2);
 void	double_str_free(char **str);
+char	**dynamic_malloc(char **path, char *new);
+int		parameters_count(char **str);
+void	*free_null(void *str);
+int		stat_check(t_prime *g_prime, char *cmd);
 
-/*SIGNALS*/
-void		init_signal(void);
-void		signal_handler(int sig);
 
+void	print_parser(t_prime *g_prime);
+void	print_lexer(t_prime	*g_prime);
+void	print_expander(t_prime	*g_prime);
+
+t_files	*files_lstlast(t_files *lst);
+
+void	signal_handler(int sig);
 #endif

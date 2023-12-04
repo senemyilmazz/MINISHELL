@@ -1,38 +1,35 @@
 SRC =	./SRC/MAIN/main.c \
-		./SRC/MAIN/init_env.c \
+		./SRC/MAIN/env_init.c \
 		./SRC/MAIN/free_prime.c \
+		./SRC/MAIN/signal_init.c \
 		./SRC/LEXER/MAIN_LEXER/main_lexer.c \
-		./SRC/LEXER/QUOTES/quotes_check.c \
-		./SRC/LEXER/QUOTES/quotes_utils.c \
-		./SRC/LEXER/WSPACE/wspace_split.c \
-		./SRC/LEXER/WSPACE/wspace_utils.c \
+		./SRC/LEXER/MAIN_LEXER/syntax_check.c \
+		./SRC/LEXER/MAIN_LEXER/quotes_check.c \
+		./SRC/LEXER/MAIN_LEXER/wspace_split.c \
+		./SRC/LEXER/MAIN_LEXER/metachar_split.c \
+		./SRC/LEXER/LEXER_UTILS/quotes_utils.c \
+		./SRC/LEXER/LEXER_UTILS/wspace_utils.c \
+		./SRC/LEXER/LEXER_UTILS/metachar_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/create_nodes.c \
-		./SRC/LEXER/METACHAR/metachar_split.c \
-		./SRC/LEXER/METACHAR/metachar_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/lexer_init_utils.c \
 		./SRC/LEXER/LEXER_LIST_INIT/type_init.c \
-		./SRC/LEXER/SYNTAX_CHECK/syntax_check.c \
-		./SRC/LEXER/print_lexer.c \
 		./SRC/EXPANDER/MAIN_EXPANDER/main_expander.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/expand_content.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/dollar_analysis.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/dollar_utils.c \
 		./SRC/EXPANDER/EXPANDER_LIST_INIT/expander_init_utils.c \
-		./SRC/EXPANDER/print_expander.c \
 		./SRC/PARSER/MAIN_PARSER/main_parser.c \
-		./SRC/PARSER/HEREDOC/heredoc_init.c \
+		./SRC/PARSER/MAIN_PARSER/heredoc_init.c \
+		./SRC/PARSER/MAIN_PARSER/renew_parser.c \
 		./SRC/PARSER/PARSER_LIST_INIT/parser_init_utils.c \
 		./SRC/PARSER/PARSER_LIST_INIT/t_file_init_utils.c \
-		./SRC/PARSER/PARSER_LIST_INIT/renew_parser.c \
 		./SRC/PARSER/PARSER_LIST_INIT/infile_init.c \
 		./SRC/PARSER/PARSER_LIST_INIT/outfile_init.c \
-		./SRC/PARSER/UTILS/parser_utils.c \
-		./SRC/PARSER/print_parser.c \
 		./SRC/EXECUTER/EXECMAIN/main_executer.c \
 		./SRC/EXECUTER/EXECMAIN/m_process.c \
 		./SRC/EXECUTER/EXECMAIN/dup_stdio.c \
 		./SRC/EXECUTER/EXECMAIN/run_command.c \
-		./SRC/EXECUTER/BUILTIN/is_builtin.c \
+		./SRC/EXECUTER/BUILTIN/check_builtin.c \
 		./SRC/EXECUTER/BUILTIN/run_cd.c \
 		./SRC/EXECUTER/BUILTIN/run_echo.c \
 		./SRC/EXECUTER/BUILTIN/run_env.c \
@@ -42,15 +39,16 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/EXECUTER/BUILTIN/run_unset.c \
 		./SRC/EXECUTER/UTILS/env_utils.c \
 		./SRC/EXECUTER/UTILS/exec_utils.c \
-		./SRC/EXECUTER/UTILS/exec_utils2.c \
 		./SRC/EXECUTER/UTILS/run_execve_utils.c \
 		./SRC/EXECUTER/UTILS/env_arg_control.c \
-		./SRC/SIGNALS/signals.c	\
+		./SRC/UTILS/print_errors.c \
+		./SRC/UTILS/utils.c \
+		./SRC/MAIN/print_func.c
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -rf
 LIBFT = libft/libft.a
 READLINE = readline

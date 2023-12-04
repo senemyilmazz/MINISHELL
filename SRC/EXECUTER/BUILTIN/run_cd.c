@@ -1,13 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_cd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 05:34:05 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/04 21:52:35 by senyilma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../INCLUDE/minishell.h"
 
 int	update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content)
 {
-	t_env_l	*temp_env;
 	char	*temp_pwd;
 
 	if (!update_env(g_prime, pwd_name, pwd_content))
 	{
-		temp_env = g_prime->env_l;
 		temp_pwd = NULL;
 		temp_pwd = ft_strjoin(temp_pwd, pwd_name);
 		temp_pwd = ft_strjoin(temp_pwd, "=");
@@ -22,28 +32,24 @@ int	update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content)
 int	change_dir(t_prime *g_prime, char *parameters)
 {
 	char	pwd[256];
-	int		is_pwdaccess;
 	char	*oldpwd;
 	int		error;
 
 	oldpwd = ft_strdup(getcwd(pwd, 256));
 	error = chdir(parameters);
 	if (!error && !search_path(g_prime->env_l, "OLDPWD"))
-		env_lstadd_back(&g_prime->env_l, \
-			env_listnew(ft_strdup("OLDPWD"), oldpwd));
+		env_lstadd_back(&g_prime->env_l, env_listnew(ft_strdup("OLDPWD"),
+				oldpwd));
 	if (error == -1)
 	{
-		if (oldpwd)
-			free(oldpwd);
+		oldpwd = free_null(oldpwd);
 		return (0);
 	}
 	if (!error && !ownstrcmp(g_prime->parser->parameters[1], "-"))
 		printf("%s\n", parameters);
-	is_pwdaccess = update_pwd_from_export(g_prime, "PWD", getcwd(pwd, 256));
-	if (is_pwdaccess)
-		update_pwd_from_export(g_prime, "OLDPWD", oldpwd);
-	else
-		delete_env(g_prime, "OLDPWD");
+	update_pwd_from_export(g_prime, "PWD", getcwd(pwd, 256));
+	update_pwd_from_export(g_prime, "OLDPWD", oldpwd);
+	oldpwd = free_null(oldpwd);
 	return (1);
 }
 
@@ -56,7 +62,7 @@ void	cd_two_arg(t_prime *g_prime)
 	{
 		if (!search_path(g_prime->env_l, "OLDPWD"))
 		{
-			print_error("cd: OLDPWD not set\n", 0);
+			command_error(0, "cd", "OLDPWD not set", g_prime);
 			return ;
 		}
 		path = ft_strjoin(path, get_oldpwd(g_prime->env_l, "OLDPWD"));
@@ -68,10 +74,9 @@ void	cd_two_arg(t_prime *g_prime)
 	if (!change_dir(g_prime, path))
 	{
 		if (*g_prime->parser->parameters[1] == '-')
-			print_error("cd: invalid option\n", 0);
+			command_error(0, "cd", "invalid option", g_prime);
 		else
-			print_error(" No such file or directory\n", 0);
-		g_prime->parser->outfile = 1;
+			command_error(0, "cd", "No such file or directory", g_prime);
 	}
 	free(path);
 }
@@ -84,7 +89,7 @@ void	cd_one_arg(t_prime *g_prime)
 	temp_env = g_prime->env_l;
 	while (temp_env)
 	{
-		if (ownstrcmp("HOME", temp_env->name))
+		if (!ownstrcmp("HOME", temp_env->name))
 		{
 			content = temp_env->content;
 			if (!content)
@@ -94,19 +99,21 @@ void	cd_one_arg(t_prime *g_prime)
 		}
 		temp_env = temp_env->next;
 	}
-	print_error("cd: HOME not set\n", 0);
-	g_prime->parser->outfile = 1;
+	command_error(0, "cd", "HOME not set\n", g_prime);
 }
 
 void	run_cd(t_prime *g_prime)
 {
 	int	param_count;
 
+	g_prime->exit_code = 0;
 	param_count = parameters_count(g_prime->parser->parameters);
+	if (!search_path(g_prime->env_l, "PWD"))
+		delete_env(g_prime, "PWD");
 	if (param_count > 2)
 	{
 		g_prime->parser->outfile = 1;
-		print_error("cd: too many arguments", 0);
+		command_error(0, "cd", "too many arguments", g_prime);
 	}
 	else if (param_count == 2)
 		cd_two_arg(g_prime);

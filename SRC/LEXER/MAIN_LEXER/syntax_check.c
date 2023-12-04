@@ -6,18 +6,11 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:35:16 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 14:14:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:30:38 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
-
-int	synerr_print(t_prime *g_prime, char *str)
-{
-	printf("bash: syntax error near unexpected token '%s'\n", str);
-	g_prime->exit_code = 258;
-	return (-1);
-}
 
 int	syn_error(t_prime *g_prime, int temp_type, int temp_len)
 {
@@ -43,7 +36,7 @@ int	syntax_check(t_prime *g_prime)
 	int		t;
 
 	temp = g_prime->lexer;
-	type_check(g_prime);
+	type_init(g_prime);
 	flag = 0;
 	while (temp)
 	{

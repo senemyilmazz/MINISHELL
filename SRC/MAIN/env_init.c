@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_env.c                                         :+:      :+:    :+:   */
+/*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:48:42 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 18:31:43 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:52:54 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_env_l	*env_listnew(char *name, char *content)
 	return (new);
 }
 
-t_env_l	*env_lstlast(t_env_l	*lst)
+static t_env_l	*env_lstlast(t_env_l	*lst)
 {
 	t_env_l	*temp;
 
@@ -65,7 +65,6 @@ void	path_init(t_prime *g_prime)
 			break ;
 		env_l = env_l->next;
 	}
-	
 	g_prime->path = NULL;
 	temp_command = ft_split(env_l->content, ':');
 	i = -1;

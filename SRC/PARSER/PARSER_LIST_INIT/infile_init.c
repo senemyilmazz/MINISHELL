@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 00:39:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 14:36:51 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:41:25 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	infile_init(t_expander *expander, t_parser *parser, t_prime *g_prime)
 		else if (*expander->next->content == '\\')
 			fn = expander->next->content + 1;
 		if (stat(expander->next->content, &st) != 0)
-			file_error(fn, "-No such file or directory", fd, g_prime);
+			file_error(fn, "No such file or directory", fd, g_prime);
 		else
 			*fd = open(fn, O_RDONLY, 0777);
 	}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   signal_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:57:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 11:00:06 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/05 01:56:21 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,58 +23,35 @@ static void	ft_termios(void)
 		perror("Minishell: tcsetattr");
 }
 
+
+
 void	signal_handler(int sig)
 {
-	(void)sig;
 	if (sig == SIGINT)
 	{
-		printf("sigint\n");
+		g_signal = 1;
+		write(1,"\n",1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		//130 koduyla çıkacak!!;
 	}
 	else if (sig == EOF)
 	{
-		printf("eof\n");
+		printf("\n");
 		rl_on_new_line();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
 	{
-		printf("sigquit\n");
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
 
-/*void	ft_handler(int sig)
-{
-	//if (g_global.test1)
-	//{
-	//	close_heredoc(sig);
-	//	return ;
-	//}
-	//else
-	//{
-		//if (g_global.test2)
-		//{
-			ft_putstr_fd("\n", 2);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			return ;
-		//}
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		write(1, "\033[A", 3);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	//}
-}*/
-
-void	init_signal(void)
+void	signal_init(void)
 {
 	ft_termios();
 	signal(SIGINT, signal_handler);
