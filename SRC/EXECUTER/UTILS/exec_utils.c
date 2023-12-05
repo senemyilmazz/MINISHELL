@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils2.c                                      :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:57:00 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/03 21:57:01 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:08:28 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	update_env(t_prime *g_prime, char *env_name, char *new_arg)
 {
 	t_env_l	*env;
+	char	*temp_str;
 
 	env = g_prime->env_l;
+	temp_str = NULL;
 	while (env)
 	{
 		if (!ownstrcmp(env->name, env_name))

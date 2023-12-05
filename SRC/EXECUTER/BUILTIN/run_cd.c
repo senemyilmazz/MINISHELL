@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 05:34:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 21:52:35 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:14:55 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	change_dir(t_prime *g_prime, char *parameters)
 	error = chdir(parameters);
 	if (!error && !search_path(g_prime->env_l, "OLDPWD"))
 		env_lstadd_back(&g_prime->env_l, env_listnew(ft_strdup("OLDPWD"),
-				oldpwd));
+				ft_strdup(oldpwd)));
 	if (error == -1)
 	{
 		oldpwd = free_null(oldpwd);
