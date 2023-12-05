@@ -43,7 +43,9 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/EXECUTER/UTILS/env_arg_control.c \
 		./SRC/UTILS/print_errors.c \
 		./SRC/UTILS/utils.c \
-		./SRC/MAIN/print_func.c
+		./SRC/UTILS/get_line.c \
+		./SRC/UTILS/print_func.c
+
 
 
 NAME = minishell

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 00:14:49 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:01:24 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@
 # include "chars.h"
 # include "struct.h"
 # include <sys/ioctl.h>
-int	g_signal;
-int g_signal2;
+
 //---MAIN----//
 
 void	ft_readline(t_prime *g_prime);
@@ -143,6 +142,7 @@ char	**dynamic_malloc(char **path, char *new);
 int		parameters_count(char **str);
 void	*free_null(void *str);
 int		stat_check(t_prime *g_prime, char *cmd);
+char	*get_line(int fd);
 
 
 void	print_parser(t_prime *g_prime);
