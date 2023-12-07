@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 20:01:24 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:41:16 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@
 # include "chars.h"
 # include "struct.h"
 # include <sys/ioctl.h>
+# include <errno.h>
 
 //---MAIN----//
+
+int g_signal;
 
 void	ft_readline(t_prime *g_prime);
 void	signal_init(void);
@@ -99,7 +102,7 @@ int		check_builtin(t_prime *g_prime, t_parser *parser);
 
 void	run_builtin(t_prime *g_prime, t_parser *parser, int cmd_type, int i);
 void	dup_stdio(t_prime *g_prime, t_parser *parser, int i);
-void	run_execve(t_prime *g_prime, t_parser *parser, int i);
+void	run_execve(t_prime *g_prime, t_parser *parser, int i, int *builitn);
 char	*get_command(t_prime *g_prime, t_parser *parser);
 char	**get_env_cpy(t_prime *g_prime);
 
@@ -135,7 +138,7 @@ int		search_path(t_env_l *env_l, char *str);
 //utils//
 int		synerr_print(t_prime *g_prime, char *str);
 void	file_error(char *str, char *filename, int *fd, t_prime *g_prime);
-void	command_error(char *arg, char *cmd, char *str, t_prime *g_prime);
+int		command_error(char *arg, char *cmd, char *str, t_prime *g_prime);
 int		ownstrcmp(char *s1, char *s2);
 void	double_str_free(char **str);
 char	**dynamic_malloc(char **path, char *new);

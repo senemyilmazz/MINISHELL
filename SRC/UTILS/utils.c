@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:48:25 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 02:01:02 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:09:41 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	double_str_free(char **str)
 
 void	*free_null(void *str)
 {
-	(void)str;
 	if (str)
 		free(str);
 	return (0);
