@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 09:42:03 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:58:04 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	files_init(t_expander **exp, t_parser *pars, t_prime *g_prime,
 {
 	if (*fd == 2)
 		return (0);
-	if ((*exp)->next->env == -1 && (*exp)->type != HEREDOC)
+	else if ((*exp)->next->env == -1 && (*exp)->type != HEREDOC)
 		file_error((*exp)->next->ex_content, "ambiguous redirect", fd,
 			g_prime);
 	else if ((*exp)->type == SIGN_SIR || (*exp)->type == HEREDOC)
@@ -62,7 +62,7 @@ void	init_values(t_prime *g_prime, t_parser *pars, t_expander **exp, int *fd)
 		if ((*exp)->type == 0)
 			parameters_init(pars, (*exp)->content, starting);
 		else if (files_init(&(*exp), pars, g_prime, fd) == 2)
-			pars->command = NULL;
+			pars->command = free_null(pars->command);
 		(*exp) = (*exp)->next;
 	}
 }
