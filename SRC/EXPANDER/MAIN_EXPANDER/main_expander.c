@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:29:10 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 11:07:49 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:08:42 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void	expander(t_prime *g_prime)
 	t_lexer	*temp;
 	int		env;
 
-	env = 0;
 	if (!g_prime->lexer)
 		return ;
 	temp = g_prime->lexer;
 	while (temp)
 	{
+		env = 0;
 		if (!ownstrcmp(temp->content, "~"))
 			expander_add_node(&g_prime->expander, ft_strdup(getenv("HOME")), \
 				temp, env);
