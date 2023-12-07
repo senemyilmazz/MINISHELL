@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 00:05:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 13:41:07 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:18:15 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	executer(t_prime *g_prime)
 		builtin = check_builtin(g_prime, parser);
 		if (builtin > 1 && (builtin == EXIT || g_prime->cmd_count == 1))
 			run_builtin(g_prime, parser, builtin, i -1);
-		else if (builtin >= 0 && (parser->command && *parser->command))
+		else if (builtin >= 0 && builtin < 15 && parser->command)
 		{
 			builtin = 0;
 			parser->pid = fork();

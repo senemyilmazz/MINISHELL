@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:23:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 10:40:10 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:09:35 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	wait_all(t_prime *g_prime, int builtin)
 	parser = g_prime->parser;
 	while (parser && builtin <= 1)
 	{
+		if (!parser->command)
+			g_prime->exit_code = 1;
 		if (parser->command)
 		{
 			waitpid(parser->pid, &status, 0);
