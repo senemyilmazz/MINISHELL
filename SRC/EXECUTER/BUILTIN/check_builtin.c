@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:42:59 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 10:39:04 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:59:02 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static int	is_builtin(char *str)
 		return (CD);
 	else if (!ownstrcmp(str, "pwd") || !ownstrcmp(str, "PWD"))
 		return (PWD);
-	else if (!ownstrcmp(str, "export"))
-		return (EXPORT);
-	else if (!ownstrcmp(str, "unset"))
-		return (UNSET);
 	else if (!ownstrcmp(str, "env") || !ownstrcmp(str, "ENV"))
 		return (ENV);
+	else if (!ownstrcmp(str, "unset"))
+		return (UNSET);
+	else if (!ownstrcmp(str, "export"))
+		return (EXPORT);
 	else if (!ownstrcmp(str, "exit"))
 		return (EXIT);
 	else
