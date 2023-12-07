@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_executer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 00:05:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 16:31:53 by mkati            ###   ########.fr       */
+/*   Updated: 2023/12/07 10:41:03 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ void	executer(t_prime *g_prime)
 			run_builtin(g_prime, parser, builtin, i);
 		else if (builtin >= 0 && (parser->command && *parser->command))
 		{
-			builtin = 0;
 			parser->pid = fork();
 			if (!parser->pid)
-				run_execve(g_prime, parser, i);
+				run_execve(g_prime, parser, i, &builtin);
 		}
 		i++;
 		parser = parser->next;

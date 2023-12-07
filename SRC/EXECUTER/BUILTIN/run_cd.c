@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
+/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 05:34:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 12:14:55 by mkati            ###   ########.fr       */
+/*   Updated: 2023/12/07 10:39:45 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ void	cd_two_arg(t_prime *g_prime)
 	if (!ownstrcmp(g_prime->parser->parameters[1], "-"))
 	{
 		if (!search_path(g_prime->env_l, "OLDPWD"))
-		{
-			command_error(0, "cd", "OLDPWD not set", g_prime);
-			return ;
-		}
+			if (command_error(0, "cd", "OLDPWD not set", g_prime))
+				return ;
 		path = ft_strjoin(path, get_oldpwd(g_prime->env_l, "OLDPWD"));
 	}
 	else if (!ownstrcmp(g_prime->parser->parameters[1], "--"))
@@ -74,9 +72,11 @@ void	cd_two_arg(t_prime *g_prime)
 	if (!change_dir(g_prime, path))
 	{
 		if (*g_prime->parser->parameters[1] == '-')
-			command_error(0, "cd", "invalid option", g_prime);
+			command_error(g_prime->parser->parameters[1], "cd",
+				"invalid option", g_prime);
 		else
-			command_error(0, "cd", "No such file or directory", g_prime);
+			command_error(g_prime->parser->parameters[1], "cd",
+				" No such file or directory", g_prime);
 	}
 	free(path);
 }
@@ -110,12 +110,13 @@ void	run_cd(t_prime *g_prime)
 	param_count = parameters_count(g_prime->parser->parameters);
 	if (!search_path(g_prime->env_l, "PWD"))
 		delete_env(g_prime, "PWD");
-	if (param_count > 2)
+/*	if (param_count > 2)
 	{
 		g_prime->parser->outfile = 1;
-		command_error(0, "cd", "too many arguments", g_prime);
-	}
-	else if (param_count == 2)
+		//g_prime->exit_code = 0;
+		//command_error(0, "cd", "too many arguments", g_prime);
+	}*/
+	if (param_count > 1)
 		cd_two_arg(g_prime);
 	else
 		cd_one_arg(g_prime);

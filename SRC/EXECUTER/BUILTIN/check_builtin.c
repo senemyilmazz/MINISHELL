@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:42:59 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 19:47:18 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:39:04 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	stat_check(t_prime *g_prime, char *cmd)
 
 	if ((*cmd == '/' || *cmd == '.') && stat(cmd, &st))
 	{
-		command_error(0, cmd, "No such file or directory", g_prime);
 		g_prime->exit_code = 127;
+		perror("minikkus ");
 	}
 	else if ((*cmd == '/' || *cmd == '.')
 		&& !stat(cmd, &st) && S_ISDIR(st.st_mode))

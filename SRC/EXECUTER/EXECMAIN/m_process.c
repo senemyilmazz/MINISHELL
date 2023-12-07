@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:23:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 21:42:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:40:10 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	wait_all(t_prime *g_prime, int builtin)
 		{
 			waitpid(parser->pid, &status, 0);
 			if (status == (127 * 256))
-				command_error(0, parser->command, "command not found!", g_prime);
+				command_error(0, parser->command, \
+					"command not found!", g_prime);
+			if (status == 32766 && !chdir(parser->command))
+				status = 32256;
 			g_prime->exit_code = status / 256;
 		}
 		parser = parser->next;

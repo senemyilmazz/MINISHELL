@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_arg_control.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 05:12:34 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 12:47:57 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/06 05:55:17 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	env_name_control(char *env)
 	while (env[i] && env[i] != ' ' && env[i] != '=' && flag == 1)
 	{
 		if ((!ft_isdigit(env[i]) && !ft_isalpha(env[i]) && env[i] != '_')
-			&& !flag)
+			|| !flag)
 			return (0);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_stdio.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsoymaz <fsoymaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:11 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 19:17:11 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:33:53 by fsoymaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,12 @@ void	dup_stdio(t_prime *g_prime, t_parser *parser, int i)
 		pipe(fd);
 		write(fd[1], parser->heredoc, ft_strlen(parser->heredoc));
 		close (fd[1]);
-		if (parser->next)
-		{
-			dup2(fd[0], STDIN_FILENO);	
-		}
+		if (parser->next || ownstrcmp(parser->command, "echo"))
+			dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 	}
 	if (parser->outfile >= 2)
 		dup2(parser->outfile, STDOUT_FILENO);
 	if (parser->infile >= 2)
 		dup2(parser->infile, STDIN_FILENO);
-	//if (parser->outfile)
-	//	close(parser->outfile);
-	//if (parser->infile)
-	//	close(parser->infile);
 }

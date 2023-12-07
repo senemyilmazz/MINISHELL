@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 23:06:18 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 05:51:04 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/06 05:50:55 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	double_export_arg(t_prime *g_prime, char *env_cmd)
 	char	*temp_envname;
 
 	if (!env_arg_control(g_prime, env_cmd))
+	{
+		g_prime->exit_code = 1;
 		return ;
+	}
 	temp_envname = get_env_name(env_cmd);
 	arg = env_cmd + ft_strlen(temp_envname);
 	is_equal = 0;
