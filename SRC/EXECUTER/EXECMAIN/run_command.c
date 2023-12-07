@@ -6,20 +6,19 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:21:41 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 10:41:25 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:41:17 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
 
-void	run_execve(t_prime *g_prime, t_parser *parser, int i, int *builtin)
+void	run_execve(t_prime *g_prime, t_parser *parser, int i)
 {
 	char	**env_list;
 	char	*command;
 
 	command = NULL;
 	env_list = NULL;
-	*builtin = 0;
 	if (!stat_check(g_prime, parser->command) || parser->infile == 2)
 		exit(1);
 	env_list = get_env_cpy(g_prime);
