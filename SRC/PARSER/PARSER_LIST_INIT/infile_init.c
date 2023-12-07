@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 00:39:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 15:41:25 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:20:44 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	infile_init(t_expander *expander, t_parser *parser, t_prime *g_prime)
 	char		*fn;
 	int			*fd;
 
+	(void)g_prime;
 	fd = &parser->infile;
 	if (expander->type == SIGN_SIR)
 	{

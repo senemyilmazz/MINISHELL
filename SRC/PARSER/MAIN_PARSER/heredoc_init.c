@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 23:01:38 by mkati             #+#    #+#             */
-/*   Updated: 2023/12/05 19:55:00 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:43:55 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	interrupt_here_document(int signal)
 {
 	(void)signal;
 	write(1, "\n", 1);
+	g_signal = 1;
 	exit(1);
 }
 
@@ -32,34 +33,34 @@ static void	heredoc_read(char *end, int write_fd)
 		if (!input || ownstrcmp(input, end) == 0)
 		{
 			write(write_fd, heredoc, ft_strlen(heredoc));
-			free_null(heredoc);
+			heredoc = free_null(heredoc);
+			input = free_null(input);
 			exit(0);
 		}
-		if (input == NULL)
-			input = ft_strdup("");
 		heredoc = ft_strjoin(heredoc, input);
 		heredoc = ft_strjoin(heredoc, "\n");
 		input = free_null(input);
 	}
 }
 
-
 void	handle_heredoc_child(int fd[2], t_expander *temp_ex)
 {
 	close(fd[0]);
 	signal(SIGINT, interrupt_here_document);
 	heredoc_read(temp_ex->next->content, fd[1]);
-	close(fd[1]);
+	//close(fd[1]);
 }
 
 int	handle_heredoc_parent(int fd[2], t_parser *temp_parser, int pid)
 {
-	int		status;
+	int	status;
 
 	close(fd[1]);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 	{
+		if (temp_parser->heredoc)
+			free(temp_parser->heredoc);
 		temp_parser->heredoc = get_line(fd[0]);
 		close(fd[0]);
 		if (!temp_parser->heredoc)
@@ -70,9 +71,7 @@ int	handle_heredoc_parent(int fd[2], t_parser *temp_parser, int pid)
 	return (0);
 }
 
-
-int	handle_heredoc_fork(t_expander *temp_ex, t_parser *temp_parser,
-		int fd[2])
+int	handle_heredoc_fork(t_expander *temp_ex, t_parser *temp_parser, int fd[2])
 {
 	int	pid;
 	int	ret;
@@ -95,7 +94,6 @@ void	heredoc_init(t_prime *g_prime)
 
 	temp_ex = g_prime->expander;
 	temp_parser = g_prime->parser;
-	g_signal = 0;
 	while (temp_ex)
 	{
 		while (temp_ex && temp_ex->type != 1)
