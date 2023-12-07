@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/06 23:11:11 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:33:01 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_readline(t_prime *g_prime)
 	{
 		prime_init(g_prime);
 		g_prime->line = readline("minikkus> ");
-		if (g_prime->line != NULL)
+		if (g_prime->line && *g_prime->line != 0)
 			add_history(g_prime->line);
 		if (g_prime->line == NULL)
 		{
@@ -45,7 +45,9 @@ void	ft_readline(t_prime *g_prime)
 		}
 		lexer(g_prime);
 		expander(g_prime);
+		//print_expander(g_prime);
 		parser(g_prime);
+		//print_parser(g_prime);
 		executer(g_prime);
 		exit_check(g_prime);
 		free_prime(g_prime);
