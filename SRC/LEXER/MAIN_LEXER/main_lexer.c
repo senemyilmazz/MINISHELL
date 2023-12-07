@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 01:09:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 00:34:47 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:28:20 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lexer(t_prime *g_prime)
 
 	if (quotes_check(g_prime->line) == -1)
 	{
-		printf("minikkus: incorrect use of quotes!\n");
+		write(2, "minikkus: incorrect use of quotes!\n", 36);
 		g_prime->exit_code = 258;
 		return ;
 	}
