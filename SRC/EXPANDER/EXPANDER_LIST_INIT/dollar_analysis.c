@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_analysis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:02:31 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 14:55:23 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:29:47 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,15 @@ char	*special_expand(char c, t_prime *g_prime, int *i)
 	if (c == '0')
 		substr = ft_substr("minishell", 0, 9);
 	if (c == '?')
-		substr = ft_itoa(g_prime->exit_code);
+	{
+		if (g_signal == 1)
+		{
+			substr = ft_strdup("1");
+			g_signal = 0;
+		}
+		else
+			substr = ft_itoa(g_prime->exit_code);
+	}
 	else
 		*i -= 1;
 	return (substr);

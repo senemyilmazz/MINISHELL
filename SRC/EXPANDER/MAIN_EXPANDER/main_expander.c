@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_expander.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkati <mkati@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:29:10 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/01 20:05:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:16:46 by mkati            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ void	expander(t_prime *g_prime)
 	temp = g_prime->lexer;
 	while (temp)
 	{
+		if (!ownstrcmp(temp->content, "~"))
+			expander_add_node(&g_prime->expander, ft_strdup(getenv("HOME")), \
+				temp, env);
 		if (!ft_strchr(temp->content, '$'))
 			expander_add_node(&g_prime->expander, put_straight(temp->content), \
 				temp, env);
