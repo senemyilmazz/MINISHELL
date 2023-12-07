@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 13:41:23 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:32:02 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ char	*get_oldpwd(t_env_l *env, char *path);
 int		search_path(t_env_l *env_l, char *str);
 
 //utils//
-int		synerr_print(t_prime *g_prime, char *str);
+int		synerr_print(t_prime *g_prime, char *str, int f);
 void	file_error(char *str, char *filename, int *fd, t_prime *g_prime);
 int		command_error(char *arg, char *cmd, char *str, t_prime *g_prime);
 int		ownstrcmp(char *s1, char *s2);

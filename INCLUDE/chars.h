@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:23:18 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 10:50:19 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:58:54 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define EKKO 11
 # define CD 12
 # define PWD 13
-# define EXPORT 14
+# define ENV 14
 # define UNSET 15
-# define ENV 16
+# define EXPORT 16
 # define EXIT 17
 
 #endif
