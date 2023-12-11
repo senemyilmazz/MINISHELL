@@ -44,13 +44,12 @@ SRC =	./SRC/MAIN/main.c \
 		./SRC/UTILS/print_errors.c \
 		./SRC/UTILS/utils.c \
 		./SRC/UTILS/get_line.c \
-		./SRC/UTILS/print_tables.c 
 
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g #fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -rf
 LIBFT = libft/libft.a
 READLINE = readline

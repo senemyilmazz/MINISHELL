@@ -6,12 +6,12 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 03:48:41 by senyilma          #+#    #+#             */
-/*   Updated: 2023/11/10 14:40:01 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 00:16:41 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;

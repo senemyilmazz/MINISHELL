@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:39:21 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:31:10 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:45:07 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	command_error(char *arg, char *cmd, char *str, t_prime *g_prime)
 	{
 		write(2, arg, ft_strlen(arg));
 		write(2, ": ", 2);
-
 	}
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);

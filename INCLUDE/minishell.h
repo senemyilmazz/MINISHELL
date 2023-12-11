@@ -6,31 +6,30 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:32:02 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 03:02:31 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <sys/stat.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
-# include <termios.h>
 # include "../libft/libft.h"
 # include "chars.h"
 # include "struct.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 # include <sys/ioctl.h>
-# include <errno.h>
+# include <signal.h>
+# include <termios.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 //---MAIN----//
 
-int g_signal;
+int		g_signal;
 
 void	ft_readline(t_prime *g_prime);
 void	signal_init(void);
@@ -38,7 +37,8 @@ void	free_prime(t_prime *g_prime);
 
 void	env_init(t_prime *g_prime, char **env);
 t_env_l	*env_listnew(char *name, char *content);
-void	env_lstadd_back(t_env_l	**lst, t_env_l	*new);
+void	env_lstadd_back(t_env_l **lst, t_env_l *new);
+void	interrupt_here_document(int signal);
 
 //*-------LEXER--------*//
 
@@ -76,7 +76,7 @@ void	expander_add_node(t_expander **expan, char *str, t_lexer *lex, int env);
 int		null_check_substr(char *substr, char *joinedstr);
 
 void	free_expander(t_expander **expander);
-void	print_expander(t_prime	*g_prime);
+void	print_expander(t_prime *g_prime);
 
 //*------PARSER-----*//
 
@@ -102,12 +102,12 @@ int		check_builtin(t_prime *g_prime, t_parser *parser);
 
 void	run_builtin(t_prime *g_prime, t_parser *parser, int cmd_type, int i);
 void	dup_stdio(t_prime *g_prime, t_parser *parser, int i);
-void	run_execve(t_prime *g_prime, t_parser *parser, int i);
+void	run_execve(t_prime *g_prime, t_parser *parser, int i, int builtin);
 char	*get_command(t_prime *g_prime, t_parser *parser);
 char	**get_env_cpy(t_prime *g_prime);
 
 void	run_echo(t_prime *g_prime, t_parser *parser);
-void	run_env(t_prime	*g_prime, t_parser *parser);
+void	run_env(t_prime *g_prime, t_parser *parser);
 void	run_exit(t_prime *g_prime, t_parser *parser);
 void	run_pwd(t_prime *g_prime, t_parser *parser);
 void	run_export(t_prime *g_prime, t_parser *parser);
@@ -117,25 +117,23 @@ void	run_cd(t_prime *g_prime);
 void	cd_one_arg(t_prime *g_prime);
 void	cd_two_arg(t_prime *g_prime);
 int		change_dir(t_prime *g_prime, char *parameters);
-int		update_pwd_from_export(t_prime *g_prime, char *pwd_name, char *pwd_content);
+int		update_pwd_from_export(t_prime *g_prime, char *pwd_name,
+			char *pwd_content);
 void	delete_env(t_prime *g_prime, char *name);
-
-
-
 int		get_env_name_count(char *env_arg);
 char	*get_env_name(char *content);
 void	single_export_arg(t_prime *g_prime, t_parser *parser);
 void	double_export_arg(t_prime *g_prime, char *env_cmd);
 int		change_env(t_prime *g_prime, char *envname, char *arg, int is_equal);
 int		env_arg_control(t_prime *g_prime, char *env);
-
 int		update_env(t_prime *g_prime, char *env_name, char *new_arg);
 int		env_name_control(char *env);
 void	add_newenv(t_prime *g_prime, char *env);
 char	*get_oldpwd(t_env_l *env, char *path);
 int		search_path(t_env_l *env_l, char *str);
 
-//utils//
+//*---------UTILS------*//
+
 int		synerr_print(t_prime *g_prime, char *str, int f);
 void	file_error(char *str, char *filename, int *fd, t_prime *g_prime);
 int		command_error(char *arg, char *cmd, char *str, t_prime *g_prime);
@@ -147,12 +145,4 @@ void	*free_null(void *str);
 int		stat_check(t_prime *g_prime, char *cmd);
 char	*get_line(int fd);
 
-
-void	print_parser(t_prime *g_prime);
-void	print_lexer(t_prime	*g_prime);
-void	print_expander(t_prime	*g_prime);
-
-t_files	*files_lstlast(t_files *lst);
-
-void	signal_handler(int sig);
 #endif

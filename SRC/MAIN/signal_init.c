@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:57:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/05 20:01:10 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 01:29:32 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,26 @@ static void	ft_termios(void)
 		perror("Minishell: tcsetattr");
 }
 
-void	signal_handler(int sig)
+void	interrupt_here_document(int signal)
 {
-	if (sig == SIGINT)
+	(void)signal;
+	exit(1);
+}
+
+static void	signal_handler(int sig)
+{
+	if (sig == SIGINT && g_signal == 2)
+	{
+		rl_redisplay();
+		g_signal = 1;
+	}
+	else if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-    }
-	else if (sig == EOF)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		g_signal = 1;
 	}
 	else if (sig == SIGQUIT)
 	{
