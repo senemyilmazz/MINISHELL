@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:42:59 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:59:02 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 03:38:30 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	stat_check(t_prime *g_prime, char *cmd)
 	}
 	else if ((*cmd == '/' || *cmd == '.')
 		&& !stat(cmd, &st) && S_ISDIR(st.st_mode))
+	{
 		command_error(cmd, 0, "is a directory", g_prime);
+		g_prime->exit_code = 126;
+	}
 	else
 		return (1);
 	return (0);
@@ -51,10 +54,10 @@ static char	*check_cmd(char *cmd)
 
 static int	is_builtin(char *str)
 {
-	if (*str == 48)
+	if (!str)
+		return (-1);
+	else if (*str == 48)
 		return (1);
-	else if (!str)
-		return (2);
 	else if (!ownstrcmp(str, "echo") || !ownstrcmp(str, "EKKO"))
 		return (EKKO);
 	else if (!ownstrcmp(str, "cd"))
@@ -78,15 +81,16 @@ int	check_builtin(t_prime *g_prime, t_parser *parser)
 	char	*cmd;
 	int		builtin_ret;
 
-	builtin_ret = 0;
 	if (parser->command)
 	{
 		if (!stat_check(g_prime, parser->command))
-			return (-1);
+			return (2);
 		cmd = check_cmd(parser->command);
 		builtin_ret = is_builtin(cmd);
 		if (cmd)
 			free(cmd);
 	}
+	else
+		builtin_ret = -1;
 	return (builtin_ret);
 }

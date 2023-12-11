@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 00:05:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 18:18:15 by senyilma         ###   ########.fr       */
+/*   Created: 2023/12/11 00:25:05 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/11 03:32:22 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	executer(t_prime *g_prime)
 	while (parser && ++i)
 	{
 		builtin = check_builtin(g_prime, parser);
-		if (builtin > 1 && (builtin == EXIT || g_prime->cmd_count == 1))
-			run_builtin(g_prime, parser, builtin, i -1);
-		else if (builtin >= 0 && builtin < 15 && parser->command)
+		if (builtin > 2 && g_prime->cmd_count == 1)
+			run_builtin(g_prime, parser, builtin, i - 1);
+		else if (g_prime->cmd_count > 1 || builtin < 2)
 		{
-			builtin = 0;
 			parser->pid = fork();
 			if (!parser->pid)
-				run_execve(g_prime, parser, i - 1);
+				run_execve(g_prime, parser, i - 1, builtin);
+			builtin = 0;
 		}
 		parser = parser->next;
 	}

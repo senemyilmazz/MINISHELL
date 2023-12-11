@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 05:34:05 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 10:39:45 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:39:17 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,6 @@ void	run_cd(t_prime *g_prime)
 	param_count = parameters_count(g_prime->parser->parameters);
 	if (!search_path(g_prime->env_l, "PWD"))
 		delete_env(g_prime, "PWD");
-/*	if (param_count > 2)
-	{
-		g_prime->parser->outfile = 1;
-		//g_prime->exit_code = 0;
-		//command_error(0, "cd", "too many arguments", g_prime);
-	}*/
 	if (param_count > 1)
 		cd_two_arg(g_prime);
 	else
