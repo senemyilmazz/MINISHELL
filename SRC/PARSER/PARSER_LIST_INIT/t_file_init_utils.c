@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:21:15 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 17:25:29 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:52:13 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_files	*files_listnew(char *name, int type, int fd)
 	return (new);
 }
 
-t_files	*files_lstlast(t_files *lst)
+static t_files	*files_lstlast(t_files *lst)
 {
 	t_files	*temp;
 

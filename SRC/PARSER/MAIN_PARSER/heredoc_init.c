@@ -5,20 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 23:01:38 by mkati             #+#    #+#             */
-/*   Updated: 2023/12/07 10:43:55 by senyilma         ###   ########.fr       */
+/*   Created: 2023/12/11 00:23:56 by senyilma          #+#    #+#             */
+/*   Updated: 2023/12/11 01:17:07 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../INCLUDE/minishell.h"
-
-void	interrupt_here_document(int signal)
-{
-	(void)signal;
-	write(1, "\n", 1);
-	g_signal = 1;
-	exit(1);
-}
 
 static void	heredoc_read(char *end, int write_fd)
 {
@@ -48,7 +40,6 @@ void	handle_heredoc_child(int fd[2], t_expander *temp_ex)
 	close(fd[0]);
 	signal(SIGINT, interrupt_here_document);
 	heredoc_read(temp_ex->next->content, fd[1]);
-	//close(fd[1]);
 }
 
 int	handle_heredoc_parent(int fd[2], t_parser *temp_parser, int pid)
@@ -57,7 +48,7 @@ int	handle_heredoc_parent(int fd[2], t_parser *temp_parser, int pid)
 
 	close(fd[1]);
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+	if (status == 0)
 	{
 		if (temp_parser->heredoc)
 			free(temp_parser->heredoc);
@@ -76,6 +67,8 @@ int	handle_heredoc_fork(t_expander *temp_ex, t_parser *temp_parser, int fd[2])
 	int	pid;
 	int	ret;
 
+	g_signal = 2;
+	pipe(fd);
 	ret = 0;
 	pid = fork();
 	if (pid == 0)
@@ -100,7 +93,6 @@ void	heredoc_init(t_prime *g_prime)
 		{
 			if (temp_ex->type == HEREDOC)
 			{
-				pipe(fd);
 				if (handle_heredoc_fork(temp_ex, temp_parser, fd))
 				{
 					free_parser(&g_prime->parser);
