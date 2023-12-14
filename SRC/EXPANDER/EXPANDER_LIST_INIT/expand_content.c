@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:00:47 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/02 13:14:04 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:59:28 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	null_check_substr(char *substr, char *joinedstr)
 {
 	if (!substr)
 	{
-		if (joinedstr)
-			free(joinedstr);
-		joinedstr = NULL;
+		joinedstr = free_null(joinedstr);
 		return (1);
 	}
 	return (0);
@@ -42,7 +40,7 @@ char	*straight_expand(t_prime *g_prime, char *c, int *end, int *env)
 	char	*joinedstr;
 	char	*sub;
 
-	joinedstr = NULL;
+	joinedstr = ft_strdup("");
 	i = *end;
 	while (c[i] && !chrchr_quotes(c[i]))
 	{
@@ -71,7 +69,7 @@ char	*d_quotes_expand(t_prime *g_prime, char *content, int *end, int *env)
 	char	*substr;
 	char	*joinedstr;
 
-	joinedstr = NULL;
+	joinedstr = ft_strdup("");
 	i = *end + 1;
 	while (content[i] && content[i] != D_QUOTES)
 	{

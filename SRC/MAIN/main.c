@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:50:48 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 03:02:25 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:06:42 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_readline(t_prime *g_prime)
 		lexer(g_prime);
 		expander(g_prime);
 		parser(g_prime);
-		executer(g_prime);
+		executer(g_prime, 0);
 		free_prime(g_prime);
 	}
 }

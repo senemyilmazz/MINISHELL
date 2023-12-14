@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:17:44 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 16:58:04 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/12 00:01:08 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,19 @@ static int	files_init(t_expander **exp, t_parser *pars, t_prime *g_prime,
 	return (*fd);
 }
 
-static void	parameters_init(t_parser *parser, char *ex_content, int flag)
+static void	parameters_init(t_parser *parser, char *ex_content)
 {
+	if (!parser->command)
+		parser->command = ft_strdup(ex_content);
 	parser->parameters = dynamic_malloc(parser->parameters, ex_content);
-	if (!flag)
-		parser->command = ft_strdup(*parser->parameters);
 }
 
 void	init_values(t_prime *g_prime, t_parser *pars, t_expander **exp, int *fd)
 {
-	int	starting;
-
-	starting = -1;
 	while ((*exp) && (*exp)->type != SIGN_PIPE)
 	{
-		if (!(++starting) && (*exp)->type != TEXT)
-			starting = 0;
 		if ((*exp)->type == 0)
-			parameters_init(pars, (*exp)->content, starting);
+			parameters_init(pars, (*exp)->content);
 		else if (files_init(&(*exp), pars, g_prime, fd) == 2)
 			pars->command = free_null(pars->command);
 		(*exp) = (*exp)->next;

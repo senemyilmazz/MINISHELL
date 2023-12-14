@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:25:28 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 00:25:30 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:54:56 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ char	*special_expand(char c, t_prime *g_prime, int *i)
 		else
 			substr = ft_itoa(g_prime->exit_code);
 	}
-	else
-		*i -= 1;
 	return (substr);
 }
 
@@ -98,7 +96,7 @@ char	*dollar_analysis(char *str, int *end, t_prime *g_prime, int *env)
 		substr = quotes_trim(str, &i, str[i]);
 	else
 		substr = dollar_expand(str, &i, g_prime, env);
-	if (ret_null(str[i]))
+	if (ret_null(str[i]) || special_chars(str[i]))
 		i++;
 	*end = i;
 	return (substr);

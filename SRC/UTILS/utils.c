@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:24:33 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 00:24:35 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:53:44 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ void	double_str_free(char **str)
 
 	i = -1;
 	while (str && str[++i])
-		free(str[i]);
+		str[i] = free_null(str[i]);
 	if (str)
 		free(str);
+	str = NULL;
 }
 
 void	*free_null(void *str)

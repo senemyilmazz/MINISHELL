@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:20:06 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 00:20:08 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:08:59 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	dup_stdio(t_prime *g_prime, t_parser *parser, int i)
 {
 	int	fd[2];
 
+	signal(SIGINT, interrupt_here_document);
 	if (g_prime->cmd_count > 1 && ownstrcmp(parser->command, "exit"))
 		tempfd_init(g_prime, parser, i);
 	if (parser->infile == -2)

@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:21:41 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 03:32:25 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 23:31:50 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ void	run_execve(t_prime *g_prime, t_parser *parser, int i, int builtin)
 		run_builtin(g_prime, parser, builtin, i);
 		exit (0);
 	}
-	else
+	env_list = get_env_cpy(g_prime);
+	command = get_command(g_prime, parser);
+	if (!search_path(g_prime->env_l, "PATH") && builtin == 0)
 	{
-		env_list = get_env_cpy(g_prime);
-		command = get_command(g_prime, parser);
-		execve(command, parser->parameters, env_list);
-		exit(127);
+		if (access(parser->command, F_OK))
+		{
+			command_error(0, parser->command, \
+				"No such file or directory", g_prime);
+			exit (127);
+		}
 	}
+	execve(command, parser->parameters, env_list);
+	command_error(0, parser->command, "command not found!", g_prime);
+	exit(127);
 }
 
 void	run_builtin(t_prime *g_prime, t_parser *parser, int built_type, int i)

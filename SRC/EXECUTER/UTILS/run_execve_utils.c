@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:59:02 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/04 14:06:41 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 23:28:32 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ char	**path_create(t_prime *g_prime, t_parser *pars, char **path)
 	if (pars->command && pars->command[0] == '/')
 	{
 		i = -1;
-		while (g_prime->path[++i])
+		while (g_prime->path && g_prime->path[++i])
 			path = dynamic_malloc(path, pars->command);
 		return (path);
 	}
 	i = -1;
-	while (g_prime->path[++i])
+	while (g_prime->path && g_prime->path[++i])
 		path = dynamic_malloc(path, ft_strjoin(g_prime->path[i],
 					pars->command));
 	return (path);
@@ -82,10 +82,12 @@ char	*get_command(t_prime *g_prime, t_parser *pars)
 	path = NULL;
 	path = path_create(g_prime, pars, path);
 	i = -1;
-	while (path[++i])
+	command = pars->command;
+	while (path && path[++i])
 		if (!access(path[i], F_OK) && !access(path[i], X_OK))
 			break ;
-	command = ft_strdup(path[i]);
+	if (path && path[i])
+		command = ft_strdup(path[i]);
 	if (!search_path(g_prime->env_l, "PATH"))
 		command = pars->command;
 	if (pars->command && pars->command[0] == '.' && pars->command[1] == '/')

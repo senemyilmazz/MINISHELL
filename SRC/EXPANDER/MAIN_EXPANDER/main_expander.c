@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:29:10 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:08:42 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:00:24 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*expand_content(t_prime *g_prime, char *content, int *env)
 	char	*joinedstr;
 	char	*substr;
 
-	joinedstr = 0;
+	joinedstr = ft_strdup("");
 	end = 0;
 	while (content[end])
 	{
@@ -48,7 +48,7 @@ static char	*put_straight(char *content)
 
 	end = 0;
 	substr = NULL;
-	joinedstr = NULL;
+	joinedstr = ft_strdup("");
 	while (content[end])
 	{
 		start = end;

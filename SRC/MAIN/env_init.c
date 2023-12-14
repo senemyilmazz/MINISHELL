@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:48:42 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/03 22:52:54 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:08:35 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	path_init(t_prime *g_prime)
 	char	*join;
 
 	env_l = g_prime->env_l;
+	g_prime->path = NULL;
+	if (!search_path(env_l, "PATH"))
+		return ;
 	while (env_l)
 	{
 		if (!ownstrcmp(env_l->name, "PATH"))
 			break ;
 		env_l = env_l->next;
 	}
-	g_prime->path = NULL;
 	temp_command = ft_split(env_l->content, ':');
 	i = -1;
 	while (temp_command[++i])
@@ -86,7 +88,7 @@ void	env_init(t_prime *g_prime, char **env)
 	char	*content;
 
 	i = -1;
-	while (env[++i])
+	while (env && env[++i])
 	{
 		end = 0;
 		while (env[i][end])

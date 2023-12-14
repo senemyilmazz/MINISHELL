@@ -49,7 +49,7 @@ SRC =	./SRC/MAIN/main.c \
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -rf
 LIBFT = libft/libft.a
 READLINE = readline
@@ -76,9 +76,30 @@ $(NAME): $(SRC) $(LIBFT)
 	@$(CC) $(CFLAGS) $(LIBFT) $(SRC) -L${PWD}/readline/lib  -I${PWD}/readline/include/ -lreadline -o $(NAME)
 	@ make clean
 
+	@echo "                 _.----._"
+	@echo "               ,'.::.--..:._            ."
+	@echo "      .      /::/_,-<o)::;_\`-._"
+	@echo "            ::::::::\`-';'\`,--\`-\`"
+	@echo "            ;::;'|::::,','"
+	@echo "          ,'::/  ;:::/, :."
+	@echo "         /,':/  /::;' \\ ':\\\    '"
+	@echo "   .    :'.:: ,-''   . \`.::\\\        '"
+	@echo "        \\.:;':.    \`    :: .:        "
+	@echo "        (;' ;;;       .::' :|"
+	@echo "         \\,:;;      \\ \`::\\.\\\    '"
+	@echo "         \`);'        '::'  \`:"
+	@echo "          \\.  \`        ''  .:      _,"
+	@echo "           \`.: ..  -. ' :. :/  _.-' _.-"
+	@echo "      .      >;._.:._.;,-=_(.-'  __ \`._"
+	@echo ".          ,;'  _..-((((''  .,-''  \`-._"
+	@echo "        _,'<.-''  _..''.''\`-''.        \`"
+	@echo "    _.-((((_..--''       \\ \\ \`.\`."
+	@echo "  -'  _.''               \\      \`"
+	@echo "    ,'"
 
 clean:
 	@$(RM) $(OBJ)
+
 
 fclean: clean
 	@$(RM) $(NAME)

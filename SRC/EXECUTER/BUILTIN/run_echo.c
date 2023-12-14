@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:19:29 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 00:19:32 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:12:37 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	n_control(char *str)
 	i = -1;
 	if (str[++i] == '-')
 	{
+		if (str[i + 1] != 'n')
+			return (0);
 		while (str[++i])
 			if (str[i] != 'n')
 				return (0);

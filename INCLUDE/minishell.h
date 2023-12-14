@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:57:30 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 03:02:31 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 19:14:52 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	print_parser(t_prime *g_prime);
 
 //*------EXEC-----*//
 
-void	executer(t_prime *g_prime);
+void	executer(t_prime *g_prime, int i);
 void	open_pipes(t_prime *g_prime);
 void	fd_closer(t_prime *g_prime);
 void	wait_all(t_prime *g_prime, int builtin);
@@ -139,7 +139,7 @@ void	file_error(char *str, char *filename, int *fd, t_prime *g_prime);
 int		command_error(char *arg, char *cmd, char *str, t_prime *g_prime);
 int		ownstrcmp(char *s1, char *s2);
 void	double_str_free(char **str);
-char	**dynamic_malloc(char **path, char *new);
+char	**dynamic_malloc(char **path, char *new_str);
 int		parameters_count(char **str);
 void	*free_null(void *str);
 int		stat_check(t_prime *g_prime, char *cmd);

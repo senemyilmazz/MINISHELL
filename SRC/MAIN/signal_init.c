@@ -6,7 +6,7 @@
 /*   By: senyilma <senyilma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:57:01 by senyilma          #+#    #+#             */
-/*   Updated: 2023/12/11 01:29:32 by senyilma         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:46:29 by senyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ static void	signal_handler(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
